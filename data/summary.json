@@ -1,26 +1,26 @@
 {
-  "total_equity_usdt": 4995.01,
+  "total_equity_usdt": 63733.44,
   "initial_equity_usdt": 5000.0,
-  "total_return_pct": -0.1,
+  "total_return_pct": 1174.67,
   "max_drawdown_pct": 0.1,
   "mode": "模擬盤實單",
   "dry_run": false,
   "paused": false,
   "close_all": false,
-  "open_positions_count": 5,
-  "closed_trades_count": 1,
-  "last_updated_tpe": "2026-11-25 17:26:47 (台北時間)",
+  "open_positions_count": 10,
+  "closed_trades_count": 2,
+  "last_updated_tpe": "2026-11-26 02:37:00 (台北時間)",
   "latest_run": {
-    "time_tpe": "2026-11-25 17:26:47 (台北時間)",
-    "new_4h_closed": false,
+    "time_tpe": "2026-11-26 02:37:00 (台北時間)",
+    "new_4h_closed": true,
     "new_1d_closed": false,
     "reconciled_closed": 1,
     "signals": {
       "S2": {
-        "enter": 0,
+        "enter": 8,
         "exit": 0,
         "update_sl": 0,
-        "rejected": 0
+        "rejected": 2
       },
       "S3": {
         "enter": 0,

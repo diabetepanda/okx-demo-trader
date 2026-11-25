@@ -1,6 +1,18 @@
 [
   {
     "strategy": "S2",
+    "inst_id": "H-USDT-SWAP",
+    "pos_side": "short",
+    "entry_time_tpe": "2026-11-25 16:37",
+    "exit_time_tpe": "2026-11-25 19:18",
+    "entry_price": 0.01212,
+    "exit_price": 0.01759,
+    "pnl_usdt": -5.58,
+    "r_multiple": -1.12,
+    "exit_reason": "交易所止損觸發（對帳平倉）"
+  },
+  {
+    "strategy": "S2",
     "inst_id": "SLX-USDT-SWAP",
     "pos_side": "long",
     "entry_time_tpe": "2026-11-25 16:39",
