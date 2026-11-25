@@ -1,0 +1,74 @@
+[
+  {
+    "strategy": "S2",
+    "allocation_pct": 10.0,
+    "initial_equity": 7331.29,
+    "equity": 7331.29,
+    "realized_pnl": 0.0,
+    "trades_count": 0,
+    "win_rate_pct": 0.0,
+    "profit_factor": 0.0,
+    "avg_r": 0.0,
+    "max_drawdown_pct": 0.0
+  },
+  {
+    "strategy": "S3",
+    "allocation_pct": 10.0,
+    "initial_equity": 7331.29,
+    "equity": 7331.29,
+    "realized_pnl": 0.0,
+    "trades_count": 0,
+    "win_rate_pct": 0.0,
+    "profit_factor": 0.0,
+    "avg_r": 0.0,
+    "max_drawdown_pct": 0.0
+  },
+  {
+    "strategy": "L1",
+    "allocation_pct": 20.0,
+    "initial_equity": 14662.58,
+    "equity": 14662.58,
+    "realized_pnl": 0.0,
+    "trades_count": 0,
+    "win_rate_pct": 0.0,
+    "profit_factor": 0.0,
+    "avg_r": 0.0,
+    "max_drawdown_pct": 0.0
+  },
+  {
+    "strategy": "L2",
+    "allocation_pct": 20.0,
+    "initial_equity": 14662.58,
+    "equity": 14662.58,
+    "realized_pnl": 0.0,
+    "trades_count": 0,
+    "win_rate_pct": 0.0,
+    "profit_factor": 0.0,
+    "avg_r": 0.0,
+    "max_drawdown_pct": 0.0
+  },
+  {
+    "strategy": "L3",
+    "allocation_pct": 20.0,
+    "initial_equity": 14662.58,
+    "equity": 14662.58,
+    "realized_pnl": 0.0,
+    "trades_count": 0,
+    "win_rate_pct": 0.0,
+    "profit_factor": 0.0,
+    "avg_r": 0.0,
+    "max_drawdown_pct": 0.0
+  },
+  {
+    "strategy": "L4",
+    "allocation_pct": 20.0,
+    "initial_equity": 14662.58,
+    "equity": 14662.58,
+    "realized_pnl": 0.0,
+    "trades_count": 0,
+    "win_rate_pct": 0.0,
+    "profit_factor": 0.0,
+    "avg_r": 0.0,
+    "max_drawdown_pct": 0.0
+  }
+]

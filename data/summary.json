@@ -1,0 +1,58 @@
+{
+  "total_equity_usdt": 73312.91,
+  "initial_equity_usdt": 73312.91,
+  "total_return_pct": 0.0,
+  "max_drawdown_pct": 0.0,
+  "mode": "試跑模式 (DRY_RUN)",
+  "dry_run": true,
+  "paused": false,
+  "close_all": false,
+  "open_positions_count": 0,
+  "closed_trades_count": 0,
+  "last_updated_tpe": "2026-11-25 16:01:30 (台北時間)",
+  "latest_run": {
+    "time_tpe": "2026-11-25 16:01:30 (台北時間)",
+    "new_4h_closed": true,
+    "new_1d_closed": true,
+    "reconciled_closed": 0,
+    "signals": {
+      "S2": {
+        "enter": 3,
+        "exit": 0,
+        "update_sl": 0,
+        "rejected": 0
+      },
+      "S3": {
+        "enter": 0,
+        "exit": 0,
+        "update_sl": 0,
+        "rejected": 0
+      },
+      "L1": {
+        "enter": 1,
+        "exit": 0,
+        "update_sl": 0,
+        "rejected": 0
+      },
+      "L2": {
+        "enter": 0,
+        "exit": 0,
+        "update_sl": 0,
+        "rejected": 0
+      },
+      "L3": {
+        "enter": 2,
+        "exit": 0,
+        "update_sl": 0,
+        "rejected": 0
+      },
+      "L4": {
+        "enter": 0,
+        "exit": 0,
+        "update_sl": 0,
+        "rejected": 0
+      }
+    },
+    "errors": []
+  }
+}

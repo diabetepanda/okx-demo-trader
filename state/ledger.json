@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "initial_equity_usdt": 73312.91,
+  "position_mode_set": false,
+  "last_processed_bar": {
+    "4H": 1795579200000,
+    "1Dutc": 1795478400000
+  },
+  "subaccounts": {
+    "S2": {
+      "allocation": 0.1,
+      "initial_equity": 7331.291,
+      "realized_pnl": 0.0
+    },
+    "S3": {
+      "allocation": 0.1,
+      "initial_equity": 7331.291,
+      "realized_pnl": 0.0
+    },
+    "L1": {
+      "allocation": 0.2,
+      "initial_equity": 14662.582,
+      "realized_pnl": 0.0
+    },
+    "L2": {
+      "allocation": 0.2,
+      "initial_equity": 14662.582,
+      "realized_pnl": 0.0
+    },
+    "L3": {
+      "allocation": 0.2,
+      "initial_equity": 14662.582,
+      "realized_pnl": 0.0
+    },
+    "L4": {
+      "allocation": 0.2,
+      "initial_equity": 14662.582,
+      "realized_pnl": 0.0
+    }
+  },
+  "positions": [],
+  "closed_trades": [],
+  "processed_cl_ord_ids": [
+    "S2H1795579200000",
+    "S2SLX1795579200000",
+    "S2XAG1795579200000",
+    "L1H1795478400000",
+    "L3CAT1795478400000",
+    "L3ACT1795478400000"
+  ],
+  "equity_history": [
+    {
+      "ts": 1795593690975,
+      "equity": 73312.91
+    }
+  ],
+  "dry_run_orders": [
+    {
+      "ts": 1795593732495,
+      "action": "ENTER",
+      "strategy": "S2",
+      "inst_id": "H-USDT-SWAP",
+      "pos_side": "short",
+      "side": "sell",
+      "sz": 1462.3,
+      "ref_price": 0.01201,
+      "stop_loss": 0.01701,
+      "planned_risk": 73.3083,
+      "notional": 175.6222,
+      "leverage": 5,
+      "cl_ord_id": "S2H1795579200000",
+      "reason": "4H 收盤 0.01206 跌破前 30 根低點 0.02007，做空進場"
+    },
+    {
+      "ts": 1795593732495,
+      "action": "ENTER",
+      "strategy": "S2",
+      "inst_id": "SLX-USDT-SWAP",
+      "pos_side": "long",
+      "side": "buy",
+      "sz": 1204.0,
+      "ref_price": 0.03586,
+      "stop_loss": 0.02981,
+      "planned_risk": 73.2647,
+      "notional": 431.7544,
+      "leverage": 5,
+      "cl_ord_id": "S2SLX1795579200000",
+      "reason": "4H 收盤 0.03586 突破前 30 根高點 0.03347，做多進場"
+    },
+    {
+      "ts": 1795593732495,
+      "action": "ENTER",
+      "strategy": "S2",
+      "inst_id": "XAG-USDT-SWAP",
+      "pos_side": "short",
+      "side": "sell",
+      "sz": 3843.8,
+      "ref_price": 40.4,
+      "stop_loss": 42.26,
+      "planned_risk": 73.3118,
+      "notional": 1552.8952,
+      "leverage": 5,
+      "cl_ord_id": "S2XAG1795579200000",
+      "reason": "4H 收盤 40.32 跌破前 30 根低點 40.68，做空進場"
+    },
+    {
+      "ts": 1795593732495,
+      "action": "ENTER",
+      "strategy": "L1",
+      "inst_id": "H-USDT-SWAP",
+      "pos_side": "short",
+      "side": "sell",
+      "sz": 64.3,
+      "ref_price": 0.01201,
+      "stop_loss": 0.05759,
+      "planned_risk": 29.3137,
+      "notional": 7.7224,
+      "leverage": 5,
+      "cl_ord_id": "L1H1795478400000",
+      "reason": "日線收盤 0.02007 跌破前 55 日低點 0.0208，做空進場"
+    },
+    {
+      "ts": 1795593732495,
+      "action": "ENTER",
+      "strategy": "L3",
+      "inst_id": "CAT-USDT-SWAP",
+      "pos_side": "long",
+      "side": "buy",
+      "sz": 496.0,
+      "ref_price": 1.276e-06,
+      "stop_loss": 6.87e-07,
+      "planned_risk": 29.2799,
+      "notional": 63.2896,
+      "leverage": 5,
+      "cl_ord_id": "L3CAT1795478400000",
+      "reason": "L3 雙動能入選前 3 名（20 日報酬 3.47%），做多進場"
+    },
+    {
+      "ts": 1795593732496,
+      "action": "ENTER",
+      "strategy": "L3",
+      "inst_id": "ACT-USDT-SWAP",
+      "pos_side": "long",
+      "side": "buy",
+      "sz": 859.0,
+      "ref_price": 0.00885,
+      "stop_loss": 0.00545,
+      "planned_risk": 29.2911,
+      "notional": 76.0215,
+      "leverage": 5,
+      "cl_ord_id": "L3ACT1795478400000",
+      "reason": "L3 雙動能入選前 3 名（20 日報酬 1.41%），做多進場"
+    }
+  ],
+  "rejected_signals": []
+}

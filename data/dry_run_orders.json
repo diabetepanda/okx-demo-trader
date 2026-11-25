@@ -1,0 +1,68 @@
+[
+  {
+    "time_tpe": "2026-11-25 16:02",
+    "action": "ENTER",
+    "strategy": "L3",
+    "inst_id": "ACT-USDT-SWAP",
+    "pos_side": "long",
+    "sz": 859.0,
+    "ref_price": 0.00885,
+    "stop_loss": 0.00545,
+    "reason": "L3 雙動能入選前 3 名（20 日報酬 1.41%），做多進場"
+  },
+  {
+    "time_tpe": "2026-11-25 16:02",
+    "action": "ENTER",
+    "strategy": "L3",
+    "inst_id": "CAT-USDT-SWAP",
+    "pos_side": "long",
+    "sz": 496.0,
+    "ref_price": 1.276e-06,
+    "stop_loss": 6.87e-07,
+    "reason": "L3 雙動能入選前 3 名（20 日報酬 3.47%），做多進場"
+  },
+  {
+    "time_tpe": "2026-11-25 16:02",
+    "action": "ENTER",
+    "strategy": "L1",
+    "inst_id": "H-USDT-SWAP",
+    "pos_side": "short",
+    "sz": 64.3,
+    "ref_price": 0.01201,
+    "stop_loss": 0.05759,
+    "reason": "日線收盤 0.02007 跌破前 55 日低點 0.0208，做空進場"
+  },
+  {
+    "time_tpe": "2026-11-25 16:02",
+    "action": "ENTER",
+    "strategy": "S2",
+    "inst_id": "XAG-USDT-SWAP",
+    "pos_side": "short",
+    "sz": 3843.8,
+    "ref_price": 40.4,
+    "stop_loss": 42.26,
+    "reason": "4H 收盤 40.32 跌破前 30 根低點 40.68，做空進場"
+  },
+  {
+    "time_tpe": "2026-11-25 16:02",
+    "action": "ENTER",
+    "strategy": "S2",
+    "inst_id": "SLX-USDT-SWAP",
+    "pos_side": "long",
+    "sz": 1204.0,
+    "ref_price": 0.03586,
+    "stop_loss": 0.02981,
+    "reason": "4H 收盤 0.03586 突破前 30 根高點 0.03347，做多進場"
+  },
+  {
+    "time_tpe": "2026-11-25 16:02",
+    "action": "ENTER",
+    "strategy": "S2",
+    "inst_id": "H-USDT-SWAP",
+    "pos_side": "short",
+    "sz": 1462.3,
+    "ref_price": 0.01201,
+    "stop_loss": 0.01701,
+    "reason": "4H 收盤 0.01206 跌破前 30 根低點 0.02007，做空進場"
+  }
+]

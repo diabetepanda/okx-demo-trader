@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OKX 模擬盤自動交易績效儀表板</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div>
+        <h1>OKX 模擬盤自動交易儀表板</h1>
+        <p class="subtitle">Signal Desk 六策略全自動模擬交易（僅限 Demo Trading）</p>
+      </div>
+      <div class="status-pill" id="mode-badge">載入中...</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="cards-grid" id="summary-cards">
+      <div class="card">
+        <div class="card-label">目前總權益 (USDT)</div>
+        <div class="card-value" id="total-equity">-</div>
+      </div>
+      <div class="card">
+        <div class="card-label">起始資金 (USDT)</div>
+        <div class="card-value" id="initial-equity">-</div>
+      </div>
+      <div class="card">
+        <div class="card-label">總報酬率</div>
+        <div class="card-value" id="total-return">-</div>
+      </div>
+      <div class="card">
+        <div class="card-label">最大回撤</div>
+        <div class="card-value" id="max-dd">-</div>
+      </div>
+      <div class="card">
+        <div class="card-label">目前持倉數</div>
+        <div class="card-value" id="open-count">-</div>
+      </div>
+      <div class="card">
+        <div class="card-label">最後更新時間</div>
+        <div class="card-value small" id="last-updated">-</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>權益曲線</h2>
+      <div class="canvas-wrap">
+        <canvas id="equity-canvas" height="260"></canvas>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>六策略子帳戶績效</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>策略</th>
+              <th>資金比例</th>
+              <th>子帳戶淨值</th>
+              <th>已實現損益</th>
+              <th>交易數</th>
+              <th>勝率</th>
+              <th>獲利因子</th>
+              <th>平均 R</th>
+              <th>最大回撤</th>
+            </tr>
+          </thead>
+          <tbody id="strategies-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>目前持倉</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>策略</th>
+              <th>標的</th>
+              <th>方向</th>
+              <th>進場價</th>
+              <th>現價</th>
+              <th>張數</th>
+              <th>止損價</th>
+              <th>未實現損益</th>
+              <th>持有根數</th>
+              <th>出場規則</th>
+            </tr>
+          </thead>
+          <tbody id="positions-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="dry-run-panel" style="display:none;">
+      <h2>試跑模式（DRY_RUN）模擬委託紀錄</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>時間 (台北)</th>
+              <th>動作</th>
+              <th>策略</th>
+              <th>標的</th>
+              <th>方向</th>
+              <th>張數</th>
+              <th>參考價</th>
+              <th>止損價</th>
+              <th>原因</th>
+            </tr>
+          </thead>
+          <tbody id="dry-run-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>最近 100 筆已平倉交易</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>策略</th>
+              <th>標的</th>
+              <th>方向</th>
+              <th>進場時間</th>
+              <th>出場時間</th>
+              <th>進場價</th>
+              <th>出場價</th>
+              <th>損益 (USDT)</th>
+              <th>R 倍數</th>
+              <th>出場原因</th>
+            </tr>
+          </thead>
+          <tbody id="trades-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>最近一次執行狀態與錯誤摘要</h2>
+      <div id="run-status" class="run-status">載入中...</div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
