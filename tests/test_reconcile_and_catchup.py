@@ -9,7 +9,7 @@ import pytest
 from bot.config import AppConfig, ControlState
 from bot.executor import reconcile_positions
 from bot.ledger import init_ledger, load_json, save_json
-from bot.main import run_cycle
+from bot.main import _extract_usdt_equity, run_cycle
 
 
 def test_reconcile_stop_loss_triggered():
@@ -118,7 +118,7 @@ def test_catchup_missed_4h_bars_and_clordid_dedup(tmp_path: Path):
     save_json(state_dir / "ledger.json", ledger)
 
     mock_client = MagicMock()
-    mock_client.get_balance.return_value = [{"totalEq": "10000"}]
+    mock_client.get_balance.return_value = [{"totalEq": "73319.81", "details": [{"ccy": "USDT", "eq": "10000"}]}]
     mock_client.get_positions.return_value = [{"instId": "ETH-USDT-SWAP", "posSide": "long", "pos": "1"}]
     mock_client.get_pending_algos.return_value = [{"algoId": "ALGO_ETH", "algoClOrdId": "SLS2ETH1", "sz": "1"}]
     mock_client.get_fills.return_value = []
@@ -180,3 +180,22 @@ def test_catchup_missed_4h_bars_and_clordid_dedup(tmp_path: Path):
     assert res_force["new_1d_closed"] is True
     after_3 = load_json(state_dir / "ledger.json")
     assert len(after_3["dry_run_orders"]) == 1
+    # DRY_RUN must only record into dry_run_cl_ord_ids, never into processed_cl_ord_ids
+    assert len(after_3["dry_run_cl_ord_ids"]) == 1
+    assert after_3["processed_cl_ord_ids"] == []
+
+
+def test_extract_usdt_equity_ignores_non_usdt_assets():
+    bal = [
+        {
+            "totalEq": "73319.81",
+            "details": [
+                {"ccy": "BTC", "eq": "1", "eqUsd": "58805.6"},
+                {"ccy": "OKB", "eq": "100", "eqUsd": "7884.6"},
+                {"ccy": "USDT", "eq": "5000", "eqUsd": "4993.1"},
+                {"ccy": "ETH", "eq": "1", "eqUsd": "1636.51"},
+            ],
+        }
+    ]
+    assert _extract_usdt_equity(bal) == pytest.approx(5000.0)
+    assert _extract_usdt_equity([]) == 0.0

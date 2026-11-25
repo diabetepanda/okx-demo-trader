@@ -7,7 +7,7 @@ import re
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-from bot.ledger import record_cl_ord_id
+from bot.ledger import record_cl_ord_id, record_dry_run_cl_ord_id
 from bot.okx_client import OKXAPIError, OKXClient
 from bot.sizing import round_price_to_tick
 
@@ -238,9 +238,14 @@ def execute_entry(
 ) -> Optional[dict[str, Any]]:
     """Place market entry order with attached stop-loss (or record DRY_RUN)."""
     cl_ord_id = make_cl_ord_id(strategy, inst_id, bar_ts)
-    if cl_ord_id in ledger.get("processed_cl_ord_ids", []):
-        logger.info("略過重複訊號 clOrdId=%s", cl_ord_id)
-        return None
+    if dry_run:
+        if cl_ord_id in ledger.get("dry_run_cl_ord_ids", []):
+            logger.info("[DRY_RUN] 略過重複訊號 clOrdId=%s", cl_ord_id)
+            return None
+    else:
+        if cl_ord_id in ledger.get("processed_cl_ord_ids", []):
+            logger.info("略過重複訊號 clOrdId=%s", cl_ord_id)
+            return None
 
     tick_sz = float(inst_meta.get("tickSz") or 0.0001)
     ct_val = float(inst_meta.get("ctVal") or 1.0)
@@ -267,7 +272,7 @@ def execute_entry(
         }
         ledger.setdefault("dry_run_orders", []).append(dry_record)
         ledger["dry_run_orders"] = ledger["dry_run_orders"][-200:]
-        record_cl_ord_id(ledger, cl_ord_id)
+        record_dry_run_cl_ord_id(ledger, cl_ord_id)
         logger.info("[DRY_RUN] 模擬進場：%s %s %s sz=%g sl=%g", strategy, inst_id, pos_side, sz, sl_px)
         return dry_record
 

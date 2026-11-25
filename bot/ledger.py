@@ -40,6 +40,7 @@ def init_ledger(
         "positions": [],
         "closed_trades": [],
         "processed_cl_ord_ids": [],
+        "dry_run_cl_ord_ids": [],
         "equity_history": [],
         "dry_run_orders": [],
         "rejected_signals": [],
@@ -78,3 +79,11 @@ def record_cl_ord_id(ledger: dict[str, Any], cl_ord_id: str, max_keep: int = 200
         ids.append(cl_ord_id)
     if len(ids) > max_keep:
         ledger["processed_cl_ord_ids"] = ids[-max_keep:]
+
+
+def record_dry_run_cl_ord_id(ledger: dict[str, Any], cl_ord_id: str, max_keep: int = 2000) -> None:
+    ids: list[str] = ledger.setdefault("dry_run_cl_ord_ids", [])
+    if cl_ord_id not in ids:
+        ids.append(cl_ord_id)
+    if len(ids) > max_keep:
+        ledger["dry_run_cl_ord_ids"] = ids[-max_keep:]

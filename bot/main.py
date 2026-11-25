@@ -38,11 +38,9 @@ logger = logging.getLogger(__name__)
 
 
 def _extract_usdt_equity(balance_data: list[dict[str, Any]]) -> float:
+    """Return strictly USDT equity (details[ccy=='USDT'].eq), excluding BTC/ETH/OKB."""
     if not balance_data:
         return 0.0
-    total_eq = balance_data[0].get("totalEq")
-    if total_eq:
-        return float(total_eq)
     for d in balance_data[0].get("details", []):
         if d.get("ccy") == "USDT":
             return float(d.get("eq") or 0.0)

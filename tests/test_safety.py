@@ -111,7 +111,7 @@ def test_dry_run_sends_zero_post_orders(tmp_path: Path):
         resp = MagicMock()
         resp.status_code = 200
         if "/account/balance" in url:
-            resp.json.return_value = {"code": "0", "data": [{"totalEq": "10000"}]}
+            resp.json.return_value = {"code": "0", "data": [{"totalEq": "70000", "details": [{"ccy": "USDT", "eq": "10000"}]}]}
         elif "/account/positions-history" in url:
             resp.json.return_value = {"code": "0", "data": []}
         elif "/account/positions" in url:
