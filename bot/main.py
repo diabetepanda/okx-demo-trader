@@ -357,6 +357,7 @@ def run_cycle(
                     bar_ts=dec.bar_ts,
                     reason=dec.reason,
                     dry_run=cfg.dry_run,
+                    errors=errors,
                 )
                 if created and not cfg.dry_run:
                     open_by_key[(dec.strategy, dec.inst_id)] = created

@@ -7,7 +7,7 @@ from unittest.mock import MagicMock
 import pytest
 
 from bot.config import AppConfig, ControlState
-from bot.executor import reconcile_positions
+from bot.executor import execute_entry, reconcile_positions
 from bot.ledger import init_ledger, load_json, save_json
 from bot.main import _extract_usdt_equity, run_cycle
 
@@ -199,3 +199,35 @@ def test_extract_usdt_equity_ignores_non_usdt_assets():
     ]
     assert _extract_usdt_equity(bal) == pytest.approx(5000.0)
     assert _extract_usdt_equity([]) == 0.0
+
+
+def test_execute_entry_skips_canceled_or_zero_fill_order():
+    ledger = init_ledger(5000.0)
+    errors: list[str] = []
+    mock_client = MagicMock()
+    mock_client.place_order.return_value = [{"ordId": "ORD_ZERO"}]
+    mock_client.get_order.return_value = [{"ordId": "ORD_ZERO", "state": "canceled", "accFillSz": "0"}]
+
+    res = execute_entry(
+        client=mock_client,
+        ledger=ledger,
+        strategy="S2",
+        inst_id="H-USDT-SWAP",
+        pos_side="short",
+        sz=10.0,
+        ref_price=0.1,
+        stop_loss=0.12,
+        planned_risk=5.0,
+        notional=100.0,
+        leverage=5,
+        inst_meta={"ctVal": 1.0, "tickSz": 0.0001},
+        bar_ts=1795579200000,
+        reason="test",
+        dry_run=False,
+        errors=errors,
+    )
+    assert res is None
+    assert len(ledger["positions"]) == 0
+    assert mock_client.place_algo_order.call_count == 0
+    assert mock_client.place_order.call_count == 1
+    assert errors == ["S2 H-USDT-SWAP：模擬盤流動性不足，市價單未成交"]

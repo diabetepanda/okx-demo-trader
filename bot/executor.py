@@ -235,6 +235,7 @@ def execute_entry(
     bar_ts: int,
     reason: str,
     dry_run: bool,
+    errors: Optional[list[str]] = None,
 ) -> Optional[dict[str, Any]]:
     """Place market entry order with attached stop-loss (or record DRY_RUN)."""
     cl_ord_id = make_cl_ord_id(strategy, inst_id, bar_ts)
@@ -320,8 +321,17 @@ def execute_entry(
     try:
         ord_info = client.get_order(inst_id, ord_id=ord_id or None, cl_ord_id=cl_ord_id)
         if ord_info:
+            ord_state = str(ord_info[0].get("state", "")).lower()
+            acc_fill_raw = ord_info[0].get("accFillSz")
+            acc_fill_sz = float(acc_fill_raw) if acc_fill_raw not in (None, "") else 0.0
+            if ord_state == "canceled" or acc_fill_sz <= 0:
+                msg = f"{strategy} {inst_id}：模擬盤流動性不足，市價單未成交"
+                logger.warning(msg)
+                if errors is not None:
+                    errors.append(msg)
+                return None
             avg_px = float(ord_info[0].get("avgPx") or ref_price)
-            filled_sz = float(ord_info[0].get("accFillSz") or sz)
+            filled_sz = acc_fill_sz
             fee = abs(float(ord_info[0].get("fee") or 0.0))
             if ord_info[0].get("fillTime"):
                 fill_ts = int(ord_info[0]["fillTime"])
