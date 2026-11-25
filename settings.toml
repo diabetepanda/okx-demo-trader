@@ -1,0 +1,75 @@
+[account]
+# 單筆槓桿上限：BTC/ETH 為 10，其他幣種為 5
+btc_eth_leverage = 10
+default_leverage = 5
+# 風險參數（對齊 Signal Desk）
+subaccount_risk_pct = 0.01
+subaccount_max_risk_pct = 0.10
+subaccount_max_positions = 10
+subaccount_max_notional_mult = 5.0
+account_same_dir_max_risk_pct = 0.20
+taker_fee_rate = 0.0005
+slippage_bps = 1.0
+
+[universe]
+top_n = 100
+min_listed_days = 30
+l2_symbols = ["BTC", "ETH", "SOL", "BNB", "XRP", "DOGE", "ADA", "AVAX", "LINK", "LTC"]
+l4_symbols = ["BTC", "ETH"]
+
+[allocations]
+S2 = 0.10
+S3 = 0.10
+L1 = 0.20
+L2 = 0.20
+L3 = 0.20
+L4 = 0.20
+
+[strategies.S2]
+timeframe = "4H"
+entry_lookback = 30
+exit_lookback = 10
+atr_period = 14
+atr_mult = 2.5
+max_hold_bars = 30
+
+[strategies.S3]
+timeframe = "1Dutc"
+sma_trend = 200
+rsi_period = 3
+rsi_entry = 10.0
+sma_exit = 5
+atr_period = 14
+atr_mult = 2.5
+max_hold_bars = 10
+
+[strategies.L1]
+timeframe = "1Dutc"
+entry_lookback = 55
+exit_lookback = 10
+atr_period = 14
+atr_mult = 3.0
+vol_target = 0.012
+
+[strategies.L2]
+timeframe = "1Dutc"
+entry_lookback = 55
+exit_lookback = 20
+atr_period = 14
+atr_mult = 3.0
+vol_target = 0.015
+
+[strategies.L3]
+timeframe = "1Dutc"
+lookback = 20
+top_n = 3
+atr_period = 14
+atr_mult = 3.0
+vol_target = 0.015
+
+[strategies.L4]
+timeframe = "1Dutc"
+sma_trend = 100
+atr_period = 20
+atr_mult = 5.0
+highest_close_lookback = 60

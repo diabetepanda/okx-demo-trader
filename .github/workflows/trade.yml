@@ -1,0 +1,79 @@
+name: OKX Demo Trader
+
+on:
+  schedule:
+    - cron: "3,18,33,48 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: okx-demo-trader
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      TRADING_MODE: demo
+      DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
+      OKX_API_KEY: ${{ secrets.OKX_API_KEY }}
+      OKX_API_SECRET: ${{ secrets.OKX_API_SECRET }}
+      OKX_API_PASSPHRASE: ${{ secrets.OKX_API_PASSPHRASE }}
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore state from data branch
+        run: |
+          if git ls-remote --exit-code --heads origin data >/dev/null 2>&1; then
+            git fetch origin data:data
+            git worktree add ../data-branch data
+            if [ -d ../data-branch/state ]; then
+              cp -r ../data-branch/state ./state
+            fi
+          else
+            git worktree add --orphan -b data ../data-branch
+          fi
+
+      - name: Run bot
+        run: python -m bot.main
+
+      - name: Publish state and website to data branch
+        run: |
+          mkdir -p ../data-branch/state ../data-branch/data
+          cp -r ./state/. ../data-branch/state/
+          cp -r ./site/. ../data-branch/
+          cp -r ./data/. ../data-branch/data/
+          cd ../data-branch
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: update state and dashboard $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for i in 1 2 3; do
+            if git push origin data; then
+              exit 0
+            fi
+            echo "Push failed, retrying with git pull --rebase ($i/3)..."
+            git pull --rebase origin data || true
+            sleep 2
+          done
+          exit 1
