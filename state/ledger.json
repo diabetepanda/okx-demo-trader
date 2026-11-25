@@ -1,7 +1,7 @@
 {
   "version": 1,
   "initial_equity_usdt": 73312.91,
-  "position_mode_set": false,
+  "position_mode_set": true,
   "last_processed_bar": {
     "4H": 1795579200000,
     "1Dutc": 1795478400000
@@ -52,6 +52,10 @@
     {
       "ts": 1795593690975,
       "equity": 73312.91
+    },
+    {
+      "ts": 1795594061575,
+      "equity": 73249.11
     }
   ],
   "dry_run_orders": [
