@@ -41,7 +41,12 @@
   "positions": [],
   "closed_trades": [],
   "processed_cl_ord_ids": [],
-  "equity_history": [],
+  "equity_history": [
+    {
+      "ts": 1795594933872,
+      "equity": 5000.0
+    }
+  ],
   "dry_run_orders": [
     {
       "ts": 1795593732495,
