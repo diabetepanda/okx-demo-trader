@@ -207,6 +207,7 @@ def test_execute_entry_skips_canceled_or_zero_fill_order():
     mock_client = MagicMock()
     mock_client.place_order.return_value = [{"ordId": "ORD_ZERO"}]
     mock_client.get_order.return_value = [{"ordId": "ORD_ZERO", "state": "canceled", "accFillSz": "0"}]
+    mock_client.get_positions.return_value = []
 
     res = execute_entry(
         client=mock_client,
@@ -231,3 +232,39 @@ def test_execute_entry_skips_canceled_or_zero_fill_order():
     assert mock_client.place_algo_order.call_count == 0
     assert mock_client.place_order.call_count == 1
     assert errors == ["S2 H-USDT-SWAP：模擬盤流動性不足，市價單未成交"]
+
+
+def test_execute_entry_polls_until_filled(monkeypatch):
+    monkeypatch.setattr("bot.executor.time.sleep", lambda _: None)
+    ledger = init_ledger(5000.0)
+    mock_client = MagicMock()
+    mock_client.place_order.return_value = [{"ordId": "ORD_ASYNC"}]
+    mock_client.get_order.side_effect = [
+        [{"ordId": "ORD_ASYNC", "state": "live", "accFillSz": "0"}],
+        [{"ordId": "ORD_ASYNC", "state": "filled", "accFillSz": "84", "avgPx": "0.0359", "fee": "-0.015"}],
+    ]
+    mock_client.get_pending_algos.return_value = [
+        {"instId": "SLX-USDT-SWAP", "algoClOrdId": "SLS2SLX1795579200000", "algoId": "ALGO_SLX", "sz": "84"}
+    ]
+
+    res = execute_entry(
+        client=mock_client,
+        ledger=ledger,
+        strategy="S2",
+        inst_id="SLX-USDT-SWAP",
+        pos_side="long",
+        sz=84.0,
+        ref_price=0.0359,
+        stop_loss=0.02981,
+        planned_risk=5.15,
+        notional=30.15,
+        leverage=5,
+        inst_meta={"ctVal": 10.0, "tickSz": 0.00001},
+        bar_ts=1795579200000,
+        reason="test",
+        dry_run=False,
+    )
+    assert res is not None
+    assert res["sz"] == 84.0
+    assert res["algo_id"] == "ALGO_SLX"
+    assert mock_client.get_order.call_count == 2

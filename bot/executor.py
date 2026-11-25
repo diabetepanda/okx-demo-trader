@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 import re
+import time
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -313,30 +314,61 @@ def execute_entry(
     ord_id = str(res[0].get("ordId", "")) if res else ""
     record_cl_ord_id(ledger, cl_ord_id)
 
-    # Query fill details
+    # Query fill details with retries (OKX Demo may fill asynchronously)
     avg_px = ref_price
-    filled_sz = sz
+    filled_sz = 0.0
     fee = 0.0
     fill_ts = int(datetime.now(timezone.utc).timestamp() * 1000)
-    try:
-        ord_info = client.get_order(inst_id, ord_id=ord_id or None, cl_ord_id=cl_ord_id)
-        if ord_info:
-            ord_state = str(ord_info[0].get("state", "")).lower()
-            acc_fill_raw = ord_info[0].get("accFillSz")
-            acc_fill_sz = float(acc_fill_raw) if acc_fill_raw not in (None, "") else 0.0
-            if ord_state == "canceled" or acc_fill_sz <= 0:
-                msg = f"{strategy} {inst_id}：模擬盤流動性不足，市價單未成交"
-                logger.warning(msg)
-                if errors is not None:
-                    errors.append(msg)
-                return None
-            avg_px = float(ord_info[0].get("avgPx") or ref_price)
-            filled_sz = acc_fill_sz
-            fee = abs(float(ord_info[0].get("fee") or 0.0))
-            if ord_info[0].get("fillTime"):
-                fill_ts = int(ord_info[0]["fillTime"])
-    except OKXAPIError as exc:
-        logger.warning("查詢成交詳情失敗 %s %s：%s", inst_id, ord_id, exc)
+    ord_state = ""
+    for attempt in range(5):
+        try:
+            ord_info = client.get_order(inst_id, ord_id=ord_id or None, cl_ord_id=cl_ord_id)
+            if ord_info:
+                ord_state = str(ord_info[0].get("state", "")).lower()
+                acc_fill_raw = ord_info[0].get("accFillSz")
+                acc_fill_sz = float(acc_fill_raw) if acc_fill_raw not in (None, "") else 0.0
+                if acc_fill_sz > 0:
+                    avg_px = float(ord_info[0].get("avgPx") or ref_price)
+                    filled_sz = acc_fill_sz
+                    fee = abs(float(ord_info[0].get("fee") or 0.0))
+                    if ord_info[0].get("fillTime"):
+                        fill_ts = int(ord_info[0]["fillTime"])
+                    if ord_state == "filled":
+                        break
+                if ord_state == "canceled" and acc_fill_sz <= 0:
+                    break
+        except OKXAPIError as exc:
+            logger.warning("查詢成交詳情失敗 %s %s：%s", inst_id, ord_id, exc)
+        if attempt < 4:
+            time.sleep(1.0)
+
+    # Cross-check live OKX positions so an asynchronously filled position is never skipped
+    if filled_sz <= 0:
+        try:
+            live_pos = client.get_positions("SWAP")
+            live_sz = sum(
+                abs(float(p.get("pos") or 0.0))
+                for p in live_pos
+                if p.get("instId") == inst_id and p.get("posSide") == pos_side
+            )
+            ledger_sz = sum(
+                float(p.get("sz") or 0.0)
+                for p in ledger.get("positions", [])
+                if p.get("inst_id") == inst_id and p.get("pos_side") == pos_side
+            )
+            untracked = live_sz - ledger_sz
+            if untracked > 1e-9:
+                filled_sz = min(sz, untracked)
+                logger.info("從 get_positions 交叉確認成交 %s %s sz=%g", inst_id, pos_side, filled_sz)
+        except OKXAPIError as exc:
+            logger.warning("交叉查詢持倉失敗 %s：%s", inst_id, exc)
+
+    if filled_sz <= 0:
+        msg = f"{strategy} {inst_id}：模擬盤流動性不足，市價單未成交"
+        logger.warning(msg)
+        if errors is not None:
+            errors.append(msg)
+        return None
 
     # Verify stop-loss algo order exists on exchange
     algo_id = ""
