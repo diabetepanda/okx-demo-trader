@@ -48,6 +48,15 @@ def round_price_to_tick(price: float, tick_sz: float, direction: str) -> float:
     return float(units * d_tick)
 
 
+def format_price_str(price: float) -> str:
+    """Format price as fixed-point decimal string (never scientific notation like 6.87e-07)."""
+    d = Decimal(f"{price:.12f}").normalize()
+    text = format(d, "f")
+    if "." in text:
+        text = text.rstrip("0").rstrip(".")
+    return text or "0"
+
+
 def get_leverage_cap(inst_id: str, btc_eth_lev: int = 10, default_lev: int = 5) -> int:
     if inst_id.startswith("BTC-") or inst_id.startswith("ETH-"):
         return btc_eth_lev

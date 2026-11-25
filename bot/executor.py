@@ -9,7 +9,7 @@ from typing import Any, Optional
 
 from bot.ledger import record_cl_ord_id, record_dry_run_cl_ord_id
 from bot.okx_client import OKXAPIError, OKXClient
-from bot.sizing import round_price_to_tick
+from bot.sizing import format_price_str, round_price_to_tick
 
 logger = logging.getLogger(__name__)
 
@@ -250,6 +250,7 @@ def execute_entry(
     tick_sz = float(inst_meta.get("tickSz") or 0.0001)
     ct_val = float(inst_meta.get("ctVal") or 1.0)
     sl_px = round_price_to_tick(stop_loss, tick_sz, pos_side)
+    sl_px_str = format_price_str(sl_px)
     side = "buy" if pos_side == "long" else "sell"
     algo_cl_id = make_algo_cl_ord_id(strategy, inst_id, bar_ts)
 
@@ -295,7 +296,7 @@ def execute_entry(
         "attachAlgoOrds": [
             {
                 "attachAlgoClOrdId": algo_cl_id,
-                "slTriggerPx": str(sl_px),
+                "slTriggerPx": sl_px_str,
                 "slOrdPx": "-1",
                 "slTriggerPxType": "last",
             }
@@ -356,7 +357,7 @@ def execute_entry(
                     "ordType": "conditional",
                     "sz": str(filled_sz),
                     "reduceOnly": True,
-                    "slTriggerPx": str(sl_px),
+                    "slTriggerPx": sl_px_str,
                     "slOrdPx": "-1",
                     "slTriggerPxType": "last",
                     "algoClOrdId": algo_cl_id,
@@ -551,7 +552,7 @@ def execute_amend_sl(
             {
                 "instId": pos["inst_id"],
                 "algoId": str(algo_id),
-                "newSlTriggerPx": str(rounded_sl),
+                "newSlTriggerPx": format_price_str(rounded_sl),
                 "newSlOrdPx": "-1",
             }
         )

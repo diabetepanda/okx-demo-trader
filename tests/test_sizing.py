@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from bot.sizing import ExistingPositionRisk, allocate_subaccount_position
+from bot.sizing import ExistingPositionRisk, allocate_subaccount_position, format_price_str
 
 
 def _meta(ct_val=0.01, lot_sz=1.0, min_sz=1.0):
@@ -166,3 +166,9 @@ def test_sizing_min_sz_and_wrong_side_rejection():
     )
     assert res_wrong.approved is False
     assert "止損價" in res_wrong.reason
+
+
+def test_format_price_str_no_scientific_notation():
+    assert format_price_str(6.87e-07) == "0.000000687"
+    assert format_price_str(50000.0) == "50000"
+    assert format_price_str(0.1763) == "0.1763"
