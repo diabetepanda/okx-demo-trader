@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "3,18,33,48 * * * *"
   workflow_dispatch:
+    inputs:
+      force_rescan:
+        description: "強制重掃最新已收盤 4H 與日線 K 線（僅手動觸發可用）"
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: okx-demo-trader
@@ -51,7 +57,12 @@ jobs:
           fi
 
       - name: Run bot
-        run: python -m bot.main
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_rescan }}" = "true" ]; then
+            python -m bot.main --force-rescan
+          else
+            python -m bot.main
+          fi
 
       - name: Publish state and website to data branch
         run: |

@@ -169,3 +169,14 @@ def test_catchup_missed_4h_bars_and_clordid_dedup(tmp_path: Path):
     run_cycle(cfg, client=mock_client, local_mode=False, now=datetime(2026, 11, 25, 0, 18, tzinfo=timezone.utc))
     after_2 = load_json(state_dir / "ledger.json")
     assert len(after_2["dry_run_orders"]) == 1
+
+    # Third run with force_rescan=True: re-evaluates bars (new_4h_closed=True) but clOrdId dedup still prevents duplicate
+    res_force = run_cycle(
+        cfg, client=mock_client, local_mode=False,
+        now=datetime(2026, 11, 25, 0, 20, tzinfo=timezone.utc),
+        force_rescan=True,
+    )
+    assert res_force["new_4h_closed"] is True
+    assert res_force["new_1d_closed"] is True
+    after_3 = load_json(state_dir / "ledger.json")
+    assert len(after_3["dry_run_orders"]) == 1

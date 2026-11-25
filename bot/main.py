@@ -73,6 +73,7 @@ def run_cycle(
     client: Optional[OKXClient] = None,
     local_mode: bool = False,
     now: Optional[datetime] = None,
+    force_rescan: bool = False,
 ) -> dict[str, Any]:
     """Execute one complete bot cycle. Returns summary dict."""
     enforce_demo_mode({"TRADING_MODE": cfg.trading_mode})
@@ -184,7 +185,7 @@ def run_cycle(
             errors.append(mask_secrets(f"S2 抓取 {inst_id} 4H K 線失敗: {exc}", secrets))
 
     last_4h_ts = int(ledger.get("last_processed_bar", {}).get("4H", 0))
-    new_4h_closed = latest_4h_ts > last_4h_ts
+    new_4h_closed = (latest_4h_ts > 0) if force_rescan else (latest_4h_ts > last_4h_ts)
 
     signals_summary: dict[str, dict[str, int]] = {
         s: {"enter": 0, "exit": 0, "update_sl": 0, "rejected": 0}
@@ -221,7 +222,7 @@ def run_cycle(
             errors.append(mask_secrets(f"抓取 {inst_id} 日線失敗: {exc}", secrets))
 
     last_1d_ts = int(ledger.get("last_processed_bar", {}).get("1Dutc", 0))
-    new_1d_closed = latest_1d_ts > last_1d_ts
+    new_1d_closed = (latest_1d_ts > 0) if force_rescan else (latest_1d_ts > last_1d_ts)
 
     if new_1d_closed:
         # S3 & L1 (top 100 + held)
@@ -425,11 +426,16 @@ def main() -> int:
         action="store_true",
         help="Local mode: write outputs to local_output/ without touching state/ or data/",
     )
+    parser.add_argument(
+        "--force-rescan",
+        action="store_true",
+        help="Ignore last_processed_bar and re-evaluate latest closed 4H and 1Dutc bars.",
+    )
     args = parser.parse_args()
 
     cfg = load_config()
     enforce_demo_mode({"TRADING_MODE": cfg.trading_mode})
-    result = run_cycle(cfg, local_mode=args.local)
+    result = run_cycle(cfg, local_mode=args.local, force_rescan=args.force_rescan)
     logger.info(
         "執行完成：equity=%.2f dry_run=%s signals=%s",
         result["equity_usdt"],
