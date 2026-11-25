@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "initial_equity_usdt": 73312.91,
+  "initial_equity_usdt": 5000.0,
   "position_mode_set": true,
   "last_processed_bar": {
     "4H": 1795579200000,
@@ -9,59 +9,39 @@
   "subaccounts": {
     "S2": {
       "allocation": 0.1,
-      "initial_equity": 7331.291,
+      "initial_equity": 500.0,
       "realized_pnl": 0.0
     },
     "S3": {
       "allocation": 0.1,
-      "initial_equity": 7331.291,
+      "initial_equity": 500.0,
       "realized_pnl": 0.0
     },
     "L1": {
       "allocation": 0.2,
-      "initial_equity": 14662.582,
+      "initial_equity": 1000.0,
       "realized_pnl": 0.0
     },
     "L2": {
       "allocation": 0.2,
-      "initial_equity": 14662.582,
+      "initial_equity": 1000.0,
       "realized_pnl": 0.0
     },
     "L3": {
       "allocation": 0.2,
-      "initial_equity": 14662.582,
+      "initial_equity": 1000.0,
       "realized_pnl": 0.0
     },
     "L4": {
       "allocation": 0.2,
-      "initial_equity": 14662.582,
+      "initial_equity": 1000.0,
       "realized_pnl": 0.0
     }
   },
   "positions": [],
   "closed_trades": [],
-  "processed_cl_ord_ids": [
-    "S2H1795579200000",
-    "S2SLX1795579200000",
-    "S2XAG1795579200000",
-    "L1H1795478400000",
-    "L3CAT1795478400000",
-    "L3ACT1795478400000"
-  ],
-  "equity_history": [
-    {
-      "ts": 1795593690975,
-      "equity": 73312.91
-    },
-    {
-      "ts": 1795594061575,
-      "equity": 73249.11
-    },
-    {
-      "ts": 1795594327637,
-      "equity": 73302.48
-    }
-  ],
+  "processed_cl_ord_ids": [],
+  "equity_history": [],
   "dry_run_orders": [
     {
       "ts": 1795593732495,
