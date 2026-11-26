@@ -47,13 +47,12 @@ function computeTwrValues(points) {
   });
 }
 
-function chooseTickIndices(count) {
+function chooseTickIndices(count, maxTicks = 5) {
   if (count <= 1) return [0];
-  if (count <= 5) return Array.from({ length: count }, (_, i) => i);
-  const targetTicks = 5;
+  if (count <= maxTicks) return Array.from({ length: count }, (_, i) => i);
   const indices = [];
-  for (let i = 0; i < targetTicks; i++) {
-    indices.push(Math.round((i * (count - 1)) / (targetTicks - 1)));
+  for (let i = 0; i < maxTicks; i++) {
+    indices.push(Math.round((i * (count - 1)) / (maxTicks - 1)));
   }
   return Array.from(new Set(indices));
 }
@@ -226,17 +225,22 @@ function drawTwrChart(points) {
       }
     });
 
-    // X-axis 4~6 time ticks
-    const tickIndices = chooseTickIndices(coords.length);
+    // X-axis 4~6 time ticks (prevent overlap on mobile)
+    const tickIndices = chooseTickIndices(coords.length, isMobile ? 4 : 5);
     ctx.fillStyle = "#8b949e";
     ctx.font = isMobile ? "10px sans-serif" : "11px sans-serif";
+    let lastRight = -Infinity;
     tickIndices.forEach((idx, posIdx) => {
       const label = shortTimeLabel(coords[idx].pt);
       const tw = ctx.measureText(label).width;
       let tx = coords[idx].x - tw / 2;
       if (posIdx === 0) tx = Math.max(padL, coords[idx].x);
       if (posIdx === tickIndices.length - 1) tx = Math.min(width - padR - tw, coords[idx].x - tw);
-      ctx.fillText(label, tx, height - 8);
+      if (tx >= lastRight + 8 || posIdx === tickIndices.length - 1) {
+        if (tx < lastRight + 8 && posIdx === tickIndices.length - 1) return;
+        ctx.fillText(label, tx, height - 8);
+        lastRight = tx + tw;
+      }
     });
 
     // Hover crosshair & active dot
@@ -357,15 +361,19 @@ function drawActualEquityChart(points) {
     });
     ctx.stroke();
 
-    const tickIndices = chooseTickIndices(coords.length);
+    const tickIndices = chooseTickIndices(coords.length, isMobile ? 4 : 5);
     ctx.fillStyle = "#8b949e";
+    let lastRight = -Infinity;
     tickIndices.forEach((idx, posIdx) => {
       const label = shortTimeLabel(coords[idx].pt);
       const tw = ctx.measureText(label).width;
       let tx = coords[idx].x - tw / 2;
       if (posIdx === 0) tx = Math.max(padL, coords[idx].x);
       if (posIdx === tickIndices.length - 1) tx = Math.min(width - padR - tw, coords[idx].x - tw);
-      ctx.fillText(label, tx, height - 6);
+      if (tx >= lastRight + 8) {
+        ctx.fillText(label, tx, height - 6);
+        lastRight = tx + tw;
+      }
     });
 
     if (highlightIdx !== null && coords[highlightIdx]) {
