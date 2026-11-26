@@ -29,6 +29,13 @@ def format_taipei_ts(ts_ms: int) -> str:
     return dt.strftime("%Y-%m-%d %H:%M")
 
 
+def format_taipei_short_ts(ts_ms: int) -> str:
+    if not ts_ms:
+        return "-"
+    dt = datetime.fromtimestamp(ts_ms / 1000.0, tz=TAIPEI_TZ)
+    return dt.strftime("%m/%d %H:%M")
+
+
 def format_taipei_dt(dt: datetime) -> str:
     return dt.astimezone(TAIPEI_TZ).strftime("%Y-%m-%d %H:%M:%S (台北時間)")
 
@@ -72,9 +79,12 @@ def compute_twr_series(
         {
             "ts": first_ts,
             "time_tpe": format_taipei_ts(first_ts),
+            "time_short_tpe": format_taipei_short_ts(first_ts),
             "equity": round(prev_eq, 4),
             "adjusted_equity": round(base_eq, 4),
+            "twr_pct": 0.0,
             "cash_flow": 0.0,
+            "cash_flow_time_tpe": "",
         }
     ]
 
@@ -82,8 +92,10 @@ def compute_twr_series(
         ts = int(pt["ts"])
         curr_eq = float(pt["equity"])
         cf_sum = 0.0
+        cf_time_str = ""
         while cf_idx < len(sorted_cfs) and int(sorted_cfs[cf_idx].get("ts") or 0) <= ts:
             cf_sum += float(sorted_cfs[cf_idx].get("amount_usdt") or 0.0)
+            cf_time_str = format_taipei_ts(int(sorted_cfs[cf_idx].get("ts") or 0))
             cf_idx += 1
 
         if prev_eq > 0:
@@ -92,13 +104,17 @@ def compute_twr_series(
             nav_index = max(0.0, nav_index * (1.0 + period_ret))
 
         adj_eq = base_eq * nav_index
+        twr_pct = (nav_index - 1.0) * 100.0
         series.append(
             {
                 "ts": ts,
                 "time_tpe": format_taipei_ts(ts),
+                "time_short_tpe": format_taipei_short_ts(ts),
                 "equity": round(curr_eq, 4),
                 "adjusted_equity": round(adj_eq, 4),
+                "twr_pct": round(twr_pct, 4),
                 "cash_flow": round(cf_sum, 4),
+                "cash_flow_time_tpe": cf_time_str,
             }
         )
         prev_eq = curr_eq
