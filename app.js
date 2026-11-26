@@ -29,96 +29,372 @@ function dirText(side) {
   return side || "-";
 }
 
-function drawEquityChart(points) {
-  const canvas = document.getElementById("equity-canvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const dpr = window.devicePixelRatio || 1;
-  const width = canvas.parentElement.clientWidth || 800;
-  const height = 260;
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
-  ctx.scale(dpr, dpr);
+function shortTimeLabel(pt) {
+  if (pt.time_short_tpe) return pt.time_short_tpe;
+  const full = pt.time_tpe || "";
+  // "YYYY-MM-DD HH:mm" -> "MM/DD HH:mm"
+  const m = full.match(/^\d{4}-(\d{2})-(\d{2})\s+(\d{2}:\d{2})/);
+  return m ? `${m[1]}/${m[2]} ${m[3]}` : full;
+}
 
-  ctx.clearRect(0, 0, width, height);
+function computeTwrValues(points) {
+  if (!points || !points.length) return [];
+  const base = Number(points[0].adjusted_equity ?? points[0].equity ?? 1);
+  return points.map((p) => {
+    if (p.twr_pct !== undefined && p.twr_pct !== null) return Number(p.twr_pct);
+    const adj = Number(p.adjusted_equity ?? p.equity ?? base);
+    return base > 0 ? ((adj - base) / base) * 100 : 0;
+  });
+}
 
-  if (!points || points.length === 0) {
-    ctx.fillStyle = "#8b949e";
-    ctx.font = "14px sans-serif";
-    ctx.fillText("尚無權益歷史資料", 20, height / 2);
-    return;
+function chooseTickIndices(count) {
+  if (count <= 1) return [0];
+  if (count <= 5) return Array.from({ length: count }, (_, i) => i);
+  const targetTicks = 5;
+  const indices = [];
+  for (let i = 0; i < targetTicks; i++) {
+    indices.push(Math.round((i * (count - 1)) / (targetTicks - 1)));
+  }
+  return Array.from(new Set(indices));
+}
+
+function attachChartInteraction(canvas, tooltipEl, coords, formatTooltipHtml, redrawFn) {
+  if (!canvas || !tooltipEl) return;
+
+  function showAt(clientX) {
+    if (!coords.length) return;
+    const rect = canvas.getBoundingClientRect();
+    const relX = clientX - rect.left;
+    let bestIdx = 0;
+    let bestDist = Infinity;
+    coords.forEach((c, idx) => {
+      const d = Math.abs(c.x - relX);
+      if (d < bestDist) {
+        bestDist = d;
+        bestIdx = idx;
+      }
+    });
+    const chosen = coords[bestIdx];
+    redrawFn(bestIdx);
+    tooltipEl.innerHTML = formatTooltipHtml(chosen.pt, bestIdx);
+    tooltipEl.style.display = "block";
+
+    const tipW = tooltipEl.offsetWidth || 180;
+    const tipH = tooltipEl.offsetHeight || 60;
+    let left = chosen.x + 12;
+    if (left + tipW > rect.width - 6) left = chosen.x - tipW - 12;
+    if (left < 6) left = 6;
+    let top = chosen.y - tipH - 10;
+    if (top < 6) top = chosen.y + 12;
+    tooltipEl.style.left = `${left}px`;
+    tooltipEl.style.top = `${top}px`;
   }
 
-  const padL = 64, padR = 20, padT = 20, padB = 30;
+  function hide() {
+    tooltipEl.style.display = "none";
+    redrawFn(null);
+  }
+
+  canvas.onmousemove = (e) => showAt(e.clientX);
+  canvas.onmouseleave = hide;
+  canvas.ontouchstart = (e) => {
+    if (e.touches && e.touches[0]) showAt(e.touches[0].clientX);
+  };
+  canvas.ontouchmove = (e) => {
+    if (e.touches && e.touches[0]) showAt(e.touches[0].clientX);
+  };
+}
+
+function drawTwrChart(points) {
+  const canvas = document.getElementById("twr-canvas");
+  const tooltip = document.getElementById("twr-tooltip");
+  if (!canvas) return;
+
+  const twrVals = computeTwrValues(points);
+  const dpr = window.devicePixelRatio || 1;
+  const width = canvas.parentElement.clientWidth || 800;
+  const height = width < 500 ? 240 : 270;
+  const isMobile = width < 500;
+  const padL = isMobile ? 50 : 62;
+  const padR = 16;
+  const padT = 18;
+  const padB = 30;
   const plotW = width - padL - padR;
   const plotH = height - padT - padB;
 
-  const vals = points.map((p) => Number(p.adjusted_equity ?? p.equity));
-  let minV = Math.min(...vals);
-  let maxV = Math.max(...vals);
+  let minV = -2.0;
+  let maxV = 2.0;
+  if (twrVals.length > 0) {
+    const dataMin = Math.min(...twrVals);
+    const dataMax = Math.max(...twrVals);
+    if (dataMin < minV) minV = Math.floor((dataMin - 0.3) * 10) / 10;
+    if (dataMax > maxV) maxV = Math.ceil((dataMax + 0.3) * 10) / 10;
+  }
+
+  const coords = points.map((pt, idx) => {
+    const x = points.length === 1 ? padL + plotW / 2 : padL + (plotW * idx) / (points.length - 1);
+    const val = twrVals[idx];
+    const y = padT + plotH * (1 - (val - minV) / (maxV - minV));
+    return { x, y, val, pt };
+  });
+
+  function render(highlightIdx) {
+    const ctx = canvas.getContext("2d");
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, width, height);
+
+    if (!points || points.length === 0) {
+      ctx.fillStyle = "#8b949e";
+      ctx.font = "14px sans-serif";
+      ctx.fillText("尚無策略報酬資料", 20, height / 2);
+      return;
+    }
+
+    // Horizontal grid & Y labels
+    const yTicks = 4;
+    ctx.font = isMobile ? "10px sans-serif" : "11px sans-serif";
+    for (let i = 0; i <= yTicks; i++) {
+      const y = padT + (plotH * i) / yTicks;
+      const val = maxV - ((maxV - minV) * i) / yTicks;
+      ctx.strokeStyle = "#2a313c";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padL, y);
+      ctx.lineTo(width - padR, y);
+      ctx.stroke();
+
+      const digits = Math.abs(maxV - minV) <= 5 ? 1 : 2;
+      const sign = val > 0 ? "+" : "";
+      ctx.fillStyle = "#8b949e";
+      ctx.fillText(`${sign}${val.toFixed(digits)}%`, 6, y + 4);
+    }
+
+    // 0% dashed baseline
+    const zeroY = padT + plotH * (1 - (0 - minV) / (maxV - minV));
+    ctx.save();
+    ctx.setLineDash([5, 4]);
+    ctx.strokeStyle = "#8b949e";
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(padL, zeroY);
+    ctx.lineTo(width - padR, zeroY);
+    ctx.stroke();
+    ctx.restore();
+
+    // Colored line segments (green >= 0, red < 0)
+    ctx.lineWidth = 2.2;
+    for (let i = 1; i < coords.length; i++) {
+      const a = coords[i - 1];
+      const b = coords[i];
+      if ((a.val >= 0 && b.val >= 0) || (a.val < 0 && b.val < 0)) {
+        ctx.strokeStyle = (a.val + b.val) / 2 >= 0 ? "#3fb950" : "#f85149";
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      } else {
+        const t = (0 - a.val) / (b.val - a.val);
+        const crossX = a.x + (b.x - a.x) * t;
+        ctx.strokeStyle = a.val >= 0 ? "#3fb950" : "#f85149";
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(crossX, zeroY);
+        ctx.stroke();
+        ctx.strokeStyle = b.val >= 0 ? "#3fb950" : "#f85149";
+        ctx.beginPath();
+        ctx.moveTo(crossX, zeroY);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+    }
+
+    // Cash flow dots (deposit green, withdrawal orange)
+    coords.forEach((c) => {
+      const cf = Number(c.pt.cash_flow || 0);
+      if (cf !== 0) {
+        ctx.fillStyle = cf > 0 ? "#3fb950" : "#f0883e";
+        ctx.strokeStyle = "#0d1117";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      }
+    });
+
+    // X-axis 4~6 time ticks
+    const tickIndices = chooseTickIndices(coords.length);
+    ctx.fillStyle = "#8b949e";
+    ctx.font = isMobile ? "10px sans-serif" : "11px sans-serif";
+    tickIndices.forEach((idx, posIdx) => {
+      const label = shortTimeLabel(coords[idx].pt);
+      const tw = ctx.measureText(label).width;
+      let tx = coords[idx].x - tw / 2;
+      if (posIdx === 0) tx = Math.max(padL, coords[idx].x);
+      if (posIdx === tickIndices.length - 1) tx = Math.min(width - padR - tw, coords[idx].x - tw);
+      ctx.fillText(label, tx, height - 8);
+    });
+
+    // Hover crosshair & active dot
+    if (highlightIdx !== null && coords[highlightIdx]) {
+      const c = coords[highlightIdx];
+      ctx.strokeStyle = "rgba(139, 148, 158, 0.45)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(c.x, padT);
+      ctx.lineTo(c.x, padT + plotH);
+      ctx.stroke();
+
+      ctx.fillStyle = c.val >= 0 ? "#3fb950" : "#f85149";
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  render(null);
+  attachChartInteraction(
+    canvas,
+    tooltip,
+    coords,
+    (pt, idx) => {
+      const val = twrVals[idx];
+      const sign = val > 0 ? "+" : "";
+      const cf = Number(pt.cash_flow || 0);
+      let cfLine = "";
+      if (cf !== 0) {
+        const cfLabel = cf > 0 ? "入金" : "出金";
+        const cfSign = cf > 0 ? "+" : "";
+        const cfTime = pt.cash_flow_time_tpe || pt.time_tpe || "";
+        cfLine = `<div class="${cf > 0 ? "pos" : "warn"}">${cfLabel} ${cfSign}${fmtNum(cf)} USDT，${cfTime}</div>`;
+      }
+      return `
+        <div>時間：${pt.time_tpe || "-"}</div>
+        <div>報酬率：<strong class="${pnlClass(val)}">${sign}${val.toFixed(2)}%</strong></div>
+        <div>實際權益：<strong>${fmtNum(pt.equity)} USDT</strong></div>
+        ${cfLine}
+      `;
+    },
+    render
+  );
+}
+
+function drawActualEquityChart(points) {
+  const canvas = document.getElementById("actual-equity-canvas");
+  const tooltip = document.getElementById("actual-tooltip");
+  if (!canvas) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  const width = canvas.parentElement.clientWidth || 800;
+  const height = width < 500 ? 160 : 170;
+  const isMobile = width < 500;
+  const padL = isMobile ? 54 : 66;
+  const padR = 16;
+  const padT = 14;
+  const padB = 28;
+  const plotW = width - padL - padR;
+  const plotH = height - padT - padB;
+
+  const vals = points.map((p) => Number(p.equity));
+  let minV = vals.length ? Math.min(...vals) : 0;
+  let maxV = vals.length ? Math.max(...vals) : 100;
   if (minV === maxV) {
-    minV -= 10;
+    minV = Math.max(0, minV - 10);
     maxV += 10;
   } else {
     const pad = (maxV - minV) * 0.1;
-    minV -= pad;
+    minV = Math.max(0, minV - pad);
     maxV += pad;
   }
 
-  // Grid lines
-  ctx.strokeStyle = "#2a313c";
-  ctx.lineWidth = 1;
-  ctx.fillStyle = "#8b949e";
-  ctx.font = "11px sans-serif";
-  for (let i = 0; i <= 4; i++) {
-    const y = padT + (plotH * i) / 4;
-    const val = maxV - ((maxV - minV) * i) / 4;
-    ctx.beginPath();
-    ctx.moveTo(padL, y);
-    ctx.lineTo(width - padR, y);
-    ctx.stroke();
-    ctx.fillText(fmtNum(val, 0), 8, y + 4);
-  }
-
-  // Equity line
-  ctx.strokeStyle = "#58a6ff";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  points.forEach((pt, idx) => {
-    const x = points.length === 1
-      ? padL + plotW / 2
-      : padL + (plotW * idx) / (points.length - 1);
-    const val = Number(pt.adjusted_equity ?? pt.equity);
+  const coords = points.map((pt, idx) => {
+    const x = points.length === 1 ? padL + plotW / 2 : padL + (plotW * idx) / (points.length - 1);
+    const val = Number(pt.equity);
     const y = padT + plotH * (1 - (val - minV) / (maxV - minV));
-    if (idx === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
+    return { x, y, val, pt };
   });
-  ctx.stroke();
 
-  // Annotate deposit/withdrawal points
-  points.forEach((pt, idx) => {
-    const cf = Number(pt.cash_flow || 0);
-    if (cf !== 0) {
-      const x = points.length === 1 ? padL + plotW / 2 : padL + (plotW * idx) / (points.length - 1);
-      const val = Number(pt.adjusted_equity ?? pt.equity);
-      const y = padT + plotH * (1 - (val - minV) / (maxV - minV));
-      ctx.fillStyle = cf > 0 ? "#3fb950" : "#f85149";
+  function render(highlightIdx) {
+    const ctx = canvas.getContext("2d");
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, width, height);
+
+    if (!points || points.length === 0) {
+      ctx.fillStyle = "#8b949e";
+      ctx.font = "14px sans-serif";
+      ctx.fillText("尚無實際權益資料", 20, height / 2);
+      return;
+    }
+
+    ctx.font = isMobile ? "10px sans-serif" : "11px sans-serif";
+    for (let i = 0; i <= 3; i++) {
+      const y = padT + (plotH * i) / 3;
+      const val = maxV - ((maxV - minV) * i) / 3;
+      ctx.strokeStyle = "#2a313c";
+      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+      ctx.moveTo(padL, y);
+      ctx.lineTo(width - padR, y);
+      ctx.stroke();
+      ctx.fillStyle = "#8b949e";
+      ctx.fillText(fmtNum(val, 0), 6, y + 4);
+    }
+
+    ctx.strokeStyle = "#58a6ff";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    coords.forEach((c, idx) => {
+      if (idx === 0) ctx.moveTo(c.x, c.y);
+      else ctx.lineTo(c.x, c.y);
+    });
+    ctx.stroke();
+
+    const tickIndices = chooseTickIndices(coords.length);
+    ctx.fillStyle = "#8b949e";
+    tickIndices.forEach((idx, posIdx) => {
+      const label = shortTimeLabel(coords[idx].pt);
+      const tw = ctx.measureText(label).width;
+      let tx = coords[idx].x - tw / 2;
+      if (posIdx === 0) tx = Math.max(padL, coords[idx].x);
+      if (posIdx === tickIndices.length - 1) tx = Math.min(width - padR - tw, coords[idx].x - tw);
+      ctx.fillText(label, tx, height - 6);
+    });
+
+    if (highlightIdx !== null && coords[highlightIdx]) {
+      const c = coords[highlightIdx];
+      ctx.strokeStyle = "rgba(139, 148, 158, 0.45)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(c.x, padT);
+      ctx.lineTo(c.x, padT + plotH);
+      ctx.stroke();
+
+      ctx.fillStyle = "#58a6ff";
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, 4, 0, Math.PI * 2);
       ctx.fill();
     }
-  });
-
-  // X labels
-  ctx.fillStyle = "#8b949e";
-  ctx.fillText(points[0].time_tpe || "", padL, height - 8);
-  if (points.length > 1) {
-    const lastLabel = points[points.length - 1].time_tpe || "";
-    const textW = ctx.measureText(lastLabel).width;
-    ctx.fillText(lastLabel, width - padR - textW, height - 8);
   }
+
+  render(null);
+  attachChartInteraction(
+    canvas,
+    tooltip,
+    coords,
+    (pt) => `
+      <div>時間：${pt.time_tpe || "-"}</div>
+      <div>實際權益：<strong>${fmtNum(pt.equity)} USDT</strong></div>
+    `,
+    render
+  );
 }
 
 async function renderDashboard() {
@@ -168,8 +444,12 @@ async function renderDashboard() {
     }
   }
 
-  drawEquityChart(equity);
-  window.addEventListener("resize", () => drawEquityChart(equity));
+  drawTwrChart(equity);
+  drawActualEquityChart(equity);
+  window.addEventListener("resize", () => {
+    drawTwrChart(equity);
+    drawActualEquityChart(equity);
+  });
 
   const stratBody = document.getElementById("strategies-body");
   stratBody.innerHTML = strategies.length

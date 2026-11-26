@@ -50,9 +50,24 @@
     </section>
 
     <section class="panel">
-      <h2>權益曲線（已扣除出入金影響）</h2>
-      <div class="canvas-wrap">
-        <canvas id="equity-canvas" height="260"></canvas>
+      <h2>策略報酬率（已扣除出入金）</h2>
+      <div class="canvas-wrap chart-box">
+        <canvas id="twr-canvas" height="270"></canvas>
+        <div id="twr-tooltip" class="chart-tooltip" style="display:none;"></div>
+      </div>
+      <div class="chart-legend">
+        <span><i class="dot dot-green"></i> 報酬 &ge; 0% / 入金</span>
+        <span><i class="dot dot-red"></i> 報酬 &lt; 0%</span>
+        <span><i class="dot dot-orange"></i> 出金</span>
+        <span><i class="dash-line"></i> 0% 基準線</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>實際權益（USDT，含入金）</h2>
+      <div class="canvas-wrap chart-box">
+        <canvas id="actual-equity-canvas" height="170"></canvas>
+        <div id="actual-tooltip" class="chart-tooltip" style="display:none;"></div>
       </div>
     </section>
 

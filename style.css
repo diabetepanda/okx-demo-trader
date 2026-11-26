@@ -111,9 +111,76 @@ h1 {
   overflow: hidden;
 }
 
-#equity-canvas {
+.chart-box {
+  position: relative;
+}
+
+#twr-canvas,
+#actual-equity-canvas {
   width: 100%;
   display: block;
+  touch-action: pan-y;
+}
+
+.chart-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(13, 17, 23, 0.94);
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--text);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.dot-green { background: var(--green); }
+.dot-red { background: var(--red); }
+.dot-orange { background: #f0883e; }
+
+.dash-line {
+  display: inline-block;
+  width: 16px;
+  height: 0;
+  border-top: 2px dashed #8b949e;
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card-value {
+    font-size: 1.1rem;
+  }
+  .chart-legend {
+    gap: 10px;
+    font-size: 0.76rem;
+  }
 }
 
 .table-wrap {
