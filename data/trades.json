@@ -1,6 +1,18 @@
 [
   {
     "strategy": "S2",
+    "inst_id": "XAG-USDT-SWAP",
+    "pos_side": "short",
+    "entry_time_tpe": "2026-11-25 16:33",
+    "exit_time_tpe": "2026-11-26 13:34",
+    "entry_price": 40.45,
+    "exit_price": 42.31,
+    "pnl_usdt": -5.09,
+    "r_multiple": -1.02,
+    "exit_reason": "交易所止損觸發（對帳平倉）"
+  },
+  {
+    "strategy": "S2",
     "inst_id": "CSOPSAMSUNG2L-USDT-SWAP",
     "pos_side": "short",
     "entry_time_tpe": "2026-11-26 02:37",

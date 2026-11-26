@@ -10,7 +10,7 @@
     "S2": {
       "allocation": 0.1,
       "initial_equity": 500.0,
-      "realized_pnl": -29.646729665999967
+      "realized_pnl": -34.73672392599997
     },
     "S3": {
       "allocation": 0.1,
@@ -39,26 +39,6 @@
     }
   },
   "positions": [
-    {
-      "id": "S2_XAG-USDT-SWAP_1795579200000",
-      "strategy": "S2",
-      "inst_id": "XAG-USDT-SWAP",
-      "pos_side": "short",
-      "sz": 267.7,
-      "entry_price": 40.45,
-      "entry_ts": 1795595632148,
-      "entry_bar_ts": 1795579200000,
-      "stop_loss": 42.26,
-      "initial_stop_loss": 42.26,
-      "planned_risk": 4.998824,
-      "notional": 108.28465,
-      "ct_val": 0.01,
-      "ord_id": "4130323487796031489",
-      "cl_ord_id": "S2XAG1795579200000",
-      "algo_id": "4130323487796031494",
-      "algo_cl_ord_id": "SLS2XAG1795579200000",
-      "fee": 0.054142325
-    },
     {
       "id": "L3_CAT-USDT-SWAP_1795478400000",
       "strategy": "L3",
@@ -304,6 +284,20 @@
       "r_multiple": -0.7504,
       "fee": 0.0157,
       "exit_reason": "交易所止損觸發（對帳平倉）"
+    },
+    {
+      "strategy": "S2",
+      "inst_id": "XAG-USDT-SWAP",
+      "pos_side": "short",
+      "sz": 267.7,
+      "entry_price": 40.45,
+      "exit_price": 42.31,
+      "entry_ts": 1795595632148,
+      "exit_ts": 1795671284440,
+      "pnl_usdt": -5.089994,
+      "r_multiple": -1.0182,
+      "fee": 0.110774,
+      "exit_reason": "交易所止損觸發（對帳平倉）"
     }
   ],
   "processed_cl_ord_ids": [
@@ -377,6 +371,10 @@
     {
       "ts": 1795671195245,
       "equity": 63705.9404
+    },
+    {
+      "ts": 1795672097240,
+      "equity": 63707.7998
     }
   ],
   "dry_run_orders": [
@@ -510,9 +508,9 @@
     }
   ],
   "last_equity_snapshot": {
-    "ts": 1795671195245,
-    "equity": 63705.940366,
-    "realized_pnl": -29.64673,
-    "unrealized_pnl": -8.34532
+    "ts": 1795672097240,
+    "equity": 63707.799794,
+    "realized_pnl": -34.736724,
+    "unrealized_pnl": -1.45004
   }
 }
