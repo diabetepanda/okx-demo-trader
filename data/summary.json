@@ -1,23 +1,23 @@
 {
-  "total_equity_usdt": 63710.36,
+  "total_equity_usdt": 63706.75,
   "initial_equity_usdt": 5000.0,
-  "total_return_pct": 1174.21,
+  "total_return_pct": 1174.14,
   "max_drawdown_pct": 0.1,
   "mode": "模擬盤實單",
   "dry_run": false,
   "paused": false,
   "close_all": false,
-  "open_positions_count": 7,
-  "closed_trades_count": 5,
-  "last_updated_tpe": "2026-11-26 09:57:22 (台北時間)",
+  "open_positions_count": 9,
+  "closed_trades_count": 6,
+  "last_updated_tpe": "2026-11-26 12:55:10 (台北時間)",
   "latest_run": {
-    "time_tpe": "2026-11-26 09:57:22 (台北時間)",
+    "time_tpe": "2026-11-26 12:55:10 (台北時間)",
     "new_4h_closed": true,
-    "new_1d_closed": true,
-    "reconciled_closed": 3,
+    "new_1d_closed": false,
+    "reconciled_closed": 1,
     "signals": {
       "S2": {
-        "enter": 0,
+        "enter": 5,
         "exit": 0,
         "update_sl": 0,
         "rejected": 0
@@ -29,10 +29,10 @@
         "rejected": 0
       },
       "L1": {
-        "enter": 1,
+        "enter": 0,
         "exit": 0,
         "update_sl": 0,
-        "rejected": 1
+        "rejected": 0
       },
       "L2": {
         "enter": 0,
@@ -53,6 +53,8 @@
         "rejected": 0
       }
     },
-    "errors": []
+    "errors": [
+      "S2 ASML-USDT-SWAP：模擬盤流動性不足，市價單未成交"
+    ]
   }
 }
