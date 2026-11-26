@@ -55,7 +55,7 @@ function drawEquityChart(points) {
   const plotW = width - padL - padR;
   const plotH = height - padT - padB;
 
-  const vals = points.map((p) => Number(p.equity));
+  const vals = points.map((p) => Number(p.adjusted_equity ?? p.equity));
   let minV = Math.min(...vals);
   let maxV = Math.max(...vals);
   if (minV === maxV) {
@@ -90,11 +90,26 @@ function drawEquityChart(points) {
     const x = points.length === 1
       ? padL + plotW / 2
       : padL + (plotW * idx) / (points.length - 1);
-    const y = padT + plotH * (1 - (Number(pt.equity) - minV) / (maxV - minV));
+    const val = Number(pt.adjusted_equity ?? pt.equity);
+    const y = padT + plotH * (1 - (val - minV) / (maxV - minV));
     if (idx === 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   });
   ctx.stroke();
+
+  // Annotate deposit/withdrawal points
+  points.forEach((pt, idx) => {
+    const cf = Number(pt.cash_flow || 0);
+    if (cf !== 0) {
+      const x = points.length === 1 ? padL + plotW / 2 : padL + (plotW * idx) / (points.length - 1);
+      const val = Number(pt.adjusted_equity ?? pt.equity);
+      const y = padT + plotH * (1 - (val - minV) / (maxV - minV));
+      ctx.fillStyle = cf > 0 ? "#3fb950" : "#f85149";
+      ctx.beginPath();
+      ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  });
 
   // X labels
   ctx.fillStyle = "#8b949e";
@@ -120,6 +135,7 @@ async function renderDashboard() {
     document.getElementById("mode-badge").textContent = summary.mode || "-";
     document.getElementById("total-equity").textContent = `${fmtNum(summary.total_equity_usdt)} USDT`;
     document.getElementById("initial-equity").textContent = `${fmtNum(summary.initial_equity_usdt)} USDT`;
+    document.getElementById("net-deposits").textContent = `${fmtNum(summary.net_deposits_usdt ?? 0)} USDT`;
 
     const retEl = document.getElementById("total-return");
     retEl.textContent = `${summary.total_return_pct >= 0 ? "+" : ""}${fmtNum(summary.total_return_pct)}%`;
@@ -136,6 +152,20 @@ async function renderDashboard() {
       ${errs.length ? `<ul class="error-list">${errs.map((e) => `<li>${e}</li>`).join("")}</ul>` : `<div style="margin-top:6px;color:#3fb950;">本次執行無錯誤</div>`}
     `;
     document.getElementById("run-status").innerHTML = statusHtml;
+
+    const cfs = summary.cash_flows || [];
+    if (cfs.length > 0) {
+      document.getElementById("cash-flow-panel").style.display = "block";
+      document.getElementById("cash-flow-body").innerHTML = cfs.map((c) => `
+        <tr>
+          <td>${c.time_tpe}</td>
+          <td class="${c.amount_usdt >= 0 ? "pos" : "neg"}">${c.type}</td>
+          <td class="${c.amount_usdt >= 0 ? "pos" : "neg"}">${c.amount_usdt >= 0 ? "+" : ""}${fmtNum(c.amount_usdt)}</td>
+          <td>${c.source}</td>
+          <td class="wrap">${c.note}</td>
+        </tr>
+      `).join("");
+    }
   }
 
   drawEquityChart(equity);

@@ -48,6 +48,66 @@ def compute_max_drawdown_pct(equities: list[float]) -> float:
     return round(max_dd, 2)
 
 
+def compute_twr_series(
+    initial_equity: float,
+    eq_history: list[dict[str, Any]],
+    cash_flows: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], float, float]:
+    """Compute deposit/withdrawal-adjusted equity curve, TWR %, and max drawdown %."""
+    if not eq_history:
+        return [], 0.0, 0.0
+
+    sorted_cfs = sorted(cash_flows, key=lambda c: int(c.get("ts") or 0))
+    cf_idx = 0
+    # Advance past any cash flows at or before the first equity point
+    first_ts = int(eq_history[0]["ts"])
+    while cf_idx < len(sorted_cfs) and int(sorted_cfs[cf_idx].get("ts") or 0) <= first_ts:
+        cf_idx += 1
+
+    base_eq = initial_equity if initial_equity > 0 else float(eq_history[0]["equity"])
+    nav_index = 1.0
+    prev_eq = float(eq_history[0]["equity"])
+
+    series: list[dict[str, Any]] = [
+        {
+            "ts": first_ts,
+            "time_tpe": format_taipei_ts(first_ts),
+            "equity": round(prev_eq, 4),
+            "adjusted_equity": round(base_eq, 4),
+            "cash_flow": 0.0,
+        }
+    ]
+
+    for pt in eq_history[1:]:
+        ts = int(pt["ts"])
+        curr_eq = float(pt["equity"])
+        cf_sum = 0.0
+        while cf_idx < len(sorted_cfs) and int(sorted_cfs[cf_idx].get("ts") or 0) <= ts:
+            cf_sum += float(sorted_cfs[cf_idx].get("amount_usdt") or 0.0)
+            cf_idx += 1
+
+        if prev_eq > 0:
+            period_ret = (curr_eq - cf_sum - prev_eq) / prev_eq
+            # Guard against extreme negative division edge case
+            nav_index = max(0.0, nav_index * (1.0 + period_ret))
+
+        adj_eq = base_eq * nav_index
+        series.append(
+            {
+                "ts": ts,
+                "time_tpe": format_taipei_ts(ts),
+                "equity": round(curr_eq, 4),
+                "adjusted_equity": round(adj_eq, 4),
+                "cash_flow": round(cf_sum, 4),
+            }
+        )
+        prev_eq = curr_eq
+
+    total_return_pct = (nav_index - 1.0) * 100.0
+    max_dd_pct = compute_max_drawdown_pct([pt["adjusted_equity"] for pt in series])
+    return series, round(total_return_pct, 2), max_dd_pct
+
+
 def generate_site_data(
     data_dir: Path,
     ledger: dict[str, Any],
@@ -62,15 +122,13 @@ def generate_site_data(
     secrets = [cfg.api_key, cfg.api_secret, cfg.api_passphrase]
 
     initial_eq = float(ledger.get("initial_equity_usdt") or 0.0)
-    total_return_pct = (
-        ((current_equity - initial_eq) / initial_eq * 100.0)
-        if initial_eq > 0 and current_equity > 0
-        else 0.0
-    )
-
     eq_history = ledger.get("equity_history", [])
-    eq_values = [float(pt["equity"]) for pt in eq_history if pt.get("equity")]
-    max_dd_pct = compute_max_drawdown_pct(eq_values)
+    cash_flows = ledger.get("cash_flows", [])
+    net_deposits = sum(float(c.get("amount_usdt") or 0.0) for c in cash_flows)
+
+    equity_out, total_return_pct, max_dd_pct = compute_twr_series(
+        initial_eq, eq_history, cash_flows
+    )
 
     if cfg.control.close_all:
         mode_label = "緊急全平 (close_all)"
@@ -83,10 +141,22 @@ def generate_site_data(
 
     safe_errors = [mask_secrets(str(e), secrets) for e in run_entry.get("errors", [])]
 
+    cash_flows_out = [
+        {
+            "time_tpe": format_taipei_ts(int(c.get("ts") or 0)),
+            "type": "入金" if float(c.get("amount_usdt") or 0.0) >= 0 else "出金",
+            "amount_usdt": round(float(c.get("amount_usdt") or 0.0), 2),
+            "source": "OKX 帳單" if c.get("source") == "okx_bills" else "系統推算",
+            "note": str(c.get("note") or ""),
+        }
+        for c in reversed(cash_flows)
+    ]
+
     summary = {
         "total_equity_usdt": round(current_equity, 2),
         "initial_equity_usdt": round(initial_eq, 2),
-        "total_return_pct": round(total_return_pct, 2),
+        "net_deposits_usdt": round(net_deposits, 2),
+        "total_return_pct": total_return_pct,
         "max_drawdown_pct": max_dd_pct,
         "mode": mode_label,
         "dry_run": cfg.dry_run,
@@ -95,6 +165,7 @@ def generate_site_data(
         "open_positions_count": len(ledger.get("positions", [])),
         "closed_trades_count": len(ledger.get("closed_trades", [])),
         "last_updated_tpe": format_taipei_dt(now),
+        "cash_flows": cash_flows_out,
         "latest_run": {
             "time_tpe": format_taipei_dt(now),
             "new_4h_closed": run_entry.get("new_4h_closed", False),
@@ -107,14 +178,6 @@ def generate_site_data(
     save_json(data_dir / "summary.json", summary)
 
     # equity.json
-    equity_out = [
-        {
-            "ts": int(pt["ts"]),
-            "time_tpe": format_taipei_ts(int(pt["ts"])),
-            "equity": float(pt["equity"]),
-        }
-        for pt in eq_history
-    ]
     save_json(data_dir / "equity.json", equity_out)
 
     # positions.json
@@ -172,9 +235,11 @@ def generate_site_data(
     strategies_out = []
     for s in STRATEGIES:
         sub = subaccounts.get(s, {})
+        alloc_ratio = float(sub.get("allocation") or 0.0)
         sub_init = float(sub.get("initial_equity") or 0.0)
         sub_realized = float(sub.get("realized_pnl") or 0.0)
-        sub_equity = sub_init + sub_realized
+        # Dynamic subaccount equity based on live total equity
+        sub_equity = current_equity * alloc_ratio if current_equity > 0 else (sub_init + sub_realized)
         s_trades = [t for t in closed_trades if t.get("strategy") == s]
         wins = [t for t in s_trades if float(t.get("pnl_usdt") or 0.0) > 0]
         losses = [t for t in s_trades if float(t.get("pnl_usdt") or 0.0) < 0]

@@ -329,6 +329,14 @@ class OKXClient:
             private=True,
         )
 
+    def get_bills(self, ccy: str = "USDT", limit: int = 100) -> list[dict[str, Any]]:
+        return self._request(
+            "GET",
+            "/api/v5/account/bills",
+            params={"ccy": ccy, "limit": limit},
+            private=True,
+        )
+
     # ------------------------------------------------------------------
     # Private write endpoints (blocked when dry_run=True)
     # ------------------------------------------------------------------

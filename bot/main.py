@@ -37,14 +37,20 @@ from bot.universe import ensure_universe
 logger = logging.getLogger(__name__)
 
 
-def _extract_usdt_equity(balance_data: list[dict[str, Any]]) -> float:
-    """Return strictly USDT equity (details[ccy=='USDT'].eq), excluding BTC/ETH/OKB."""
+def _extract_usdt_equity_and_upl(balance_data: list[dict[str, Any]]) -> tuple[float, float]:
+    """Return strictly USDT equity (eq, upl), excluding BTC/ETH/OKB."""
     if not balance_data:
-        return 0.0
+        return 0.0, 0.0
     for d in balance_data[0].get("details", []):
         if d.get("ccy") == "USDT":
-            return float(d.get("eq") or 0.0)
-    return 0.0
+            return float(d.get("eq") or 0.0), float(d.get("upl") or 0.0)
+    return 0.0, 0.0
+
+
+def _extract_usdt_equity(balance_data: list[dict[str, Any]]) -> float:
+    """Return strictly USDT equity (details[ccy=='USDT'].eq), excluding BTC/ETH/OKB."""
+    eq, _ = _extract_usdt_equity_and_upl(balance_data)
+    return eq
 
 
 def _to_existing_risk(pos: dict[str, Any]) -> ExistingPositionRisk:
@@ -104,7 +110,7 @@ def run_cycle(
 
     # 1. Load or initialize ledger
     balance_data = okx.get_balance("USDT")
-    current_equity = _extract_usdt_equity(balance_data)
+    current_equity, current_upl = _extract_usdt_equity_and_upl(balance_data)
     ledger = load_json(ledger_path)
     if ledger is None:
         init_eq = current_equity if current_equity > 0 else 10000.0
@@ -113,6 +119,50 @@ def run_cycle(
 
     # 2. Reconcile positions with OKX
     recon = reconcile_positions(okx, ledger)
+
+    # 2b. Detect unexplained equity jumps (> 1%) as deposits / withdrawals
+    total_realized_now = sum(
+        float(s.get("realized_pnl", 0.0)) for s in ledger.get("subaccounts", {}).values()
+    )
+    snap = ledger.get("last_equity_snapshot")
+    if snap and current_equity > 0:
+        prev_eq = float(snap.get("equity") or 0.0)
+        prev_realized = float(snap.get("realized_pnl") or 0.0)
+        prev_upl = float(snap.get("unrealized_pnl") or 0.0)
+        prev_ts = int(snap.get("ts") or 0)
+        expected_eq = prev_eq + (total_realized_now - prev_realized) + (current_upl - prev_upl)
+        unexplained = current_equity - expected_eq
+        if prev_eq > 0 and abs(unexplained) / prev_eq > 0.01:
+            cf_ts = int(dt_now.timestamp() * 1000)
+            cf_amount = round(unexplained, 6)
+            cf_source = "inferred"
+            cf_note = "系統推算資金異動（無法由交易盈虧解釋）"
+            try:
+                bills = okx.get_bills("USDT", limit=50)
+                for b in bills:
+                    b_ts = int(b.get("ts") or 0)
+                    b_chg = float(b.get("balChg") or 0.0)
+                    b_inst = str(b.get("instId") or "")
+                    if b_ts > prev_ts and not b_inst.endswith("-SWAP") and abs(b_chg) > max(1.0, prev_eq * 0.01):
+                        cf_ts = b_ts
+                        cf_amount = round(b_chg, 6)
+                        cf_source = "okx_bills"
+                        cf_note = f"OKX 帳單紀錄 ({b_inst or '資金劃轉'})"
+                        break
+            except Exception:
+                pass
+            existing_cf_ts = {int(c.get("ts") or 0) for c in ledger.get("cash_flows", [])}
+            if cf_ts not in existing_cf_ts:
+                ledger.setdefault("cash_flows", []).append(
+                    {
+                        "ts": cf_ts,
+                        "amount_usdt": cf_amount,
+                        "type": "deposit" if cf_amount > 0 else "withdrawal",
+                        "source": cf_source,
+                        "note": cf_note,
+                    }
+                )
+                logger.info("偵測到資金異動：%.2f USDT (%s)", cf_amount, cf_source)
 
     # 3. Update / load daily universe
     existing_universe = load_json(universe_path)
@@ -307,10 +357,10 @@ def run_cycle(
                 sub = ledger["subaccounts"][dec.strategy]
                 all_open = [_to_existing_risk(p) for p in ledger.get("positions", [])]
                 sub_open = [p for p in all_open if p.strategy == dec.strategy]
-                total_realized = sum(
-                    float(s.get("realized_pnl", 0.0))
-                    for s in ledger["subaccounts"].values()
-                )
+                # Dynamic capital allocation based on live OKX USDT equity
+                alloc_ratio = float(sub.get("allocation") or 0.0)
+                live_total_eq = current_equity if current_equity > 0 else float(ledger["initial_equity_usdt"])
+                live_sub_eq = live_total_eq * alloc_ratio
                 sizing = allocate_subaccount_position(
                     strategy=dec.strategy,
                     inst_id=dec.inst_id,
@@ -318,12 +368,12 @@ def run_cycle(
                     ref_price=ref_px,
                     stop_loss=dec.stop_loss,
                     risk_factor=dec.risk_factor,
-                    initial_sub_equity=float(sub["initial_equity"]),
-                    sub_realized_pnl=float(sub.get("realized_pnl", 0.0)),
+                    initial_sub_equity=live_sub_eq,
+                    sub_realized_pnl=0.0,
                     sub_positions=sub_open,
                     all_open_positions=all_open,
-                    initial_total_equity=float(ledger["initial_equity_usdt"]),
-                    total_realized_pnl=total_realized,
+                    initial_total_equity=live_total_eq,
+                    total_realized_pnl=0.0,
                     inst_meta=meta,
                     account_cfg=acc_cfg,
                 )
@@ -368,12 +418,22 @@ def run_cycle(
     if new_1d_closed and latest_1d_ts > 0:
         ledger.setdefault("last_processed_bar", {})["1Dutc"] = latest_1d_ts
 
-    # Record equity history point
+    # Record equity history point & latest snapshot
     if current_equity > 0:
+        now_ms = int(dt_now.timestamp() * 1000)
         ledger.setdefault("equity_history", []).append(
-            {"ts": int(dt_now.timestamp() * 1000), "equity": round(current_equity, 4)}
+            {"ts": now_ms, "equity": round(current_equity, 4)}
         )
         ledger["equity_history"] = ledger["equity_history"][-5000:]
+        final_realized = sum(
+            float(s.get("realized_pnl", 0.0)) for s in ledger.get("subaccounts", {}).values()
+        )
+        ledger["last_equity_snapshot"] = {
+            "ts": now_ms,
+            "equity": round(current_equity, 6),
+            "realized_pnl": round(final_realized, 6),
+            "unrealized_pnl": round(current_upl, 6),
+        }
 
     # Save state & run log
     save_json(ledger_path, ledger)
