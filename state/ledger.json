@@ -475,5 +475,20 @@
       "pos_side": "short",
       "reason": "換算張數 0 小於最小下單量 1，拒絕進場"
     }
-  ]
+  ],
+  "cash_flows": [
+    {
+      "ts": 1795604181991,
+      "amount_usdt": 58745.36608,
+      "type": "deposit",
+      "source": "okx_bills",
+      "note": "BTC-USDT 現貨轉換入金"
+    }
+  ],
+  "last_equity_snapshot": {
+    "ts": 1795668910267,
+    "equity": 63706.7536,
+    "realized_pnl": -29.646729665999967,
+    "unrealized_pnl": 0.0
+  }
 }
