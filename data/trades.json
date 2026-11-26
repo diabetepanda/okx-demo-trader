@@ -1,6 +1,42 @@
 [
   {
     "strategy": "S2",
+    "inst_id": "XAU-USDT-SWAP",
+    "pos_side": "short",
+    "entry_time_tpe": "2026-11-26 02:37",
+    "exit_time_tpe": "2026-11-26 03:03",
+    "entry_price": 3535.0,
+    "exit_price": 3590.7,
+    "pnl_usdt": -4.79,
+    "r_multiple": -0.99,
+    "exit_reason": "交易所止損觸發（對帳平倉）"
+  },
+  {
+    "strategy": "S2",
+    "inst_id": "CRWV-USDT-SWAP",
+    "pos_side": "short",
+    "entry_time_tpe": "2026-11-26 02:37",
+    "exit_time_tpe": "2026-11-26 08:13",
+    "entry_price": 41.0,
+    "exit_price": 43.43,
+    "pnl_usdt": -5.17,
+    "r_multiple": -1.06,
+    "exit_reason": "交易所止損觸發（對帳平倉）"
+  },
+  {
+    "strategy": "S2",
+    "inst_id": "CRCL-USDT-SWAP",
+    "pos_side": "short",
+    "entry_time_tpe": "2026-11-26 02:37",
+    "exit_time_tpe": "2026-11-26 03:22",
+    "entry_price": 47.46,
+    "exit_price": 48.37,
+    "pnl_usdt": -5.52,
+    "r_multiple": -1.13,
+    "exit_reason": "交易所止損觸發（對帳平倉）"
+  },
+  {
+    "strategy": "S2",
     "inst_id": "H-USDT-SWAP",
     "pos_side": "short",
     "entry_time_tpe": "2026-11-25 16:37",

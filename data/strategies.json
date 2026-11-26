@@ -3,13 +3,13 @@
     "strategy": "S2",
     "allocation_pct": 10.0,
     "initial_equity": 500.0,
-    "equity": 489.21,
-    "realized_pnl": -10.79,
-    "trades_count": 2,
+    "equity": 473.73,
+    "realized_pnl": -26.27,
+    "trades_count": 5,
     "win_rate_pct": 0.0,
     "profit_factor": 0.0,
     "avg_r": -1.06,
-    "max_drawdown_pct": 2.16
+    "max_drawdown_pct": 5.25
   },
   {
     "strategy": "S3",
