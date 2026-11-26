@@ -3,7 +3,7 @@
   "initial_equity_usdt": 5000.0,
   "position_mode_set": true,
   "last_processed_bar": {
-    "4H": 1795651200000,
+    "4H": 1795665600000,
     "1Dutc": 1795564800000
   },
   "subaccounts": {
@@ -317,7 +317,8 @@
     "S2ASML1795651200000",
     "S2BZ1795651200000",
     "S2LTC1795651200000",
-    "S2ZETA1795651200000"
+    "S2ZETA1795651200000",
+    "S2ASML1795665600000"
   ],
   "equity_history": [
     {
@@ -407,6 +408,10 @@
     {
       "ts": 1795679296401,
       "equity": 63705.4441
+    },
+    {
+      "ts": 1795680197685,
+      "equity": 63704.8871
     }
   ],
   "dry_run_orders": [
@@ -540,9 +545,9 @@
     }
   ],
   "last_equity_snapshot": {
-    "ts": 1795679296401,
-    "equity": 63705.444112,
+    "ts": 1795680197685,
+    "equity": 63704.887135,
     "realized_pnl": -34.736724,
-    "unrealized_pnl": -3.6103
+    "unrealized_pnl": -3.76338
   }
 }
