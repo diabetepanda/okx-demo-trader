@@ -2,36 +2,57 @@
   {
     "ts": 1795594933872,
     "time_tpe": "2026-11-25 16:22",
-    "equity": 5000.0
+    "equity": 5000.0,
+    "adjusted_equity": 5000.0,
+    "cash_flow": 0.0
   },
   {
     "ts": 1795595599803,
     "time_tpe": "2026-11-25 16:33",
-    "equity": 5000.0
+    "equity": 5000.0,
+    "adjusted_equity": 5000.0,
+    "cash_flow": 0.0
   },
   {
     "ts": 1795596544684,
     "time_tpe": "2026-11-25 16:49",
-    "equity": 4999.6773
+    "equity": 4999.6773,
+    "adjusted_equity": 4999.6773,
+    "cash_flow": 0.0
   },
   {
     "ts": 1795598807835,
     "time_tpe": "2026-11-25 17:26",
-    "equity": 4995.0101
+    "equity": 4995.0101,
+    "adjusted_equity": 4995.0101,
+    "cash_flow": 0.0
   },
   {
     "ts": 1795631820717,
     "time_tpe": "2026-11-26 02:37",
-    "equity": 63733.4379
+    "equity": 63733.4379,
+    "adjusted_equity": 4988.0718,
+    "cash_flow": 58745.3661
   },
   {
     "ts": 1795658242802,
     "time_tpe": "2026-11-26 09:57",
-    "equity": 63710.3592
+    "equity": 63710.3592,
+    "adjusted_equity": 4986.2656,
+    "cash_flow": 0.0
   },
   {
     "ts": 1795668910267,
     "time_tpe": "2026-11-26 12:55",
-    "equity": 63706.7536
+    "equity": 63706.7536,
+    "adjusted_equity": 4985.9834,
+    "cash_flow": 0.0
+  },
+  {
+    "ts": 1795669376446,
+    "time_tpe": "2026-11-26 13:02",
+    "equity": 63706.3947,
+    "adjusted_equity": 4985.9553,
+    "cash_flow": 0.0
   }
 ]

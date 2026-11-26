@@ -28,7 +28,11 @@
         <div class="card-value" id="initial-equity">-</div>
       </div>
       <div class="card">
-        <div class="card-label">總報酬率</div>
+        <div class="card-label">累計淨入金 (USDT)</div>
+        <div class="card-value" id="net-deposits">-</div>
+      </div>
+      <div class="card">
+        <div class="card-label">總報酬率 (扣出入金)</div>
         <div class="card-value" id="total-return">-</div>
       </div>
       <div class="card">
@@ -46,9 +50,27 @@
     </section>
 
     <section class="panel">
-      <h2>權益曲線</h2>
+      <h2>權益曲線（已扣除出入金影響）</h2>
       <div class="canvas-wrap">
         <canvas id="equity-canvas" height="260"></canvas>
+      </div>
+    </section>
+
+    <section class="panel" id="cash-flow-panel" style="display:none;">
+      <h2>資金異動紀錄（入金／出金）</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>時間 (台北)</th>
+              <th>類型</th>
+              <th>金額 (USDT)</th>
+              <th>來源</th>
+              <th>備註</th>
+            </tr>
+          </thead>
+          <tbody id="cash-flow-body"></tbody>
+        </table>
       </div>
     </section>
 
