@@ -3,7 +3,7 @@
   "initial_equity_usdt": 5000.0,
   "position_mode_set": true,
   "last_processed_bar": {
-    "4H": 1795665600000,
+    "4H": 1795680000000,
     "1Dutc": 1795564800000
   },
   "subaccounts": {
@@ -476,6 +476,10 @@
     {
       "ts": 1795693698645,
       "equity": 63701.7165
+    },
+    {
+      "ts": 1795694594870,
+      "equity": 63699.8283
     }
   ],
   "dry_run_orders": [
@@ -609,9 +613,9 @@
     }
   ],
   "last_equity_snapshot": {
-    "ts": 1795693698645,
-    "equity": 63701.716501,
+    "ts": 1795694594870,
+    "equity": 63699.828342,
     "realized_pnl": -34.736724,
-    "unrealized_pnl": -6.56313
+    "unrealized_pnl": -6.28859
   }
 }
