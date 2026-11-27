@@ -708,6 +708,10 @@
     {
       "ts": 1795745906801,
       "equity": 63703.5689
+    },
+    {
+      "ts": 1795746797723,
+      "equity": 63703.9708
     }
   ],
   "dry_run_orders": [
@@ -841,9 +845,9 @@
     }
   ],
   "last_equity_snapshot": {
-    "ts": 1795745906801,
-    "equity": 63703.568858,
+    "ts": 1795746797723,
+    "equity": 63703.970788,
     "realized_pnl": -34.736724,
-    "unrealized_pnl": 5.53657
+    "unrealized_pnl": 5.9385
   }
 }
