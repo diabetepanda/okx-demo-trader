@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OKX 模擬盤自動交易績效儀表板</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
 </head>
 <body>
   <header class="topbar">
@@ -13,44 +13,55 @@
         <h1>OKX 模擬盤自動交易儀表板</h1>
         <p class="subtitle">Signal Desk 六策略全自動模擬交易（僅限 Demo Trading）</p>
       </div>
-      <div class="status-pill" id="mode-badge">載入中...</div>
+      <div class="topbar-status">
+        <div class="health-pill" id="health-pill">
+          <span class="health-dot" id="health-dot"></span>
+          <span id="health-text">檢查狀態中...</span>
+        </div>
+        <div class="last-updated-top" id="last-updated-top">最後更新：-</div>
+        <div class="status-pill" id="mode-badge">載入中...</div>
+      </div>
     </div>
   </header>
 
   <main class="container">
+    <!-- ① 總覽卡片 -->
     <section class="cards-grid" id="summary-cards">
       <div class="card">
-        <div class="card-label">目前總權益 (USDT)</div>
+        <div class="card-label">總權益 (USDT)</div>
         <div class="card-value" id="total-equity">-</div>
+        <div class="card-desc">目前模擬帳戶 USDT 總資產（含浮動盈虧）</div>
       </div>
       <div class="card">
-        <div class="card-label">起始資金 (USDT)</div>
-        <div class="card-value" id="initial-equity">-</div>
+        <div class="card-label">已實現損益 (USDT)</div>
+        <div class="card-value" id="realized-pnl">-</div>
+        <div class="card-desc">已經平倉落袋的交易損益加總</div>
       </div>
       <div class="card">
-        <div class="card-label">累計淨入金 (USDT)</div>
-        <div class="card-value" id="net-deposits">-</div>
+        <div class="card-label">未實現損益 (USDT)</div>
+        <div class="card-value" id="unrealized-pnl">-</div>
+        <div class="card-desc">還沒平倉的單目前的浮動盈虧，隨價格跳動</div>
       </div>
       <div class="card">
-        <div class="card-label">總報酬率 (扣出入金)</div>
+        <div class="card-label">合計損益 (USDT)</div>
+        <div class="card-value" id="total-pnl">-</div>
+        <div class="card-desc">已實現損益 + 未實現損益的整體真實賺賠</div>
+      </div>
+      <div class="card">
+        <div class="card-label">策略報酬率</div>
         <div class="card-value" id="total-return">-</div>
-      </div>
-      <div class="card">
-        <div class="card-label">最大回撤</div>
-        <div class="card-value" id="max-dd">-</div>
-      </div>
-      <div class="card">
-        <div class="card-label">目前持倉數</div>
-        <div class="card-value" id="open-count">-</div>
-      </div>
-      <div class="card">
-        <div class="card-label">最後更新時間</div>
-        <div class="card-value small" id="last-updated">-</div>
+        <div class="card-desc">已扣除入金與出金後的真實策略報酬</div>
       </div>
     </section>
 
+    <!-- ② 報酬率走勢圖 -->
     <section class="panel">
-      <h2>策略報酬率（已扣除出入金）</h2>
+      <div class="panel-head">
+        <h2>
+          策略報酬率（已扣除出入金）
+          <button type="button" class="help-btn" data-help="這條線反映策略真實的賺賠百分比，不會因為你多存錢或領錢而突然跳高或跳低。">?</button>
+        </h2>
+      </div>
       <div class="canvas-wrap chart-box">
         <canvas id="twr-canvas" height="270"></canvas>
         <div id="twr-tooltip" class="chart-tooltip" style="display:none;"></div>
@@ -63,107 +74,52 @@
       </div>
     </section>
 
+    <!-- ③ 目前持倉 -->
     <section class="panel">
-      <h2>實際權益（USDT，含入金）</h2>
-      <div class="canvas-wrap chart-box">
-        <canvas id="actual-equity-canvas" height="170"></canvas>
-        <div id="actual-tooltip" class="chart-tooltip" style="display:none;"></div>
+      <div class="panel-head">
+        <h2>
+          目前持倉 <span class="count-badge" id="positions-count-badge">0 筆</span>
+          <button type="button" class="help-btn" data-help="目前還在場上的所有部位，每筆都在交易所掛有獨立停損單，距離止損 % 越低代表越接近停損線。">?</button>
+        </h2>
       </div>
-    </section>
-
-    <section class="panel" id="cash-flow-panel" style="display:none;">
-      <h2>資金異動紀錄（入金／出金）</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>時間 (台北)</th>
-              <th>類型</th>
-              <th>金額 (USDT)</th>
-              <th>來源</th>
-              <th>備註</th>
-            </tr>
-          </thead>
-          <tbody id="cash-flow-body"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>六策略子帳戶績效</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>策略</th>
-              <th>資金比例</th>
-              <th>子帳戶淨值</th>
-              <th>已實現損益</th>
-              <th>交易數</th>
-              <th>勝率</th>
-              <th>獲利因子</th>
-              <th>平均 R</th>
-              <th>最大回撤</th>
-            </tr>
-          </thead>
-          <tbody id="strategies-body"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>目前持倉</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>策略</th>
-              <th>標的</th>
+              <th>幣種</th>
               <th>方向</th>
               <th>進場價</th>
               <th>現價</th>
-              <th>張數</th>
               <th>止損價</th>
+              <th>距離止損 %</th>
               <th>未實現損益</th>
-              <th>持有根數</th>
+              <th>持有時間</th>
+              <th>進場時間</th>
               <th>出場規則</th>
             </tr>
           </thead>
           <tbody id="positions-body"></tbody>
+          <tfoot id="positions-foot"></tfoot>
         </table>
       </div>
     </section>
 
-    <section class="panel" id="dry-run-panel" style="display:none;">
-      <h2>試跑模式（DRY_RUN）模擬委託紀錄</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>時間 (台北)</th>
-              <th>動作</th>
-              <th>策略</th>
-              <th>標的</th>
-              <th>方向</th>
-              <th>張數</th>
-              <th>參考價</th>
-              <th>止損價</th>
-              <th>原因</th>
-            </tr>
-          </thead>
-          <tbody id="dry-run-body"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>最近 100 筆已平倉交易</h2>
+    <!-- ④ 已平倉紀錄 -->
+    <details class="panel collapsible">
+      <summary class="panel-head">
+        <h2>
+          已平倉紀錄 <span class="count-badge" id="trades-count-badge">0 筆</span>
+          <button type="button" class="help-btn" data-help="已經結束並結算的歷史交易（最近 100 筆），包含停損出場與策略訊號出場。">?</button>
+        </h2>
+        <span class="toggle-hint">點擊展開 / 收合</span>
+      </summary>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>策略</th>
-              <th>標的</th>
+              <th>幣種</th>
               <th>方向</th>
               <th>進場時間</th>
               <th>出場時間</th>
@@ -177,17 +133,53 @@
           <tbody id="trades-body"></tbody>
         </table>
       </div>
-    </section>
+    </details>
 
-    <section class="panel" id="rejected-panel" style="display:none;">
-      <h2>風控與流動性拒絕紀錄</h2>
+    <!-- ⑤ 依策略分組的績效 -->
+    <details class="panel collapsible">
+      <summary class="panel-head">
+        <h2>
+          依策略分組的績效 <span class="count-badge">6 策略</span>
+          <button type="button" class="help-btn" data-help="S2/S3 各分配 10% 資金，L1~L4 各分配 20% 資金，各自獨立計算交易筆數、勝率與損益。">?</button>
+        </h2>
+        <span class="toggle-hint">點擊展開 / 收合</span>
+      </summary>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>策略</th>
+              <th>資金比例</th>
+              <th>分配資金 (USDT)</th>
+              <th>交易筆數</th>
+              <th>勝率</th>
+              <th>已實現損益</th>
+              <th>未實現損益</th>
+              <th>平均 R</th>
+              <th>最大回撤</th>
+            </tr>
+          </thead>
+          <tbody id="strategies-body"></tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- ⑥ 風控與流動性拒絕紀錄 -->
+    <details class="panel collapsible" id="rejected-panel">
+      <summary class="panel-head">
+        <h2>
+          風控與流動性拒絕紀錄 <span class="count-badge" id="rejected-count-badge">0 筆</span>
+          <button type="button" class="help-btn" data-help="因超過風險上限、流動性不足未成交，或連續未成交被暫停 7 天的訊號紀錄。">?</button>
+        </h2>
+        <span class="toggle-hint">點擊展開 / 收合</span>
+      </summary>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>時間 (台北)</th>
               <th>策略</th>
-              <th>標的</th>
+              <th>幣種</th>
               <th>方向</th>
               <th>原因</th>
             </tr>
@@ -195,14 +187,59 @@
           <tbody id="rejected-body"></tbody>
         </table>
       </div>
-    </section>
+    </details>
 
-    <section class="panel">
-      <h2>最近一次執行狀態與錯誤摘要</h2>
+    <!-- ⑦ 實際權益圖（含入金） -->
+    <details class="panel collapsible" id="actual-equity-details">
+      <summary class="panel-head">
+        <h2>
+          實際權益圖（含入金）
+          <button type="button" class="help-btn" data-help="帳戶裡真實的 USDT 餘額變化曲線，包含你手動轉換或入金的金額（累計淨入金亦列於下方）。">?</button>
+        </h2>
+        <span class="toggle-hint">點擊展開 / 收合</span>
+      </summary>
+      <div class="actual-meta">
+        <span>起始資金：<strong id="initial-equity">-</strong></span>
+        <span>累計淨入金：<strong id="net-deposits">-</strong></span>
+        <span>最大回撤：<strong id="max-dd">-</strong></span>
+      </div>
+      <div class="canvas-wrap chart-box">
+        <canvas id="actual-equity-canvas" height="180"></canvas>
+        <div id="actual-tooltip" class="chart-tooltip" style="display:none;"></div>
+      </div>
+      <div id="cash-flow-wrap" style="display:none; margin-top:14px;">
+        <h3 class="sub-heading">資金異動紀錄（入金／出金）</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>時間 (台北)</th>
+                <th>類型</th>
+                <th>金額 (USDT)</th>
+                <th>來源</th>
+                <th>備註</th>
+              </tr>
+            </thead>
+            <tbody id="cash-flow-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <!-- 執行狀態 -->
+    <details class="panel collapsible">
+      <summary class="panel-head">
+        <h2>
+          最近一次執行狀態與錯誤摘要
+          <button type="button" class="help-btn" data-help="最近一次機器人掃描 K 線與對帳的執行紀錄，若有 API 異常會列在這裡。">?</button>
+        </h2>
+        <span class="toggle-hint">點擊展開 / 收合</span>
+      </summary>
       <div id="run-status" class="run-status">載入中...</div>
-    </section>
+    </details>
   </main>
 
-  <script src="app.js"></script>
+  <div id="help-popover" class="help-popover" style="display:none;"></div>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
