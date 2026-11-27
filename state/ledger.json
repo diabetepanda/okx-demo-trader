@@ -10,7 +10,7 @@
     "S2": {
       "allocation": 0.1,
       "initial_equity": 500.0,
-      "realized_pnl": -40.19979149999998
+      "realized_pnl": -107.26725200000001
     },
     "S3": {
       "allocation": 0.1,
@@ -240,26 +240,6 @@
       "fee": 0.5463786
     },
     {
-      "id": "S2_BCH-USDT-SWAP_1795737600000",
-      "strategy": "S2",
-      "inst_id": "BCH-USDT-SWAP",
-      "pos_side": "long",
-      "sz": 55.38,
-      "entry_price": 216.4,
-      "entry_ts": 1795752246496,
-      "entry_bar_ts": 1795737600000,
-      "stop_loss": 205.0,
-      "initial_stop_loss": 205.0,
-      "planned_risk": 64.5,
-      "notional": 1198.42,
-      "ct_val": 0.1,
-      "ord_id": "4135578308576866305",
-      "cl_ord_id": "S2BCH1795737600000",
-      "algo_id": "4135578593286221828",
-      "algo_cl_ord_id": "SLS2BCH1795737600000",
-      "fee": 0.599
-    },
-    {
       "id": "S2_LINK-USDT-SWAP_1795752000000",
       "strategy": "S2",
       "inst_id": "LINK-USDT-SWAP",
@@ -440,6 +420,20 @@
       "r_multiple": -0.1159,
       "fee": 0.146393,
       "exit_reason": "收盤 1430 跌破前 10 根最低點 1440，移動出場"
+    },
+    {
+      "strategy": "S2",
+      "inst_id": "BCH-USDT-SWAP",
+      "pos_side": "long",
+      "sz": 55.38,
+      "entry_price": 216.4,
+      "exit_price": 204.5,
+      "entry_ts": 1795752246496,
+      "exit_ts": 1795800381833,
+      "pnl_usdt": -67.067461,
+      "r_multiple": -1.0398,
+      "fee": 1.165261,
+      "exit_reason": "交易所止損觸發（對帳平倉）"
     }
   ],
   "processed_cl_ord_ids": [
@@ -1108,6 +1102,10 @@
     {
       "ts": 1795799899168,
       "equity": 63582.7142
+    },
+    {
+      "ts": 1795800798830,
+      "equity": 63584.741
     }
   ],
   "dry_run_orders": [
@@ -1276,10 +1274,10 @@
     }
   ],
   "last_equity_snapshot": {
-    "ts": 1795799899168,
-    "equity": 63582.714238,
-    "realized_pnl": -40.199791,
-    "unrealized_pnl": -57.09409
+    "ts": 1795800798830,
+    "equity": 63584.741037,
+    "realized_pnl": -107.267252,
+    "unrealized_pnl": 11.40117
   },
   "liquidity_failures": {
     "LINK-USDT-SWAP": 0,

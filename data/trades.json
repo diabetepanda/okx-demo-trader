@@ -1,6 +1,18 @@
 [
   {
     "strategy": "S2",
+    "inst_id": "BCH-USDT-SWAP",
+    "pos_side": "long",
+    "entry_time_tpe": "2026-11-27 12:04",
+    "exit_time_tpe": "2026-11-28 01:26",
+    "entry_price": 216.4,
+    "exit_price": 204.5,
+    "pnl_usdt": -67.07,
+    "r_multiple": -1.04,
+    "exit_reason": "交易所止損觸發（對帳平倉）"
+  },
+  {
+    "strategy": "S2",
     "inst_id": "ASML-USDT-SWAP",
     "pos_side": "long",
     "entry_time_tpe": "2026-11-26 17:32",
