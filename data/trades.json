@@ -1,6 +1,18 @@
 [
   {
     "strategy": "S2",
+    "inst_id": "ARB-USDT-SWAP",
+    "pos_side": "short",
+    "entry_time_tpe": "2026-11-26 12:55",
+    "exit_time_tpe": "2026-11-26 12:55",
+    "entry_price": 0.0802,
+    "exit_price": 0.080433,
+    "pnl_usdt": -0.01,
+    "r_multiple": -0.0,
+    "exit_reason": "部分成交後止損驗證失敗，觸發緊急市價平倉"
+  },
+  {
+    "strategy": "S2",
     "inst_id": "MU-USDT-SWAP",
     "pos_side": "short",
     "entry_time_tpe": "2026-11-26 02:37",
