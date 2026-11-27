@@ -1,6 +1,18 @@
 [
   {
     "strategy": "S2",
+    "inst_id": "ASML-USDT-SWAP",
+    "pos_side": "long",
+    "entry_time_tpe": "2026-11-26 17:32",
+    "exit_time_tpe": "2026-11-28 00:03",
+    "entry_price": 1449.5,
+    "exit_price": 1439.4,
+    "pnl_usdt": -1.61,
+    "r_multiple": -0.12,
+    "exit_reason": "收盤 1430 跌破前 10 根最低點 1440，移動出場"
+  },
+  {
+    "strategy": "S2",
     "inst_id": "ARB-USDT-SWAP",
     "pos_side": "short",
     "entry_time_tpe": "2026-11-26 12:55",
