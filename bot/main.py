@@ -413,6 +413,7 @@ def run_cycle(
                     reason=dec.reason,
                     dry_run=cfg.dry_run,
                     errors=errors,
+                    max_sub_notional=live_sub_eq * float(acc_cfg.get("subaccount_max_notional_mult", 5.0)),
                 )
                 if created and not cfg.dry_run:
                     open_by_key[(dec.strategy, dec.inst_id)] = created

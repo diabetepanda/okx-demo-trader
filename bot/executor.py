@@ -237,6 +237,7 @@ def execute_entry(
     reason: str,
     dry_run: bool,
     errors: Optional[list[str]] = None,
+    max_sub_notional: Optional[float] = None,
 ) -> Optional[dict[str, Any]]:
     """Place market entry order with attached stop-loss (or record DRY_RUN)."""
     cl_ord_id = make_cl_ord_id(strategy, inst_id, bar_ts)
@@ -255,6 +256,28 @@ def execute_entry(
     sl_px_str = format_price_str(sl_px)
     side = "buy" if pos_side == "long" else "sell"
     algo_cl_id = make_algo_cl_ord_id(strategy, inst_id, bar_ts)
+
+    # Pre-order safety check: verify actual SL risk <= 1.2x planned_risk and notional <= 5x subaccount
+    verified_risk = sz * ct_val * abs(ref_price - sl_px)
+    verified_notional = sz * ref_price * ct_val
+    if (planned_risk > 0 and verified_risk > planned_risk * 1.2) or (
+        max_sub_notional is not None and verified_notional > max_sub_notional
+    ):
+        rej_reason = (
+            f"下單前風控攔截：實際風險 {verified_risk:.2f} USDT / 名目 {verified_notional:.2f} USDT 超過安全上限"
+        )
+        logger.warning("%s %s %s：%s", strategy, inst_id, pos_side, rej_reason)
+        ledger.setdefault("rejected_signals", []).append(
+            {
+                "ts": int(datetime.now(timezone.utc).timestamp() * 1000),
+                "strategy": strategy,
+                "inst_id": inst_id,
+                "pos_side": pos_side,
+                "reason": rej_reason,
+            }
+        )
+        ledger["rejected_signals"] = ledger["rejected_signals"][-100:]
+        return None
 
     if dry_run:
         dry_record = {

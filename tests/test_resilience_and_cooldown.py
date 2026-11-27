@@ -132,3 +132,53 @@ def test_okx_client_order_post_checks_clordid_before_retry(monkeypatch):
     post_calls = [c for c in mock_session.request.call_args_list if c.kwargs.get("method") == "POST"]
     assert len(post_calls) == 1
     assert sleeps == []
+
+
+def test_pre_order_safety_check_blocks_oversized_risk_and_notional():
+    ledger = init_ledger(5000.0)
+    mock_client = MagicMock()
+
+    # Risk = 100 * 1.0 * |100 - 90| = 1000 > planned_risk (50) * 1.2
+    res_risk = execute_entry(
+        client=mock_client,
+        ledger=ledger,
+        strategy="S2",
+        inst_id="BTC-USDT-SWAP",
+        pos_side="long",
+        sz=100.0,
+        ref_price=100.0,
+        stop_loss=90.0,
+        planned_risk=50.0,
+        notional=10000.0,
+        leverage=5,
+        inst_meta={"ctVal": 1.0, "tickSz": 0.1},
+        bar_ts=1795651200000,
+        reason="test",
+        dry_run=False,
+        max_sub_notional=25000.0,
+    )
+    assert res_risk is None
+    assert mock_client.place_order.call_count == 0
+    assert any("下單前風控攔截" in r["reason"] for r in ledger["rejected_signals"])
+
+    # Notional = 300 * 1.0 * 100 = 30000 > max_sub_notional (25000)
+    res_notional = execute_entry(
+        client=mock_client,
+        ledger=ledger,
+        strategy="S2",
+        inst_id="ETH-USDT-SWAP",
+        pos_side="long",
+        sz=300.0,
+        ref_price=100.0,
+        stop_loss=99.9,
+        planned_risk=50.0,
+        notional=30000.0,
+        leverage=5,
+        inst_meta={"ctVal": 1.0, "tickSz": 0.1},
+        bar_ts=1795651200001,
+        reason="test",
+        dry_run=False,
+        max_sub_notional=25000.0,
+    )
+    assert res_notional is None
+    assert mock_client.place_order.call_count == 0
