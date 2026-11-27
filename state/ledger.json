@@ -1134,6 +1134,10 @@
     {
       "ts": 1795807096451,
       "equity": 63616.3004
+    },
+    {
+      "ts": 1795807996953,
+      "equity": 63615.2318
     }
   ],
   "dry_run_orders": [
@@ -1302,10 +1306,10 @@
     }
   ],
   "last_equity_snapshot": {
-    "ts": 1795807096451,
-    "equity": 63616.300358,
+    "ts": 1795807996953,
+    "equity": 63615.231808,
     "realized_pnl": -107.267252,
-    "unrealized_pnl": 43.23103
+    "unrealized_pnl": 42.16248
   },
   "liquidity_failures": {
     "LINK-USDT-SWAP": 0,
