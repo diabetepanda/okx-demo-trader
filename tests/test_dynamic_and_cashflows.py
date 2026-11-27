@@ -9,7 +9,7 @@ import pytest
 from bot.config import AppConfig, ControlState
 from bot.ledger import init_ledger, load_json, save_json
 from bot.main import run_cycle
-from bot.report import compute_twr_series
+from bot.report import compute_twr_series, generate_site_data, round_price_sig
 from bot.sizing import allocate_subaccount_position
 
 
@@ -134,3 +134,67 @@ def test_run_cycle_detects_deposit_and_keeps_existing_positions(tmp_path: Path):
     assert updated["cash_flows"][0]["source"] == "okx_bills"
     # Existing position size must remain untouched at 267.7
     assert updated["positions"][0]["sz"] == 267.7
+
+
+def test_report_unrealized_pnl_and_tiny_price_precision(tmp_path: Path):
+    assert round_price_sig(0.000001298969) == pytest.approx(0.00000129897)
+    assert round_price_sig(0.000000687) == pytest.approx(0.000000687)
+
+    ledger = init_ledger(5000.0)
+    ledger["subaccounts"]["L3"]["realized_pnl"] = -10.0
+    ledger["closed_trades"].append(
+        {
+            "strategy": "L3",
+            "inst_id": "BTC-USDT-SWAP",
+            "pos_side": "long",
+            "entry_ts": 1000,
+            "exit_ts": 2000,
+            "entry_price": 50000.0,
+            "exit_price": 49900.0,
+            "pnl_usdt": -10.0,
+            "r_multiple": -1.0,
+            "exit_reason": "test",
+        }
+    )
+    ledger["positions"].append(
+        {
+            "id": "L3_CAT_1",
+            "strategy": "L3",
+            "inst_id": "CAT-USDT-SWAP",
+            "pos_side": "long",
+            "sz": 33.0,
+            "ct_val": 100000.0,
+            "entry_price": 0.00000129897,
+            "entry_ts": 1000,
+            "stop_loss": 0.000000687,
+        }
+    )
+    cfg = AppConfig(
+        base_dir=tmp_path,
+        api_key="k",
+        api_secret="s",
+        api_passphrase="p",
+        trading_mode="demo",
+        dry_run=False,
+        settings={},
+        control=ControlState(paused=False, close_all=False),
+    )
+    data_dir = tmp_path / "data"
+    generate_site_data(
+        data_dir=data_dir,
+        ledger=ledger,
+        current_equity=5000.0,
+        last_prices={"CAT-USDT-SWAP": 0.0000015},
+        bars_held_map={"L3_CAT_1": 1},
+        cfg=cfg,
+        run_entry={"signals": {}, "errors": []},
+        now=datetime(2026, 11, 28, 0, 0, tzinfo=timezone.utc),
+    )
+    summary = load_json(data_dir / "summary.json")
+    positions = load_json(data_dir / "positions.json")
+    # (0.0000015 - 0.00000129897) * 33 * 100000 = 0.663399 -> 0.66
+    assert summary["realized_pnl_usdt"] == pytest.approx(-10.0)
+    assert summary["unrealized_pnl_usdt"] == pytest.approx(0.66)
+    assert summary["total_pnl_usdt"] == pytest.approx(-9.34)
+    assert positions[0]["entry_price"] == pytest.approx(0.00000129897)
+    assert positions[0]["stop_loss"] == pytest.approx(0.000000687)

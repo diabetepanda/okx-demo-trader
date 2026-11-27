@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -20,6 +21,18 @@ EXIT_RULE_DESCRIPTIONS: dict[str, str] = {
     "L3": "每週日收盤再平衡未入選前 3 名正動能出場；附 3.0×ATR(14) 止損",
     "L4": "週日收盤跌破 SMA100 出場；每日依近 60 日最高收盤 - 5×ATR(20) 只升不降移動止損",
 }
+
+
+def round_price_sig(px: float, sig: int = 6) -> float:
+    """Round price keeping at least `sig` significant digits for tiny prices."""
+    if px == 0 or math.isnan(px) or math.isinf(px):
+        return 0.0
+    abs_px = abs(px)
+    if abs_px >= 1.0:
+        return round(px, 6)
+    exp = int(math.floor(math.log10(abs_px)))
+    decimals = max(6, sig - 1 - exp)
+    return round(px, min(12, decimals))
 
 
 def format_taipei_ts(ts_ms: int) -> str:
@@ -168,10 +181,51 @@ def generate_site_data(
         for c in reversed(cash_flows)
     ]
 
+    # positions.json (computed first so summary & strategies can include unrealized PnL)
+    positions_out: list[dict[str, Any]] = []
+    unrealized_by_strat: dict[str, float] = {s: 0.0 for s in STRATEGIES}
+    for pos in ledger.get("positions", []):
+        inst_id = pos["inst_id"]
+        entry_px = float(pos["entry_price"])
+        cur_px = last_prices.get(inst_id, entry_px)
+        sz = float(pos["sz"])
+        ct_val = float(pos.get("ct_val") or 1.0)
+        if pos["pos_side"] == "long":
+            unrealized = (cur_px - entry_px) * sz * ct_val
+        else:
+            unrealized = (entry_px - cur_px) * sz * ct_val
+
+        strat = pos["strategy"]
+        unrealized_by_strat[strat] = unrealized_by_strat.get(strat, 0.0) + unrealized
+        positions_out.append(
+            {
+                "strategy": strat,
+                "inst_id": inst_id,
+                "pos_side": pos["pos_side"],
+                "entry_price": round_price_sig(entry_px),
+                "current_price": round_price_sig(cur_px),
+                "sz": sz,
+                "stop_loss": round_price_sig(float(pos["stop_loss"])),
+                "unrealized_pnl": round(unrealized, 2),
+                "bars_held": bars_held_map.get(pos.get("id", ""), 0),
+                "entry_ts": int(pos.get("entry_ts") or 0),
+                "entry_time_tpe": format_taipei_ts(int(pos.get("entry_ts") or 0)),
+                "exit_rule_desc": EXIT_RULE_DESCRIPTIONS.get(strat, ""),
+            }
+        )
+
+    closed_trades = ledger.get("closed_trades", [])
+    total_realized_pnl = sum(float(t.get("pnl_usdt") or 0.0) for t in closed_trades)
+    total_unrealized_pnl = sum(float(p["unrealized_pnl"]) for p in positions_out)
+    total_pnl_usdt = total_realized_pnl + total_unrealized_pnl
+
     summary = {
         "total_equity_usdt": round(current_equity, 2),
         "initial_equity_usdt": round(initial_eq, 2),
         "net_deposits_usdt": round(net_deposits, 2),
+        "realized_pnl_usdt": round(total_realized_pnl, 2),
+        "unrealized_pnl_usdt": round(total_unrealized_pnl, 2),
+        "total_pnl_usdt": round(total_pnl_usdt, 2),
         "total_return_pct": total_return_pct,
         "max_drawdown_pct": max_dd_pct,
         "mode": mode_label,
@@ -179,7 +233,8 @@ def generate_site_data(
         "paused": cfg.control.paused,
         "close_all": cfg.control.close_all,
         "open_positions_count": len(ledger.get("positions", [])),
-        "closed_trades_count": len(ledger.get("closed_trades", [])),
+        "closed_trades_count": len(closed_trades),
+        "last_updated_ts": int(now.timestamp() * 1000),
         "last_updated_tpe": format_taipei_dt(now),
         "cash_flows": cash_flows_out,
         "rejected_signals": [
@@ -207,37 +262,9 @@ def generate_site_data(
     save_json(data_dir / "equity.json", equity_out)
 
     # positions.json
-    positions_out: list[dict[str, Any]] = []
-    for pos in ledger.get("positions", []):
-        inst_id = pos["inst_id"]
-        entry_px = float(pos["entry_price"])
-        cur_px = last_prices.get(inst_id, entry_px)
-        sz = float(pos["sz"])
-        ct_val = float(pos.get("ct_val") or 1.0)
-        if pos["pos_side"] == "long":
-            unrealized = (cur_px - entry_px) * sz * ct_val
-        else:
-            unrealized = (entry_px - cur_px) * sz * ct_val
-
-        positions_out.append(
-            {
-                "strategy": pos["strategy"],
-                "inst_id": inst_id,
-                "pos_side": pos["pos_side"],
-                "entry_price": round(entry_px, 6),
-                "current_price": round(cur_px, 6),
-                "sz": sz,
-                "stop_loss": round(float(pos["stop_loss"]), 6),
-                "unrealized_pnl": round(unrealized, 2),
-                "bars_held": bars_held_map.get(pos.get("id", ""), 0),
-                "entry_time_tpe": format_taipei_ts(int(pos.get("entry_ts") or 0)),
-                "exit_rule_desc": EXIT_RULE_DESCRIPTIONS.get(pos["strategy"], ""),
-            }
-        )
     save_json(data_dir / "positions.json", positions_out)
 
     # trades.json (most recent 100, newest first)
-    closed_trades = ledger.get("closed_trades", [])
     trades_out = []
     for t in reversed(closed_trades[-100:]):
         trades_out.append(
@@ -247,8 +274,8 @@ def generate_site_data(
                 "pos_side": t["pos_side"],
                 "entry_time_tpe": format_taipei_ts(int(t.get("entry_ts") or 0)),
                 "exit_time_tpe": format_taipei_ts(int(t.get("exit_ts") or 0)),
-                "entry_price": round(float(t["entry_price"]), 6),
-                "exit_price": round(float(t["exit_price"]), 6),
+                "entry_price": round_price_sig(float(t["entry_price"])),
+                "exit_price": round_price_sig(float(t["exit_price"])),
                 "pnl_usdt": round(float(t["pnl_usdt"]), 2),
                 "r_multiple": round(float(t.get("r_multiple") or 0.0), 2),
                 "exit_reason": mask_secrets(str(t.get("exit_reason", "")), secrets),
@@ -294,6 +321,7 @@ def generate_site_data(
                 "initial_equity": round(sub_init, 2),
                 "equity": round(sub_equity, 2),
                 "realized_pnl": round(sub_realized, 2),
+                "unrealized_pnl": round(unrealized_by_strat.get(s, 0.0), 2),
                 "trades_count": len(s_trades),
                 "win_rate_pct": round(win_rate, 1),
                 "profit_factor": round(profit_factor, 2),
