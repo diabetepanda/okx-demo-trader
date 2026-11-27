@@ -147,7 +147,34 @@ class OKXClient:
         validate_request(self.base_url, path, headers, is_private=private)
 
         url = f"{self.base_url}{request_path}"
-        max_retries = 5
+        backoff_delays = (2.0, 4.0, 8.0)
+        max_retries = len(backoff_delays)
+        is_get = method_upper == "GET"
+        is_order_post = (
+            method_upper == "POST"
+            and path == "/api/v5/trade/order"
+            and isinstance(body, dict)
+            and bool(body.get("clOrdId"))
+            and bool(body.get("instId"))
+        )
+
+        def _check_existing_order_before_retry() -> Optional[list[dict[str, Any]]]:
+            if not is_order_post:
+                return None
+            try:
+                existing = self.get_order(
+                    str(body["instId"]), cl_ord_id=str(body["clOrdId"])
+                )
+                if existing:
+                    logger.warning(
+                        "下單重試前查到 clOrdId=%s 已存在於 OKX，直接採用該筆訂單避免重複下單",
+                        body["clOrdId"],
+                    )
+                    return existing
+            except OKXAPIError:
+                # 51603 (Order does not exist) -> safe to retry POST
+                return None
+            return None
 
         for attempt in range(max_retries + 1):
             self.rate_limiter.wait()
@@ -161,18 +188,29 @@ class OKXClient:
                 )
             except requests.RequestException as exc:
                 safe_msg = mask_secrets(str(exc), self._secrets())
-                if attempt < max_retries:
-                    logger.warning("OKX 請求網路異常，2 秒後重試 (%d/%d): %s", attempt + 1, max_retries, safe_msg)
-                    time.sleep(2.0)
+                if attempt < max_retries and (is_get or is_order_post):
+                    existing = _check_existing_order_before_retry()
+                    if existing is not None:
+                        return existing
+                    delay = backoff_delays[attempt]
+                    logger.warning("OKX 請求網路異常，%g 秒後重試 (%d/%d): %s", delay, attempt + 1, max_retries, safe_msg)
+                    time.sleep(delay)
                     continue
                 raise OKXAPIError(f"OKX 連線失敗: {safe_msg}") from exc
 
-            if resp.status_code == 429:
-                if attempt < max_retries:
-                    logger.warning("OKX HTTP 429 限流，2 秒後重試 (%d/%d)", attempt + 1, max_retries)
-                    time.sleep(2.0)
+            if resp.status_code == 429 or 500 <= resp.status_code < 600:
+                if attempt < max_retries and (is_get or is_order_post):
+                    existing = _check_existing_order_before_retry()
+                    if existing is not None:
+                        return existing
+                    delay = backoff_delays[attempt]
+                    logger.warning("OKX HTTP %d，%g 秒後重試 (%d/%d)", resp.status_code, delay, attempt + 1, max_retries)
+                    time.sleep(delay)
                     continue
-                raise OKXAPIError("OKX HTTP 429 超過重試上限", http_status=429)
+                raise OKXAPIError(
+                    f"OKX HTTP {resp.status_code} 超過重試上限",
+                    http_status=resp.status_code,
+                )
 
             if resp.status_code >= 400:
                 safe_text = mask_secrets(resp.text[:300], self._secrets())
@@ -187,12 +225,16 @@ class OKXClient:
                 raise OKXAPIError("OKX 回傳非 JSON 格式") from exc
 
             code = str(payload.get("code", ""))
-            if code == "50011":
-                if attempt < max_retries:
-                    logger.warning("OKX 50011 系統限流，2 秒後重試 (%d/%d)", attempt + 1, max_retries)
-                    time.sleep(2.0)
+            if code in ("50001", "50011", "50013"):
+                if attempt < max_retries and (is_get or is_order_post):
+                    existing = _check_existing_order_before_retry()
+                    if existing is not None:
+                        return existing
+                    delay = backoff_delays[attempt]
+                    logger.warning("OKX code=%s 暫時異常，%g 秒後重試 (%d/%d)", code, delay, attempt + 1, max_retries)
+                    time.sleep(delay)
                     continue
-                raise OKXAPIError("OKX 50011 超過重試上限", code="50011")
+                raise OKXAPIError(f"OKX {code} 超過重試上限", code=code)
 
             if code != "0":
                 msg = mask_secrets(str(payload.get("msg", "")), self._secrets())

@@ -346,10 +346,15 @@ def run_cycle(
                     execute_amend_sl(okx, ledger, pos, dec.stop_loss, meta, dec.reason, cfg.dry_run)
 
         if can_enter:
+            now_ms_entry = int(dt_now.timestamp() * 1000)
+            suspended_until = ledger.get("suspended_until", {})
             for dec in all_decisions:
                 if dec.action != "ENTER" or dec.stop_loss is None:
                     continue
                 if (dec.strategy, dec.inst_id) in open_by_key:
+                    continue
+                if int(suspended_until.get(dec.inst_id, 0)) > now_ms_entry:
+                    logger.info("標的 %s 因流動性不足在 7 天暫停期內，略過進場", dec.inst_id)
                     continue
                 signals_summary[dec.strategy]["enter"] += 1
                 ref_px = last_prices.get(dec.inst_id, 0.0)

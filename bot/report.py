@@ -182,6 +182,16 @@ def generate_site_data(
         "closed_trades_count": len(ledger.get("closed_trades", [])),
         "last_updated_tpe": format_taipei_dt(now),
         "cash_flows": cash_flows_out,
+        "rejected_signals": [
+            {
+                "time_tpe": format_taipei_ts(int(r.get("ts") or 0)),
+                "strategy": str(r.get("strategy", "")),
+                "inst_id": str(r.get("inst_id", "")),
+                "pos_side": str(r.get("pos_side", "")),
+                "reason": mask_secrets(str(r.get("reason", "")), secrets),
+            }
+            for r in reversed(ledger.get("rejected_signals", [])[-50:])
+        ],
         "latest_run": {
             "time_tpe": format_taipei_dt(now),
             "new_4h_closed": run_entry.get("new_4h_closed", False),

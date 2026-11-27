@@ -450,6 +450,20 @@ async function renderDashboard() {
         </tr>
       `).join("");
     }
+
+    const rejected = summary.rejected_signals || [];
+    if (rejected.length > 0) {
+      document.getElementById("rejected-panel").style.display = "block";
+      document.getElementById("rejected-body").innerHTML = rejected.map((r) => `
+        <tr>
+          <td>${r.time_tpe}</td>
+          <td><strong>${r.strategy}</strong></td>
+          <td>${r.inst_id}</td>
+          <td>${dirText(r.pos_side)}</td>
+          <td class="wrap warn">${r.reason}</td>
+        </tr>
+      `).join("");
+    }
   }
 
   drawTwrChart(equity);

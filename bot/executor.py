@@ -333,7 +333,7 @@ def execute_entry(
                     fee = abs(float(ord_info[0].get("fee") or 0.0))
                     if ord_info[0].get("fillTime"):
                         fill_ts = int(ord_info[0]["fillTime"])
-                    if ord_state == "filled":
+                    if ord_state in ("filled", "canceled"):
                         break
                 if ord_state == "canceled" and acc_fill_sz <= 0:
                     break
@@ -368,6 +368,34 @@ def execute_entry(
         logger.warning(msg)
         if errors is not None:
             errors.append(msg)
+        now_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+        ledger.setdefault("rejected_signals", []).append(
+            {
+                "ts": now_ms,
+                "strategy": strategy,
+                "inst_id": inst_id,
+                "pos_side": pos_side,
+                "reason": "模擬盤流動性不足，市價單未成交",
+            }
+        )
+        ledger["rejected_signals"] = ledger["rejected_signals"][-100:]
+        fail_map: dict[str, int] = ledger.setdefault("liquidity_failures", {})
+        fail_map[inst_id] = int(fail_map.get(inst_id, 0)) + 1
+        if fail_map[inst_id] >= 2:
+            suspend_ms = now_ms + 7 * 86400 * 1000
+            ledger.setdefault("suspended_until", {})[inst_id] = suspend_ms
+            sus_msg = f"連續 {fail_map[inst_id]} 次因流動性不足未成交，暫停 {inst_id} 進場 7 天"
+            logger.warning(sus_msg)
+            ledger["rejected_signals"].append(
+                {
+                    "ts": now_ms,
+                    "strategy": strategy,
+                    "inst_id": inst_id,
+                    "pos_side": pos_side,
+                    "reason": sus_msg,
+                }
+            )
+            ledger["rejected_signals"] = ledger["rejected_signals"][-100:]
         return None
 
     # Verify stop-loss algo order exists on exchange
@@ -409,8 +437,11 @@ def execute_entry(
             sl_verified = True
         except OKXAPIError as exc:
             logger.error("補掛止損失敗，立即市價平倉保護 %s %s：%s", inst_id, pos_side, exc)
+            exit_px = avg_px
+            exit_fee = 0.0
+            exit_ts = int(datetime.now(timezone.utc).timestamp() * 1000)
             try:
-                client.place_order(
+                close_res = client.place_order(
                     {
                         "instId": inst_id,
                         "tdMode": "cross",
@@ -421,8 +452,39 @@ def execute_entry(
                         "reduceOnly": True,
                     }
                 )
+                close_ord_id = str(close_res[0].get("ordId", "")) if close_res else ""
+                if close_ord_id:
+                    close_info = client.get_order(inst_id, ord_id=close_ord_id)
+                    if close_info:
+                        exit_px = float(close_info[0].get("avgPx") or avg_px)
+                        exit_fee = abs(float(close_info[0].get("fee") or 0.0))
+                        if close_info[0].get("fillTime"):
+                            exit_ts = int(close_info[0]["fillTime"])
             except OKXAPIError as close_exc:
                 logger.error("緊急市價平倉也失敗 %s：%s", inst_id, close_exc)
+
+            pnl = _compute_pnl(pos_side, avg_px, exit_px, filled_sz, ct_val, fee, exit_fee)
+            r_mult = pnl / planned_risk if planned_risk > 0 else 0.0
+            if strategy in ledger.get("subaccounts", {}):
+                ledger["subaccounts"][strategy]["realized_pnl"] = (
+                    float(ledger["subaccounts"][strategy].get("realized_pnl", 0.0)) + pnl
+                )
+            ledger.setdefault("closed_trades", []).append(
+                {
+                    "strategy": strategy,
+                    "inst_id": inst_id,
+                    "pos_side": pos_side,
+                    "sz": filled_sz,
+                    "entry_price": avg_px,
+                    "exit_price": exit_px,
+                    "entry_ts": fill_ts,
+                    "exit_ts": exit_ts,
+                    "pnl_usdt": round(pnl, 6),
+                    "r_multiple": round(r_mult, 4),
+                    "fee": round(abs(fee) + abs(exit_fee), 6),
+                    "exit_reason": "部分成交後止損驗證失敗，觸發緊急市價平倉",
+                }
+            )
             return None
 
     pos_record = {
@@ -446,6 +508,7 @@ def execute_entry(
         "fee": fee,
     }
     ledger.setdefault("positions", []).append(pos_record)
+    ledger.setdefault("liquidity_failures", {})[inst_id] = 0
     logger.info("進場成交：%s %s %s sz=%g px=%g sl=%g", strategy, inst_id, pos_side, filled_sz, avg_px, sl_px)
     return pos_record
 
