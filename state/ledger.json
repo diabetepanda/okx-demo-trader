@@ -10,7 +10,7 @@
     "S2": {
       "allocation": 0.1,
       "initial_equity": 500.0,
-      "realized_pnl": -38.577607975999975
+      "realized_pnl": -38.588899
     },
     "S3": {
       "allocation": 0.1,
@@ -238,6 +238,46 @@
       "algo_id": "4135578562382589970",
       "algo_cl_ord_id": "SLS2XTZ1795737600000",
       "fee": 0.5463786
+    },
+    {
+      "id": "S2_BCH-USDT-SWAP_1795737600000",
+      "strategy": "S2",
+      "inst_id": "BCH-USDT-SWAP",
+      "pos_side": "long",
+      "sz": 55.38,
+      "entry_price": 216.4,
+      "entry_ts": 1795752246496,
+      "entry_bar_ts": 1795737600000,
+      "stop_loss": 205.0,
+      "initial_stop_loss": 205.0,
+      "planned_risk": 64.5,
+      "notional": 1198.42,
+      "ct_val": 0.1,
+      "ord_id": "4135578308576866305",
+      "cl_ord_id": "S2BCH1795737600000",
+      "algo_id": "4135578593286221828",
+      "algo_cl_ord_id": "SLS2BCH1795737600000",
+      "fee": 0.599
+    },
+    {
+      "id": "S2_ASML-USDT-SWAP_1795665600000",
+      "strategy": "S2",
+      "inst_id": "ASML-USDT-SWAP",
+      "pos_side": "long",
+      "sz": 145.0,
+      "entry_price": 1449.5,
+      "entry_ts": 1795685560859,
+      "entry_bar_ts": 1795665600000,
+      "stop_loss": 1355.4,
+      "initial_stop_loss": 1355.4,
+      "planned_risk": 13.9,
+      "notional": 210.1775,
+      "ct_val": 0.001,
+      "ord_id": "4133162404538806279",
+      "cl_ord_id": "S2ASML1795665600000",
+      "algo_id": "4136051595350175745",
+      "algo_cl_ord_id": "SLS2ASML1795665600000",
+      "fee": 0.042036
     }
   ],
   "closed_trades": [
@@ -352,6 +392,20 @@
       "r_multiple": -0.8507,
       "fee": 0.042784,
       "exit_reason": "收盤 638.97 突破前 10 根最高點 628.22，移動出場"
+    },
+    {
+      "strategy": "S2",
+      "inst_id": "ARB-USDT-SWAP",
+      "pos_side": "short",
+      "sz": 3.6,
+      "entry_price": 0.0802,
+      "exit_price": 0.080433,
+      "entry_ts": 1795668942238,
+      "exit_ts": 1795668947349,
+      "pnl_usdt": -0.011291,
+      "r_multiple": -0.0002,
+      "fee": 0.002891,
+      "exit_reason": "部分成交後止損驗證失敗，觸發緊急市價平倉"
     }
   ],
   "processed_cl_ord_ids": [
