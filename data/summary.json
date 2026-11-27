@@ -1,16 +1,16 @@
 {
-  "total_equity_usdt": 63626.04,
+  "total_equity_usdt": 63540.22,
   "initial_equity_usdt": 5000.0,
   "net_deposits_usdt": 58745.37,
-  "total_return_pct": -0.41,
-  "max_drawdown_pct": 0.41,
+  "total_return_pct": -0.54,
+  "max_drawdown_pct": 0.54,
   "mode": "模擬盤實單",
   "dry_run": false,
   "paused": false,
   "close_all": false,
   "open_positions_count": 13,
   "closed_trades_count": 9,
-  "last_updated_tpe": "2026-11-27 22:33:26 (台北時間)",
+  "last_updated_tpe": "2026-11-27 22:48:18 (台北時間)",
   "cash_flows": [
     {
       "time_tpe": "2026-11-25 18:56",
@@ -72,7 +72,7 @@
     }
   ],
   "latest_run": {
-    "time_tpe": "2026-11-27 22:33:26 (台北時間)",
+    "time_tpe": "2026-11-27 22:48:18 (台北時間)",
     "new_4h_closed": false,
     "new_1d_closed": false,
     "reconciled_closed": 0,
