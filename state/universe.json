@@ -1,107 +1,107 @@
 {
-  "date": "2026-11-26",
-  "updated_at": "2026-11-26T01:57:22.802248+00:00",
+  "date": "2026-11-27",
+  "updated_at": "2026-11-27T00:03:17.173621+00:00",
   "top_100": [
     "ETH-USDT-SWAP",
     "BTC-USDT-SWAP",
-    "PEPE-USDT-SWAP",
     "GOOGL-USDT-SWAP",
-    "NEAR-USDT-SWAP",
+    "PEPE-USDT-SWAP",
     "AAVE-USDT-SWAP",
-    "SHIB-USDT-SWAP",
+    "NEAR-USDT-SWAP",
     "SOL-USDT-SWAP",
-    "BCH-USDT-SWAP",
+    "SHIB-USDT-SWAP",
     "ANTHROPIC-USDT-SWAP",
-    "HOOD-USDT-SWAP",
-    "XRP-USDT-SWAP",
     "MU-USDT-SWAP",
-    "ETC-USDT-SWAP",
+    "XRP-USDT-SWAP",
     "XAU-USDT-SWAP",
-    "HBAR-USDT-SWAP",
     "XAG-USDT-SWAP",
-    "IWM-USDT-SWAP",
-    "BZ-USDT-SWAP",
+    "INJ-USDT-SWAP",
+    "HOOD-USDT-SWAP",
+    "BCH-USDT-SWAP",
     "DOGE-USDT-SWAP",
-    "DELL-USDT-SWAP",
-    "1INCH-USDT-SWAP",
-    "CRCL-USDT-SWAP",
+    "BZ-USDT-SWAP",
+    "ALGO-USDT-SWAP",
+    "FIL-USDT-SWAP",
     "SUI-USDT-SWAP",
     "BNB-USDT-SWAP",
-    "SUSHI-USDT-SWAP",
-    "SLX-USDT-SWAP",
-    "NVDA-USDT-SWAP",
-    "KAITO-USDT-SWAP",
-    "LINK-USDT-SWAP",
-    "YFI-USDT-SWAP",
-    "ALGO-USDT-SWAP",
-    "QQQ-USDT-SWAP",
-    "INJ-USDT-SWAP",
-    "FIL-USDT-SWAP",
-    "SPY-USDT-SWAP",
-    "AVAX-USDT-SWAP",
     "LTC-USDT-SWAP",
-    "ASTS-USDT-SWAP",
-    "ZAMA-USDT-SWAP",
-    "COAI-USDT-SWAP",
-    "CRO-USDT-SWAP",
-    "CAP-USDT-SWAP",
-    "ACT-USDT-SWAP",
-    "GRASS-USDT-SWAP",
-    "BOME-USDT-SWAP",
-    "CAT-USDT-SWAP",
-    "XLM-USDT-SWAP",
-    "IRYS-USDT-SWAP",
-    "CRWV-USDT-SWAP",
-    "ADA-USDT-SWAP",
-    "THETA-USDT-SWAP",
-    "OP-USDT-SWAP",
-    "ZETA-USDT-SWAP",
-    "ASTER-USDT-SWAP",
-    "KIOXIA-USDT-SWAP",
-    "MRVL-USDT-SWAP",
-    "ICP-USDT-SWAP",
-    "PLTR-USDT-SWAP",
-    "CSCO-USDT-SWAP",
+    "IWM-USDT-SWAP",
     "MAJOR-USDT-SWAP",
-    "SYRUP-USDT-SWAP",
-    "ATOM-USDT-SWAP",
-    "ORCL-USDT-SWAP",
-    "CRV-USDT-SWAP",
-    "CFX-USDT-SWAP",
+    "SUSHI-USDT-SWAP",
+    "NVDA-USDT-SWAP",
+    "1INCH-USDT-SWAP",
+    "SLX-USDT-SWAP",
+    "HBAR-USDT-SWAP",
+    "KAITO-USDT-SWAP",
     "TRX-USDT-SWAP",
-    "MSFT-USDT-SWAP",
-    "MET-USDT-SWAP",
-    "MINA-USDT-SWAP",
-    "XQQQ-USDT-SWAP",
+    "AVAX-USDT-SWAP",
+    "QQQ-USDT-SWAP",
+    "ZETA-USDT-SWAP",
+    "BOME-USDT-SWAP",
+    "CRCL-USDT-SWAP",
+    "CAP-USDT-SWAP",
+    "LINK-USDT-SWAP",
+    "GRASS-USDT-SWAP",
+    "THETA-USDT-SWAP",
+    "XLM-USDT-SWAP",
     "ARB-USDT-SWAP",
-    "AMD-USDT-SWAP",
-    "COST-USDT-SWAP",
-    "DOT-USDT-SWAP",
-    "CSOPSKHYNIX2L-USDT-SWAP",
-    "MASK-USDT-SWAP",
-    "AI16Z-USDT-SWAP",
-    "QTUM-USDT-SWAP",
-    "ASML-USDT-SWAP",
-    "XPL-USDT-SWAP",
+    "ZAMA-USDT-SWAP",
+    "ADA-USDT-SWAP",
+    "OP-USDT-SWAP",
+    "CSCO-USDT-SWAP",
+    "DELL-USDT-SWAP",
+    "ICP-USDT-SWAP",
+    "ATOM-USDT-SWAP",
+    "ACT-USDT-SWAP",
+    "SPY-USDT-SWAP",
+    "MINA-USDT-SWAP",
+    "SYRUP-USDT-SWAP",
     "NOT-USDT-SWAP",
-    "COMP-USDT-SWAP",
-    "H-USDT-SWAP",
-    "ENA-USDT-SWAP",
-    "LINEA-USDT-SWAP",
-    "ETHFI-USDT-SWAP",
-    "LPT-USDT-SWAP",
+    "CHZ-USDT-SWAP",
+    "AMD-USDT-SWAP",
+    "HYUNDAI-USDT-SWAP",
+    "ETC-USDT-SWAP",
+    "AI16Z-USDT-SWAP",
+    "IRYS-USDT-SWAP",
+    "MSFT-USDT-SWAP",
+    "CFX-USDT-SWAP",
     "TSM-USDT-SWAP",
-    "GRAM-USDT-SWAP",
-    "EWJ-USDT-SWAP",
-    "BAND-USDT-SWAP",
-    "KSM-USDT-SWAP",
-    "MAGIC-USDT-SWAP",
-    "IOTA-USDT-SWAP",
-    "HIMS-USDT-SWAP",
-    "CSOPSAMSUNG2L-USDT-SWAP",
-    "SKY-USDT-SWAP",
+    "MRVL-USDT-SWAP",
     "LQTY-USDT-SWAP",
-    "USDC-USDT-SWAP"
+    "ETHFI-USDT-SWAP",
+    "MET-USDT-SWAP",
+    "CRWV-USDT-SWAP",
+    "CRV-USDT-SWAP",
+    "HMSTR-USDT-SWAP",
+    "DOT-USDT-SWAP",
+    "XPL-USDT-SWAP",
+    "MASK-USDT-SWAP",
+    "GRAM-USDT-SWAP",
+    "XQQQ-USDT-SWAP",
+    "LLY-USDT-SWAP",
+    "KIOXIA-USDT-SWAP",
+    "2Z-USDT-SWAP",
+    "ORCL-USDT-SWAP",
+    "ENA-USDT-SWAP",
+    "CSOPSKHYNIX2L-USDT-SWAP",
+    "HIMS-USDT-SWAP",
+    "ZIL-USDT-SWAP",
+    "CAT-USDT-SWAP",
+    "YFI-USDT-SWAP",
+    "ASTER-USDT-SWAP",
+    "SKY-USDT-SWAP",
+    "PLTR-USDT-SWAP",
+    "LINEA-USDT-SWAP",
+    "LPT-USDT-SWAP",
+    "IOTA-USDT-SWAP",
+    "OPENAI-USDT-SWAP",
+    "H-USDT-SWAP",
+    "SAND-USDT-SWAP",
+    "EWJ-USDT-SWAP",
+    "XTZ-USDT-SWAP",
+    "AXS-USDT-SWAP",
+    "COST-USDT-SWAP",
+    "IMX-USDT-SWAP"
   ],
   "l2": [
     "BTC-USDT-SWAP",
@@ -127,8 +127,8 @@
       "minSz": 0.01,
       "tickSz": 0.01,
       "listTime": 1605101055676,
-      "vol24hUsdt": 60239118181.58936,
-      "last": 1701.68
+      "vol24hUsdt": 32096513401.28513,
+      "last": 1693.21
     },
     "BTC-USDT-SWAP": {
       "instId": "BTC-USDT-SWAP",
@@ -137,18 +137,8 @@
       "minSz": 0.01,
       "tickSz": 0.01,
       "listTime": 1605101026077,
-      "vol24hUsdt": 55074273862.663536,
-      "last": 60881.34
-    },
-    "PEPE-USDT-SWAP": {
-      "instId": "PEPE-USDT-SWAP",
-      "ctVal": 10000000.0,
-      "lotSz": 0.1,
-      "minSz": 0.1,
-      "tickSz": 1e-08,
-      "listTime": 1683023724113,
-      "vol24hUsdt": 9599417260.0,
-      "last": 3.55e-06
+      "vol24hUsdt": 21993790839.52036,
+      "last": 60660.2
     },
     "GOOGL-USDT-SWAP": {
       "instId": "GOOGL-USDT-SWAP",
@@ -157,18 +147,18 @@
       "minSz": 0.01,
       "tickSz": 0.01,
       "listTime": 1775638800000,
-      "vol24hUsdt": 9245653460.927,
+      "vol24hUsdt": 7011498116.959,
       "last": 146.15
     },
-    "NEAR-USDT-SWAP": {
-      "instId": "NEAR-USDT-SWAP",
-      "ctVal": 10.0,
+    "PEPE-USDT-SWAP": {
+      "instId": "PEPE-USDT-SWAP",
+      "ctVal": 10000000.0,
       "lotSz": 0.1,
       "minSz": 0.1,
-      "tickSz": 0.001,
-      "listTime": 1628509052902,
-      "vol24hUsdt": 4188354286.692,
-      "last": 3.106
+      "tickSz": 1e-08,
+      "listTime": 1683023724113,
+      "vol24hUsdt": 4366156853.52,
+      "last": 3.48e-06
     },
     "AAVE-USDT-SWAP": {
       "instId": "AAVE-USDT-SWAP",
@@ -177,18 +167,18 @@
       "minSz": 0.1,
       "tickSz": 0.01,
       "listTime": 1683703500880,
-      "vol24hUsdt": 2140626285.4438,
-      "last": 96.22
+      "vol24hUsdt": 1064880875.3408,
+      "last": 94.72
     },
-    "SHIB-USDT-SWAP": {
-      "instId": "SHIB-USDT-SWAP",
-      "ctVal": 1000000.0,
+    "NEAR-USDT-SWAP": {
+      "instId": "NEAR-USDT-SWAP",
+      "ctVal": 10.0,
       "lotSz": 0.1,
       "minSz": 0.1,
-      "tickSz": 1e-08,
-      "listTime": 1665213467718,
-      "vol24hUsdt": 1531325307.876,
-      "last": 3.64e-06
+      "tickSz": 0.001,
+      "listTime": 1628509052902,
+      "vol24hUsdt": 1027507219.53,
+      "last": 3.058
     },
     "SOL-USDT-SWAP": {
       "instId": "SOL-USDT-SWAP",
@@ -197,18 +187,18 @@
       "minSz": 0.01,
       "tickSz": 0.01,
       "listTime": 1648896491877,
-      "vol24hUsdt": 1030487130.2400001,
-      "last": 71.04
+      "vol24hUsdt": 692420119.56,
+      "last": 71.21
     },
-    "BCH-USDT-SWAP": {
-      "instId": "BCH-USDT-SWAP",
-      "ctVal": 0.1,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.1,
-      "listTime": 1628508769322,
-      "vol24hUsdt": 1022189644.2024001,
-      "last": 208.8
+    "SHIB-USDT-SWAP": {
+      "instId": "SHIB-USDT-SWAP",
+      "ctVal": 1000000.0,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 1e-08,
+      "listTime": 1665213467718,
+      "vol24hUsdt": 559687244.82,
+      "last": 3.63e-06
     },
     "ANTHROPIC-USDT-SWAP": {
       "instId": "ANTHROPIC-USDT-SWAP",
@@ -217,28 +207,8 @@
       "minSz": 0.01,
       "tickSz": 0.01,
       "listTime": 1783670400000,
-      "vol24hUsdt": 860686809.7576,
-      "last": 84.14
-    },
-    "HOOD-USDT-SWAP": {
-      "instId": "HOOD-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.01,
-      "listTime": 1776674400000,
-      "vol24hUsdt": 753618221.2800001,
-      "last": 67.68
-    },
-    "XRP-USDT-SWAP": {
-      "instId": "XRP-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.0001,
-      "listTime": 1628652662528,
-      "vol24hUsdt": 448531434.5463,
-      "last": 0.9513
+      "vol24hUsdt": 308241700.76640004,
+      "last": 83.68
     },
     "MU-USDT-SWAP": {
       "instId": "MU-USDT-SWAP",
@@ -247,18 +217,18 @@
       "minSz": 0.01,
       "tickSz": 0.01,
       "listTime": 1786602600000,
-      "vol24hUsdt": 340024025.06049997,
-      "last": 617.59
+      "vol24hUsdt": 156169331.8668,
+      "last": 612.36
     },
-    "ETC-USDT-SWAP": {
-      "instId": "ETC-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 0.001,
-      "minSz": 0.001,
-      "tickSz": 0.001,
-      "listTime": 1628664802725,
-      "vol24hUsdt": 339409661.05689996,
-      "last": 5.789
+    "XRP-USDT-SWAP": {
+      "instId": "XRP-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.0001,
+      "listTime": 1628652662528,
+      "vol24hUsdt": 152932427.01,
+      "last": 0.946
     },
     "XAU-USDT-SWAP": {
       "instId": "XAU-USDT-SWAP",
@@ -267,18 +237,8 @@
       "minSz": 1.0,
       "tickSz": 0.1,
       "listTime": 1767155006000,
-      "vol24hUsdt": 224920335.068,
-      "last": 3572.0
-    },
-    "HBAR-USDT-SWAP": {
-      "instId": "HBAR-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 0.1,
-      "minSz": 0.1,
-      "tickSz": 0.0001,
-      "listTime": 1696832742920,
-      "vol24hUsdt": 196113071.647,
-      "last": 0.0529
+      "vol24hUsdt": 152089669.4178,
+      "last": 3592.3
     },
     "XAG-USDT-SWAP": {
       "instId": "XAG-USDT-SWAP",
@@ -287,168 +247,8 @@
       "minSz": 0.1,
       "tickSz": 0.01,
       "listTime": 1769741382000,
-      "vol24hUsdt": 190471698.4774,
-      "last": 41.24
-    },
-    "IWM-USDT-SWAP": {
-      "instId": "IWM-USDT-SWAP",
-      "ctVal": 0.01,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.1,
-      "listTime": 1787911200000,
-      "vol24hUsdt": 175132525.20000002,
-      "last": 137.0
-    },
-    "BZ-USDT-SWAP": {
-      "instId": "BZ-USDT-SWAP",
-      "ctVal": 0.1,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.01,
-      "listTime": 1780479000000,
-      "vol24hUsdt": 140026677.102,
-      "last": 90.81
-    },
-    "DOGE-USDT-SWAP": {
-      "instId": "DOGE-USDT-SWAP",
-      "ctVal": 1000.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 1e-07,
-      "listTime": 1628664891195,
-      "vol24hUsdt": 112114003.18188,
-      "last": 0.0567298
-    },
-    "DELL-USDT-SWAP": {
-      "instId": "DELL-USDT-SWAP",
-      "ctVal": 0.01,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.1,
-      "listTime": 1788148800000,
-      "vol24hUsdt": 86730157.584,
-      "last": 301.7
-    },
-    "1INCH-USDT-SWAP": {
-      "instId": "1INCH-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.1,
-      "minSz": 0.1,
-      "tickSz": 0.0001,
-      "listTime": 1681290643183,
-      "vol24hUsdt": 73058500.85279001,
-      "last": 0.0587
-    },
-    "CRCL-USDT-SWAP": {
-      "instId": "CRCL-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.01,
-      "listTime": 1775638800000,
-      "vol24hUsdt": 69104514.86760001,
-      "last": 49.13
-    },
-    "SUI-USDT-SWAP": {
-      "instId": "SUI-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1683203486358,
-      "vol24hUsdt": 62620074.18089999,
-      "last": 0.6759
-    },
-    "BNB-USDT-SWAP": {
-      "instId": "BNB-USDT-SWAP",
-      "ctVal": 0.01,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.1,
-      "listTime": 1679310713593,
-      "vol24hUsdt": 61003062.81,
-      "last": 557.1
-    },
-    "SUSHI-USDT-SWAP": {
-      "instId": "SUSHI-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1628508565592,
-      "vol24hUsdt": 58502667.221599996,
-      "last": 0.1561
-    },
-    "SLX-USDT-SWAP": {
-      "instId": "SLX-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1784013000000,
-      "vol24hUsdt": 56016053.634799995,
-      "last": 0.03428
-    },
-    "NVDA-USDT-SWAP": {
-      "instId": "NVDA-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.01,
-      "listTime": 1775638800000,
-      "vol24hUsdt": 53113635.7983,
-      "last": 152.19
-    },
-    "KAITO-USDT-SWAP": {
-      "instId": "KAITO-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1742297130230,
-      "vol24hUsdt": 48148106.2616,
-      "last": 0.1598
-    },
-    "LINK-USDT-SWAP": {
-      "instId": "LINK-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.001,
-      "listTime": 1628506816709,
-      "vol24hUsdt": 37729980.59745,
-      "last": 9.195
-    },
-    "YFI-USDT-SWAP": {
-      "instId": "YFI-USDT-SWAP",
-      "ctVal": 0.0001,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.1,
-      "listTime": 1628666826230,
-      "vol24hUsdt": 36265522.5632,
-      "last": 1624.0
-    },
-    "ALGO-USDT-SWAP": {
-      "instId": "ALGO-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1651807593555,
-      "vol24hUsdt": 34336747.980000004,
-      "last": 0.0786
-    },
-    "QQQ-USDT-SWAP": {
-      "instId": "QQQ-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.01,
-      "listTime": 1787665200000,
-      "vol24hUsdt": 27693414.681,
-      "last": 638.42
+      "vol24hUsdt": 140094863.04095998,
+      "last": 41.76
     },
     "INJ-USDT-SWAP": {
       "instId": "INJ-USDT-SWAP",
@@ -457,8 +257,58 @@
       "minSz": 1.0,
       "tickSz": 0.001,
       "listTime": 1704340181575,
-      "vol24hUsdt": 26571256.492200002,
-      "last": 6.118
+      "vol24hUsdt": 112724532.38519998,
+      "last": 6.228
+    },
+    "HOOD-USDT-SWAP": {
+      "instId": "HOOD-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.01,
+      "listTime": 1776674400000,
+      "vol24hUsdt": 110710432.79999998,
+      "last": 67.32
+    },
+    "BCH-USDT-SWAP": {
+      "instId": "BCH-USDT-SWAP",
+      "ctVal": 0.1,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.1,
+      "listTime": 1628508769322,
+      "vol24hUsdt": 108467521.6784,
+      "last": 210.4
+    },
+    "DOGE-USDT-SWAP": {
+      "instId": "DOGE-USDT-SWAP",
+      "ctVal": 1000.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 1e-07,
+      "listTime": 1628664891195,
+      "vol24hUsdt": 91665827.91043201,
+      "last": 0.0565314
+    },
+    "BZ-USDT-SWAP": {
+      "instId": "BZ-USDT-SWAP",
+      "ctVal": 0.1,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.01,
+      "listTime": 1780479000000,
+      "vol24hUsdt": 78880555.822,
+      "last": 91.87
+    },
+    "ALGO-USDT-SWAP": {
+      "instId": "ALGO-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1651807593555,
+      "vol24hUsdt": 55168782.011,
+      "last": 0.0823
     },
     "FIL-USDT-SWAP": {
       "instId": "FIL-USDT-SWAP",
@@ -467,28 +317,28 @@
       "minSz": 1.0,
       "tickSz": 0.0001,
       "listTime": 1671765229996,
-      "vol24hUsdt": 25253334.77532,
-      "last": 0.5492
+      "vol24hUsdt": 44521759.4402,
+      "last": 0.5404
     },
-    "SPY-USDT-SWAP": {
-      "instId": "SPY-USDT-SWAP",
+    "SUI-USDT-SWAP": {
+      "instId": "SUI-USDT-SWAP",
       "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.01,
-      "listTime": 1775638800000,
-      "vol24hUsdt": 20117936.986,
-      "last": 721.3
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-05,
+      "listTime": 1683203486358,
+      "vol24hUsdt": 43009800.210080005,
+      "last": 0.66968
     },
-    "AVAX-USDT-SWAP": {
-      "instId": "AVAX-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.1,
-      "minSz": 0.1,
-      "tickSz": 0.001,
-      "listTime": 1653621961542,
-      "vol24hUsdt": 19459340.474999998,
-      "last": 6.675
+    "BNB-USDT-SWAP": {
+      "instId": "BNB-USDT-SWAP",
+      "ctVal": 0.01,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.1,
+      "listTime": 1679310713593,
+      "vol24hUsdt": 40175360.828999996,
+      "last": 555.3
     },
     "LTC-USDT-SWAP": {
       "instId": "LTC-USDT-SWAP",
@@ -497,228 +347,18 @@
       "minSz": 0.1,
       "tickSz": 0.0001,
       "listTime": 1605101151095,
-      "vol24hUsdt": 18624065.2584,
-      "last": 43.386
+      "vol24hUsdt": 36844895.634,
+      "last": 43.86
     },
-    "ASTS-USDT-SWAP": {
-      "instId": "ASTS-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.01,
-      "listTime": 1780569000000,
-      "vol24hUsdt": 18313210.4064,
-      "last": 26.88
-    },
-    "ZAMA-USDT-SWAP": {
-      "instId": "ZAMA-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1778226600000,
-      "vol24hUsdt": 18275754.364,
-      "last": 0.05726
-    },
-    "COAI-USDT-SWAP": {
-      "instId": "COAI-USDT-SWAP",
-      "ctVal": 1000.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1772009400000,
-      "vol24hUsdt": 17713811.4,
-      "last": 0.1614
-    },
-    "CRO-USDT-SWAP": {
-      "instId": "CRO-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1628664959946,
-      "vol24hUsdt": 17448618.354599997,
-      "last": 0.03999
-    },
-    "CAP-USDT-SWAP": {
-      "instId": "CAP-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1790606880000,
-      "vol24hUsdt": 16367682.6,
-      "last": 0.09274
-    },
-    "ACT-USDT-SWAP": {
-      "instId": "ACT-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 5e-06,
-      "listTime": 1733730658703,
-      "vol24hUsdt": 15777014.325000001,
-      "last": 0.00905
-    },
-    "GRASS-USDT-SWAP": {
-      "instId": "GRASS-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1778232600000,
-      "vol24hUsdt": 14237690.775,
-      "last": 0.3801
-    },
-    "BOME-USDT-SWAP": {
-      "instId": "BOME-USDT-SWAP",
-      "ctVal": 1000.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-06,
-      "listTime": 1726199836316,
-      "vol24hUsdt": 13041768.15,
-      "last": 0.000475
-    },
-    "CAT-USDT-SWAP": {
-      "instId": "CAT-USDT-SWAP",
-      "ctVal": 100000.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-09,
-      "listTime": 1728389935458,
-      "vol24hUsdt": 12688368.486299999,
-      "last": 1.349e-06
-    },
-    "XLM-USDT-SWAP": {
-      "instId": "XLM-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 1e-05,
-      "listTime": 1628652672904,
-      "vol24hUsdt": 12482775.62491,
-      "last": 0.12919
-    },
-    "IRYS-USDT-SWAP": {
-      "instId": "IRYS-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-06,
-      "listTime": 1781756400000,
-      "vol24hUsdt": 11659997.162,
-      "last": 0.01598
-    },
-    "CRWV-USDT-SWAP": {
-      "instId": "CRWV-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.01,
-      "listTime": 1777358100000,
-      "vol24hUsdt": 11520251.6814,
-      "last": 43.67
-    },
-    "ADA-USDT-SWAP": {
-      "instId": "ADA-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.0002,
-      "listTime": 1605101194984,
-      "vol24hUsdt": 9786597.778800001,
-      "last": 0.1476
-    },
-    "THETA-USDT-SWAP": {
-      "instId": "THETA-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1628508730918,
-      "vol24hUsdt": 8650553.92,
-      "last": 0.1315
-    },
-    "OP-USDT-SWAP": {
-      "instId": "OP-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1656988628006,
-      "vol24hUsdt": 8201715.6122,
-      "last": 0.0698
-    },
-    "ZETA-USDT-SWAP": {
-      "instId": "ZETA-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1763713597000,
-      "vol24hUsdt": 7748988.802,
-      "last": 0.02803
-    },
-    "ASTER-USDT-SWAP": {
-      "instId": "ASTER-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1761028201418,
-      "vol24hUsdt": 7117006.139100001,
-      "last": 0.5247
-    },
-    "KIOXIA-USDT-SWAP": {
-      "instId": "KIOXIA-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.01,
-      "listTime": 1786440900000,
-      "vol24hUsdt": 6994527.618999999,
-      "last": 46.01
-    },
-    "MRVL-USDT-SWAP": {
-      "instId": "MRVL-USDT-SWAP",
-      "ctVal": 1.0,
+    "IWM-USDT-SWAP": {
+      "instId": "IWM-USDT-SWAP",
+      "ctVal": 0.01,
       "lotSz": 1.0,
       "minSz": 1.0,
       "tickSz": 0.1,
-      "listTime": 1783931100000,
-      "vol24hUsdt": 6664009.1,
-      "last": 133.7
-    },
-    "ICP-USDT-SWAP": {
-      "instId": "ICP-USDT-SWAP",
-      "ctVal": 0.01,
-      "lotSz": 0.1,
-      "minSz": 0.1,
-      "tickSz": 0.001,
-      "listTime": 1628664767426,
-      "vol24hUsdt": 6326526.118631999,
-      "last": 2.022
-    },
-    "PLTR-USDT-SWAP": {
-      "instId": "PLTR-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.01,
-      "minSz": 0.01,
-      "tickSz": 0.0001,
-      "listTime": 1775638800000,
-      "vol24hUsdt": 6030536.1072,
-      "last": 165.84
-    },
-    "CSCO-USDT-SWAP": {
-      "instId": "CSCO-USDT-SWAP",
-      "ctVal": 0.01,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.01,
-      "listTime": 1792983300000,
-      "vol24hUsdt": 5495425.012,
-      "last": 94.49
+      "listTime": 1787911200000,
+      "vol24hUsdt": 31886306.255000003,
+      "last": 134.9
     },
     "MAJOR-USDT-SWAP": {
       "instId": "MAJOR-USDT-SWAP",
@@ -727,58 +367,68 @@
       "minSz": 1.0,
       "tickSz": 0.0001,
       "listTime": 1735634199240,
-      "vol24hUsdt": 5286706.58,
-      "last": 0.0415
+      "vol24hUsdt": 30490933.2,
+      "last": 0.21
     },
-    "SYRUP-USDT-SWAP": {
-      "instId": "SYRUP-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1763380800000,
-      "vol24hUsdt": 5025506.004,
-      "last": 0.0684
-    },
-    "ATOM-USDT-SWAP": {
-      "instId": "ATOM-USDT-SWAP",
+    "SUSHI-USDT-SWAP": {
+      "instId": "SUSHI-USDT-SWAP",
       "ctVal": 1.0,
       "lotSz": 1.0,
       "minSz": 1.0,
-      "tickSz": 0.001,
-      "listTime": 1628509310101,
-      "vol24hUsdt": 5016550.08,
-      "last": 1.23
+      "tickSz": 0.0001,
+      "listTime": 1628508565592,
+      "vol24hUsdt": 26448647.16,
+      "last": 0.1532
     },
-    "ORCL-USDT-SWAP": {
-      "instId": "ORCL-USDT-SWAP",
+    "NVDA-USDT-SWAP": {
+      "instId": "NVDA-USDT-SWAP",
       "ctVal": 1.0,
       "lotSz": 0.01,
       "minSz": 0.01,
       "tickSz": 0.01,
-      "listTime": 1784167143000,
-      "vol24hUsdt": 4697453.2345,
-      "last": 105.95
+      "listTime": 1775638800000,
+      "vol24hUsdt": 24546619.200999998,
+      "last": 151.45
     },
-    "CRV-USDT-SWAP": {
-      "instId": "CRV-USDT-SWAP",
+    "1INCH-USDT-SWAP": {
+      "instId": "1INCH-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 0.0001,
+      "listTime": 1681290643183,
+      "vol24hUsdt": 22244518.97315,
+      "last": 0.0577
+    },
+    "SLX-USDT-SWAP": {
+      "instId": "SLX-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-05,
+      "listTime": 1784013000000,
+      "vol24hUsdt": 21561775.635500003,
+      "last": 0.03205
+    },
+    "HBAR-USDT-SWAP": {
+      "instId": "HBAR-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 0.0001,
+      "listTime": 1696832742920,
+      "vol24hUsdt": 18785124.18,
+      "last": 0.054
+    },
+    "KAITO-USDT-SWAP": {
+      "instId": "KAITO-USDT-SWAP",
       "ctVal": 1.0,
       "lotSz": 1.0,
       "minSz": 1.0,
       "tickSz": 0.0001,
-      "listTime": 1665213470158,
-      "vol24hUsdt": 4626163.8428,
-      "last": 0.1724
-    },
-    "CFX-USDT-SWAP": {
-      "instId": "CFX-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 0.1,
-      "minSz": 0.1,
-      "tickSz": 1e-05,
-      "listTime": 1628665088778,
-      "vol24hUsdt": 4297507.1499,
-      "last": 0.0327
+      "listTime": 1742297130230,
+      "vol24hUsdt": 18716692.521199998,
+      "last": 0.1556
     },
     "TRX-USDT-SWAP": {
       "instId": "TRX-USDT-SWAP",
@@ -787,48 +437,108 @@
       "minSz": 0.01,
       "tickSz": 0.0001,
       "listTime": 1605101178573,
-      "vol24hUsdt": 4212989.977,
-      "last": 0.3031
+      "vol24hUsdt": 16299129.48,
+      "last": 0.3039
     },
-    "MSFT-USDT-SWAP": {
-      "instId": "MSFT-USDT-SWAP",
+    "AVAX-USDT-SWAP": {
+      "instId": "AVAX-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 0.001,
+      "listTime": 1653621961542,
+      "vol24hUsdt": 14646119.399999999,
+      "last": 6.6
+    },
+    "QQQ-USDT-SWAP": {
+      "instId": "QQQ-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1787665200000,
+      "vol24hUsdt": 14512705.795,
+      "last": 638.89
+    },
+    "ZETA-USDT-SWAP": {
+      "instId": "ZETA-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-05,
+      "listTime": 1763713597000,
+      "vol24hUsdt": 12863811.09,
+      "last": 0.02886
+    },
+    "BOME-USDT-SWAP": {
+      "instId": "BOME-USDT-SWAP",
+      "ctVal": 1000.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-06,
+      "listTime": 1726199836316,
+      "vol24hUsdt": 12778380.576,
+      "last": 0.000468
+    },
+    "CRCL-USDT-SWAP": {
+      "instId": "CRCL-USDT-SWAP",
       "ctVal": 1.0,
       "lotSz": 0.01,
       "minSz": 0.01,
       "tickSz": 0.01,
       "listTime": 1775638800000,
-      "vol24hUsdt": 3779425.8288,
-      "last": 493.56
+      "vol24hUsdt": 12528396.341,
+      "last": 48.85
     },
-    "MET-USDT-SWAP": {
-      "instId": "MET-USDT-SWAP",
+    "CAP-USDT-SWAP": {
+      "instId": "CAP-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-05,
+      "listTime": 1790606880000,
+      "vol24hUsdt": 11348528.275,
+      "last": 0.09275
+    },
+    "LINK-USDT-SWAP": {
+      "instId": "LINK-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.001,
+      "listTime": 1628506816709,
+      "vol24hUsdt": 10566905.2687,
+      "last": 9.263
+    },
+    "GRASS-USDT-SWAP": {
+      "instId": "GRASS-USDT-SWAP",
       "ctVal": 10.0,
       "lotSz": 1.0,
       "minSz": 1.0,
       "tickSz": 0.0001,
-      "listTime": 1763526600000,
-      "vol24hUsdt": 3609827.415,
-      "last": 0.2127
+      "listTime": 1778232600000,
+      "vol24hUsdt": 9373507.348,
+      "last": 0.3781
     },
-    "MINA-USDT-SWAP": {
-      "instId": "MINA-USDT-SWAP",
-      "ctVal": 1.0,
+    "THETA-USDT-SWAP": {
+      "instId": "THETA-USDT-SWAP",
+      "ctVal": 10.0,
       "lotSz": 1.0,
       "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1670832299245,
-      "vol24hUsdt": 3388466.5546199996,
-      "last": 0.04382
+      "tickSz": 0.0001,
+      "listTime": 1628508730918,
+      "vol24hUsdt": 8606852.563,
+      "last": 0.1357
     },
-    "XQQQ-USDT-SWAP": {
-      "instId": "XQQQ-USDT-SWAP",
-      "ctVal": 1.0,
+    "XLM-USDT-SWAP": {
+      "instId": "XLM-USDT-SWAP",
+      "ctVal": 100.0,
       "lotSz": 0.01,
       "minSz": 0.01,
-      "tickSz": 0.01,
-      "listTime": 1786088100000,
-      "vol24hUsdt": 3122757.2302,
-      "last": 638.29
+      "tickSz": 1e-05,
+      "listTime": 1628652672904,
+      "vol24hUsdt": 8601478.29693,
+      "last": 0.12681
     },
     "ARB-USDT-SWAP": {
       "instId": "ARB-USDT-SWAP",
@@ -837,98 +547,118 @@
       "minSz": 0.1,
       "tickSz": 0.0001,
       "listTime": 1699343161896,
-      "vol24hUsdt": 3039993.0785,
-      "last": 0.0959
+      "vol24hUsdt": 8220269.0826,
+      "last": 0.0942
     },
-    "AMD-USDT-SWAP": {
-      "instId": "AMD-USDT-SWAP",
+    "ZAMA-USDT-SWAP": {
+      "instId": "ZAMA-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-05,
+      "listTime": 1778226600000,
+      "vol24hUsdt": 8197462.808,
+      "last": 0.05443
+    },
+    "ADA-USDT-SWAP": {
+      "instId": "ADA-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.0002,
+      "listTime": 1605101194984,
+      "vol24hUsdt": 6705242.136000001,
+      "last": 0.1486
+    },
+    "OP-USDT-SWAP": {
+      "instId": "OP-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-05,
+      "listTime": 1656988628006,
+      "vol24hUsdt": 5945656.294240001,
+      "last": 0.06968
+    },
+    "CSCO-USDT-SWAP": {
+      "instId": "CSCO-USDT-SWAP",
       "ctVal": 0.01,
       "lotSz": 1.0,
       "minSz": 1.0,
       "tickSz": 0.01,
-      "listTime": 1787734800000,
-      "vol24hUsdt": 2944830.3660999998,
-      "last": 446.39
+      "listTime": 1792983300000,
+      "vol24hUsdt": 5713842.554400001,
+      "last": 94.54
     },
-    "COST-USDT-SWAP": {
-      "instId": "COST-USDT-SWAP",
+    "DELL-USDT-SWAP": {
+      "instId": "DELL-USDT-SWAP",
+      "ctVal": 0.01,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.1,
+      "listTime": 1788148800000,
+      "vol24hUsdt": 5428729.8,
+      "last": 303.0
+    },
+    "ICP-USDT-SWAP": {
+      "instId": "ICP-USDT-SWAP",
+      "ctVal": 0.01,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 0.001,
+      "listTime": 1628664767426,
+      "vol24hUsdt": 5006873.001018,
+      "last": 2.022
+    },
+    "ATOM-USDT-SWAP": {
+      "instId": "ATOM-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.001,
+      "listTime": 1628509310101,
+      "vol24hUsdt": 4244599.446,
+      "last": 1.219
+    },
+    "ACT-USDT-SWAP": {
+      "instId": "ACT-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 5e-06,
+      "listTime": 1733730658703,
+      "vol24hUsdt": 3401935.9266,
+      "last": 0.00899
+    },
+    "SPY-USDT-SWAP": {
+      "instId": "SPY-USDT-SWAP",
       "ctVal": 1.0,
       "lotSz": 0.01,
       "minSz": 0.01,
       "tickSz": 0.01,
-      "listTime": 1789977532000,
-      "vol24hUsdt": 2696465.9546999997,
-      "last": 1088.07
+      "listTime": 1775638800000,
+      "vol24hUsdt": 3389251.3776,
+      "last": 722.92
     },
-    "DOT-USDT-SWAP": {
-      "instId": "DOT-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.1,
-      "minSz": 0.1,
-      "tickSz": 0.001,
-      "listTime": 1628686084854,
-      "vol24hUsdt": 2370587.345,
-      "last": 0.665
-    },
-    "CSOPSKHYNIX2L-USDT-SWAP": {
-      "instId": "CSOPSKHYNIX2L-USDT-SWAP",
+    "MINA-USDT-SWAP": {
+      "instId": "MINA-USDT-SWAP",
       "ctVal": 1.0,
       "lotSz": 1.0,
       "minSz": 1.0,
-      "tickSz": 0.01,
-      "listTime": 1788351300000,
-      "vol24hUsdt": 2283487.58,
-      "last": 1.49
-    },
-    "MASK-USDT-SWAP": {
-      "instId": "MASK-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1628670049650,
-      "vol24hUsdt": 1749899.1279,
-      "last": 0.2793
-    },
-    "AI16Z-USDT-SWAP": {
-      "instId": "AI16Z-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 0.1,
-      "minSz": 0.1,
       "tickSz": 1e-05,
-      "listTime": 1738904867526,
-      "vol24hUsdt": 1681198.88118,
-      "last": 0.05694
+      "listTime": 1670832299245,
+      "vol24hUsdt": 3349513.21536,
+      "last": 0.04251
     },
-    "QTUM-USDT-SWAP": {
-      "instId": "QTUM-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.001,
-      "listTime": 1627715678375,
-      "vol24hUsdt": 1559639.081,
-      "last": 0.637
-    },
-    "ASML-USDT-SWAP": {
-      "instId": "ASML-USDT-SWAP",
-      "ctVal": 0.001,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.1,
-      "listTime": 1788361200000,
-      "vol24hUsdt": 1452750.6500000001,
-      "last": 1450.0
-    },
-    "XPL-USDT-SWAP": {
-      "instId": "XPL-USDT-SWAP",
+    "SYRUP-USDT-SWAP": {
+      "instId": "SYRUP-USDT-SWAP",
       "ctVal": 10.0,
       "lotSz": 1.0,
       "minSz": 1.0,
       "tickSz": 0.0001,
-      "listTime": 1767170100000,
-      "vol24hUsdt": 1338044.646,
-      "last": 0.0474
+      "listTime": 1763380800000,
+      "vol24hUsdt": 3235523.0399999996,
+      "last": 0.072
     },
     "NOT-USDT-SWAP": {
       "instId": "NOT-USDT-SWAP",
@@ -937,68 +667,88 @@
       "minSz": 1.0,
       "tickSz": 1e-07,
       "listTime": 1717742100407,
-      "vol24hUsdt": 1276413.87328,
-      "last": 0.0002912
+      "vol24hUsdt": 3231925.61538,
+      "last": 0.0002919
     },
-    "COMP-USDT-SWAP": {
-      "instId": "COMP-USDT-SWAP",
-      "ctVal": 0.1,
-      "lotSz": 0.1,
-      "minSz": 0.1,
+    "CHZ-USDT-SWAP": {
+      "instId": "CHZ-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-05,
+      "listTime": 1744084320300,
+      "vol24hUsdt": 3134633.7036,
+      "last": 0.00906
+    },
+    "AMD-USDT-SWAP": {
+      "instId": "AMD-USDT-SWAP",
+      "ctVal": 0.01,
+      "lotSz": 1.0,
+      "minSz": 1.0,
       "tickSz": 0.01,
-      "listTime": 1628664979213,
-      "vol24hUsdt": 1271345.1871999998,
-      "last": 18.04
+      "listTime": 1787734800000,
+      "vol24hUsdt": 3054364.3767,
+      "last": 446.03
     },
-    "H-USDT-SWAP": {
-      "instId": "H-USDT-SWAP",
+    "HYUNDAI-USDT-SWAP": {
+      "instId": "HYUNDAI-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1786440600000,
+      "vol24hUsdt": 2979455.0265,
+      "last": 197.55
+    },
+    "ETC-USDT-SWAP": {
+      "instId": "ETC-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 0.001,
+      "minSz": 0.001,
+      "tickSz": 0.001,
+      "listTime": 1628664802725,
+      "vol24hUsdt": 2834924.14073,
+      "last": 5.731
+    },
+    "AI16Z-USDT-SWAP": {
+      "instId": "AI16Z-USDT-SWAP",
       "ctVal": 10.0,
       "lotSz": 0.1,
       "minSz": 0.1,
       "tickSz": 1e-05,
-      "listTime": 1762920000000,
-      "vol24hUsdt": 1267678.3499999999,
-      "last": 0.0124
+      "listTime": 1738904867526,
+      "vol24hUsdt": 2794983.5612999997,
+      "last": 0.05345
     },
-    "ENA-USDT-SWAP": {
-      "instId": "ENA-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1763535600000,
-      "vol24hUsdt": 865467.96,
-      "last": 0.102
-    },
-    "LINEA-USDT-SWAP": {
-      "instId": "LINEA-USDT-SWAP",
+    "IRYS-USDT-SWAP": {
+      "instId": "IRYS-USDT-SWAP",
       "ctVal": 100.0,
       "lotSz": 1.0,
       "minSz": 1.0,
       "tickSz": 1e-06,
-      "listTime": 1761030002042,
-      "vol24hUsdt": 835834.3938,
-      "last": 0.001674
+      "listTime": 1781756400000,
+      "vol24hUsdt": 2780377.3448,
+      "last": 0.015928
     },
-    "ETHFI-USDT-SWAP": {
-      "instId": "ETHFI-USDT-SWAP",
+    "MSFT-USDT-SWAP": {
+      "instId": "MSFT-USDT-SWAP",
       "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1713178001476,
-      "vol24hUsdt": 829758.5815999999,
-      "last": 0.4472
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1775638800000,
+      "vol24hUsdt": 2555225.6307,
+      "last": 494.11
     },
-    "LPT-USDT-SWAP": {
-      "instId": "LPT-USDT-SWAP",
-      "ctVal": 0.1,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.001,
-      "listTime": 1628240677226,
-      "vol24hUsdt": 647951.4733999999,
-      "last": 1.069
+    "CFX-USDT-SWAP": {
+      "instId": "CFX-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 1e-05,
+      "listTime": 1628665088778,
+      "vol24hUsdt": 2499165.24044,
+      "last": 0.03431
     },
     "TSM-USDT-SWAP": {
       "instId": "TSM-USDT-SWAP",
@@ -1007,98 +757,18 @@
       "minSz": 1.0,
       "tickSz": 0.01,
       "listTime": 1787828400000,
-      "vol24hUsdt": 512825.2558,
-      "last": 241.82
+      "vol24hUsdt": 2338658.2047,
+      "last": 342.33
     },
-    "GRAM-USDT-SWAP": {
-      "instId": "GRAM-USDT-SWAP",
+    "MRVL-USDT-SWAP": {
+      "instId": "MRVL-USDT-SWAP",
       "ctVal": 1.0,
       "lotSz": 1.0,
       "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1782214200000,
-      "vol24hUsdt": 464196.4516,
-      "last": 0.9668
-    },
-    "EWJ-USDT-SWAP": {
-      "instId": "EWJ-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 0.1,
-      "minSz": 0.1,
-      "tickSz": 0.01,
-      "listTime": 1784287800000,
-      "vol24hUsdt": 443218.36000000004,
-      "last": 88.01
-    },
-    "BAND-USDT-SWAP": {
-      "instId": "BAND-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.0001,
-      "listTime": 1628509055451,
-      "vol24hUsdt": 437710.6224,
-      "last": 0.1548
-    },
-    "KSM-USDT-SWAP": {
-      "instId": "KSM-USDT-SWAP",
-      "ctVal": 0.1,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.001,
-      "listTime": 1669368252641,
-      "vol24hUsdt": 436597.983,
-      "last": 2.645
-    },
-    "MAGIC-USDT-SWAP": {
-      "instId": "MAGIC-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1675652401485,
-      "vol24hUsdt": 409668.81242000003,
-      "last": 0.06782
-    },
-    "IOTA-USDT-SWAP": {
-      "instId": "IOTA-USDT-SWAP",
-      "ctVal": 10.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1698769170418,
-      "vol24hUsdt": 300988.908,
-      "last": 0.0318
-    },
-    "HIMS-USDT-SWAP": {
-      "instId": "HIMS-USDT-SWAP",
-      "ctVal": 0.1,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.01,
-      "listTime": 1788174000000,
-      "vol24hUsdt": 280601.728,
-      "last": 14.96
-    },
-    "CSOPSAMSUNG2L-USDT-SWAP": {
-      "instId": "CSOPSAMSUNG2L-USDT-SWAP",
-      "ctVal": 1.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 0.01,
-      "listTime": 1788351180000,
-      "vol24hUsdt": 272194.1,
-      "last": 3.82
-    },
-    "SKY-USDT-SWAP": {
-      "instId": "SKY-USDT-SWAP",
-      "ctVal": 100.0,
-      "lotSz": 1.0,
-      "minSz": 1.0,
-      "tickSz": 1e-05,
-      "listTime": 1761031801652,
-      "vol24hUsdt": 267392.37,
-      "last": 0.0003
+      "tickSz": 0.1,
+      "listTime": 1783931100000,
+      "vol24hUsdt": 2246216.8,
+      "last": 133.6
     },
     "LQTY-USDT-SWAP": {
       "instId": "LQTY-USDT-SWAP",
@@ -1107,23 +777,352 @@
       "minSz": 0.1,
       "tickSz": 0.0001,
       "listTime": 1711623427239,
-      "vol24hUsdt": 265277.39040000003,
-      "last": 0.1332
+      "vol24hUsdt": 2025890.8513000002,
+      "last": 0.1279
     },
-    "USDC-USDT-SWAP": {
-      "instId": "USDC-USDT-SWAP",
+    "ETHFI-USDT-SWAP": {
+      "instId": "ETHFI-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1713178001476,
+      "vol24hUsdt": 2012407.0857000002,
+      "last": 0.4479
+    },
+    "MET-USDT-SWAP": {
+      "instId": "MET-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1763526600000,
+      "vol24hUsdt": 1865091.125,
+      "last": 0.2045
+    },
+    "CRWV-USDT-SWAP": {
+      "instId": "CRWV-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1777358100000,
+      "vol24hUsdt": 1828599.7685999998,
+      "last": 43.37
+    },
+    "CRV-USDT-SWAP": {
+      "instId": "CRV-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1665213470158,
+      "vol24hUsdt": 1703393.2272,
+      "last": 0.1744
+    },
+    "HMSTR-USDT-SWAP": {
+      "instId": "HMSTR-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-07,
+      "listTime": 1727694600140,
+      "vol24hUsdt": 1337921.0755399999,
+      "last": 0.0001234
+    },
+    "DOT-USDT-SWAP": {
+      "instId": "DOT-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 0.001,
+      "listTime": 1628686084854,
+      "vol24hUsdt": 1261161.84,
+      "last": 0.674
+    },
+    "XPL-USDT-SWAP": {
+      "instId": "XPL-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1767170100000,
+      "vol24hUsdt": 1209024.9980000001,
+      "last": 0.0478
+    },
+    "MASK-USDT-SWAP": {
+      "instId": "MASK-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1628670049650,
+      "vol24hUsdt": 842887.21,
+      "last": 0.2783
+    },
+    "GRAM-USDT-SWAP": {
+      "instId": "GRAM-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1782214200000,
+      "vol24hUsdt": 809974.55,
+      "last": 0.9625
+    },
+    "XQQQ-USDT-SWAP": {
+      "instId": "XQQQ-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1786088100000,
+      "vol24hUsdt": 809087.1441,
+      "last": 638.59
+    },
+    "LLY-USDT-SWAP": {
+      "instId": "LLY-USDT-SWAP",
+      "ctVal": 0.001,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.1,
+      "listTime": 1788159600000,
+      "vol24hUsdt": 700621.7358,
+      "last": 1400.7
+    },
+    "KIOXIA-USDT-SWAP": {
+      "instId": "KIOXIA-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1786440900000,
+      "vol24hUsdt": 654866.2703,
+      "last": 47.41
+    },
+    "2Z-USDT-SWAP": {
+      "instId": "2Z-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1763533800000,
+      "vol24hUsdt": 615527.3250000001,
+      "last": 0.0175
+    },
+    "ORCL-USDT-SWAP": {
+      "instId": "ORCL-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1784167143000,
+      "vol24hUsdt": 608857.8183,
+      "last": 106.29
+    },
+    "ENA-USDT-SWAP": {
+      "instId": "ENA-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1763535600000,
+      "vol24hUsdt": 515648.43799999997,
+      "last": 0.1006
+    },
+    "CSOPSKHYNIX2L-USDT-SWAP": {
+      "instId": "CSOPSKHYNIX2L-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.01,
+      "listTime": 1788351300000,
+      "vol24hUsdt": 478665.38,
+      "last": 1.46
+    },
+    "HIMS-USDT-SWAP": {
+      "instId": "HIMS-USDT-SWAP",
+      "ctVal": 0.1,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.01,
+      "listTime": 1788174000000,
+      "vol24hUsdt": 455704.35,
+      "last": 14.78
+    },
+    "ZIL-USDT-SWAP": {
+      "instId": "ZIL-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-06,
+      "listTime": 1651749653124,
+      "vol24hUsdt": 416619.6804,
+      "last": 0.000924
+    },
+    "CAT-USDT-SWAP": {
+      "instId": "CAT-USDT-SWAP",
+      "ctVal": 100000.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-09,
+      "listTime": 1728389935458,
+      "vol24hUsdt": 401528.6804,
+      "last": 1.322e-06
+    },
+    "YFI-USDT-SWAP": {
+      "instId": "YFI-USDT-SWAP",
+      "ctVal": 0.0001,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.1,
+      "listTime": 1628666826230,
+      "vol24hUsdt": 385578.52191999997,
+      "last": 1608.8
+    },
+    "ASTER-USDT-SWAP": {
+      "instId": "ASTER-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1761028201418,
+      "vol24hUsdt": 339030.5432,
+      "last": 0.3496
+    },
+    "SKY-USDT-SWAP": {
+      "instId": "SKY-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-05,
+      "listTime": 1761031801652,
+      "vol24hUsdt": 318598.76800000004,
+      "last": 0.00016
+    },
+    "PLTR-USDT-SWAP": {
+      "instId": "PLTR-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.0001,
+      "listTime": 1775638800000,
+      "vol24hUsdt": 274701.33759999997,
+      "last": 164.48
+    },
+    "LINEA-USDT-SWAP": {
+      "instId": "LINEA-USDT-SWAP",
+      "ctVal": 100.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 1e-06,
+      "listTime": 1761030002042,
+      "vol24hUsdt": 268284.5539,
+      "last": 0.001661
+    },
+    "LPT-USDT-SWAP": {
+      "instId": "LPT-USDT-SWAP",
+      "ctVal": 0.1,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.001,
+      "listTime": 1628240677226,
+      "vol24hUsdt": 245828.2021,
+      "last": 1.069
+    },
+    "IOTA-USDT-SWAP": {
+      "instId": "IOTA-USDT-SWAP",
       "ctVal": 10.0,
       "lotSz": 1.0,
       "minSz": 1.0,
       "tickSz": 1e-05,
-      "listTime": 1678601243263,
-      "vol24hUsdt": 253989.96,
-      "last": 0.996
+      "listTime": 1698769170418,
+      "vol24hUsdt": 210788.72280000002,
+      "last": 0.03228
+    },
+    "OPENAI-USDT-SWAP": {
+      "instId": "OPENAI-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1783670460000,
+      "vol24hUsdt": 156766.9887,
+      "last": 122.01
+    },
+    "H-USDT-SWAP": {
+      "instId": "H-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 1e-05,
+      "listTime": 1762920000000,
+      "vol24hUsdt": 150222.53337,
+      "last": 0.01253
+    },
+    "SAND-USDT-SWAP": {
+      "instId": "SAND-USDT-SWAP",
+      "ctVal": 10.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1628508795336,
+      "vol24hUsdt": 140319.166,
+      "last": 0.0347
+    },
+    "EWJ-USDT-SWAP": {
+      "instId": "EWJ-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.1,
+      "minSz": 0.1,
+      "tickSz": 0.01,
+      "listTime": 1784287800000,
+      "vol24hUsdt": 113011.424,
+      "last": 88.07
+    },
+    "XTZ-USDT-SWAP": {
+      "instId": "XTZ-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1651810916064,
+      "vol24hUsdt": 109312.434,
+      "last": 0.2205
+    },
+    "AXS-USDT-SWAP": {
+      "instId": "AXS-USDT-SWAP",
+      "ctVal": 0.1,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1637229381873,
+      "vol24hUsdt": 106515.32751999999,
+      "last": 0.6493
+    },
+    "COST-USDT-SWAP": {
+      "instId": "COST-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 0.01,
+      "minSz": 0.01,
+      "tickSz": 0.01,
+      "listTime": 1789977532000,
+      "vol24hUsdt": 106158.9312,
+      "last": 1089.48
+    },
+    "IMX-USDT-SWAP": {
+      "instId": "IMX-USDT-SWAP",
+      "ctVal": 1.0,
+      "lotSz": 1.0,
+      "minSz": 1.0,
+      "tickSz": 0.0001,
+      "listTime": 1650361075810,
+      "vol24hUsdt": 103894.7968,
+      "last": 0.0928
     }
   },
   "skipped_not_demo": [
     "CL-USDT-SWAP",
-    "SCR-USDT-SWAP",
     "HOME-USDT-SWAP"
   ]
 }
