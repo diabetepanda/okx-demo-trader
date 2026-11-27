@@ -1,6 +1,18 @@
 [
   {
     "strategy": "S2",
+    "inst_id": "MU-USDT-SWAP",
+    "pos_side": "short",
+    "entry_time_tpe": "2026-11-26 02:37",
+    "exit_time_tpe": "2026-11-27 12:03",
+    "entry_price": 584.071429,
+    "exit_price": 638.33,
+    "pnl_usdt": -3.84,
+    "r_multiple": -0.85,
+    "exit_reason": "收盤 638.97 突破前 10 根最高點 628.22，移動出場"
+  },
+  {
+    "strategy": "S2",
     "inst_id": "XAG-USDT-SWAP",
     "pos_side": "short",
     "entry_time_tpe": "2026-11-25 16:33",
