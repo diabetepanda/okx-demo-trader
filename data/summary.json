@@ -1,11 +1,11 @@
 {
-  "total_equity_usdt": 63602.55,
+  "total_equity_usdt": 63619.55,
   "initial_equity_usdt": 5000.0,
   "net_deposits_usdt": 58745.37,
   "realized_pnl_usdt": -107.27,
-  "unrealized_pnl_usdt": 40.6,
-  "total_pnl_usdt": -66.67,
-  "total_return_pct": -0.44,
+  "unrealized_pnl_usdt": 64.15,
+  "total_pnl_usdt": -43.12,
+  "total_return_pct": -0.42,
   "max_drawdown_pct": 0.64,
   "mode": "模擬盤實單",
   "dry_run": false,
@@ -13,8 +13,8 @@
   "close_all": false,
   "open_positions_count": 13,
   "closed_trades_count": 11,
-  "last_updated_ts": 1795837701424,
-  "last_updated_tpe": "2026-11-28 11:48:21 (台北時間)",
+  "last_updated_ts": 1795838595120,
+  "last_updated_tpe": "2026-11-28 12:03:15 (台北時間)",
   "cash_flows": [
     {
       "time_tpe": "2026-11-25 18:56",
@@ -25,6 +25,13 @@
     }
   ],
   "rejected_signals": [
+    {
+      "time_tpe": "2026-11-28 12:03",
+      "strategy": "S2",
+      "inst_id": "H-USDT-SWAP",
+      "pos_side": "short",
+      "reason": "S2 子帳戶持倉數已達上限 10 檔，拒絕進場"
+    },
     {
       "time_tpe": "2026-11-28 08:03",
       "strategy": "S2",
@@ -97,16 +104,16 @@
     }
   ],
   "latest_run": {
-    "time_tpe": "2026-11-28 11:48:21 (台北時間)",
-    "new_4h_closed": false,
+    "time_tpe": "2026-11-28 12:03:15 (台北時間)",
+    "new_4h_closed": true,
     "new_1d_closed": false,
     "reconciled_closed": 0,
     "signals": {
       "S2": {
-        "enter": 0,
+        "enter": 1,
         "exit": 0,
         "update_sl": 0,
-        "rejected": 0
+        "rejected": 1
       },
       "S3": {
         "enter": 0,
