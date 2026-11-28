@@ -10,7 +10,7 @@
     "S2": {
       "allocation": 0.1,
       "initial_equity": 500.0,
-      "realized_pnl": -107.26725200000001
+      "realized_pnl": -173.79890642000004
     },
     "S3": {
       "allocation": 0.1,
@@ -240,26 +240,6 @@
       "fee": 0.5463786
     },
     {
-      "id": "S2_LINK-USDT-SWAP_1795752000000",
-      "strategy": "S2",
-      "inst_id": "LINK-USDT-SWAP",
-      "pos_side": "long",
-      "sz": 116.45,
-      "entry_price": 9.612,
-      "entry_ts": 1795766504843,
-      "entry_bar_ts": 1795752000000,
-      "stop_loss": 9.07,
-      "initial_stop_loss": 9.07,
-      "planned_risk": 63.669063,
-      "notional": 1119.3174,
-      "ct_val": 1.0,
-      "ord_id": "4136057023987511297",
-      "cl_ord_id": "S2LINK1795752000000",
-      "algo_id": "4136057024021065732",
-      "algo_cl_ord_id": "SLS2LINK1795752000000",
-      "fee": 0.5596587
-    },
-    {
       "id": "S2_ETHFI-USDT-SWAP_1795780800000",
       "strategy": "S2",
       "inst_id": "ETHFI-USDT-SWAP",
@@ -453,6 +433,20 @@
       "pnl_usdt": -67.067461,
       "r_multiple": -1.0398,
       "fee": 1.165261,
+      "exit_reason": "交易所止損觸發（對帳平倉）"
+    },
+    {
+      "strategy": "S2",
+      "inst_id": "LINK-USDT-SWAP",
+      "pos_side": "long",
+      "sz": 116.45,
+      "entry_price": 9.612,
+      "exit_price": 9.048,
+      "entry_ts": 1795766504843,
+      "exit_ts": 1795873275213,
+      "pnl_usdt": -66.531654,
+      "r_multiple": -1.045,
+      "fee": 0.853854,
       "exit_reason": "交易所止損觸發（對帳平倉）"
     }
   ],
@@ -1459,6 +1453,10 @@
     {
       "ts": 1795872808023,
       "equity": 63507.0599
+    },
+    {
+      "ts": 1795873699921,
+      "equity": 63494.1552
     }
   ],
   "dry_run_orders": [
@@ -1669,10 +1667,10 @@
     }
   ],
   "last_equity_snapshot": {
-    "ts": 1795872808023,
-    "equity": 63507.059878,
-    "realized_pnl": -107.267252,
-    "unrealized_pnl": -37.91649
+    "ts": 1795873699921,
+    "equity": 63494.155186,
+    "realized_pnl": -173.798906,
+    "unrealized_pnl": 15.249045
   },
   "liquidity_failures": {
     "LINK-USDT-SWAP": 0,

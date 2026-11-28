@@ -1,6 +1,18 @@
 [
   {
     "strategy": "S2",
+    "inst_id": "LINK-USDT-SWAP",
+    "pos_side": "long",
+    "entry_time_tpe": "2026-11-27 16:01",
+    "exit_time_tpe": "2026-11-28 21:41",
+    "entry_price": 9.612,
+    "exit_price": 9.048,
+    "pnl_usdt": -66.53,
+    "r_multiple": -1.04,
+    "exit_reason": "交易所止損觸發（對帳平倉）"
+  },
+  {
+    "strategy": "S2",
     "inst_id": "BCH-USDT-SWAP",
     "pos_side": "long",
     "entry_time_tpe": "2026-11-27 12:04",
