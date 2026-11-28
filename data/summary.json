@@ -1,10 +1,10 @@
 {
-  "total_equity_usdt": 63617.37,
+  "total_equity_usdt": 63618.65,
   "initial_equity_usdt": 5000.0,
   "net_deposits_usdt": 58745.37,
   "realized_pnl_usdt": -107.27,
-  "unrealized_pnl_usdt": 55.37,
-  "total_pnl_usdt": -51.9,
+  "unrealized_pnl_usdt": 55.83,
+  "total_pnl_usdt": -51.44,
   "total_return_pct": -0.42,
   "max_drawdown_pct": 0.64,
   "mode": "模擬盤實單",
@@ -13,8 +13,8 @@
   "close_all": false,
   "open_positions_count": 13,
   "closed_trades_count": 11,
-  "last_updated_ts": 1795834095836,
-  "last_updated_tpe": "2026-11-28 10:48:15 (台北時間)",
+  "last_updated_ts": 1795834995686,
+  "last_updated_tpe": "2026-11-28 11:03:15 (台北時間)",
   "cash_flows": [
     {
       "time_tpe": "2026-11-25 18:56",
@@ -97,7 +97,7 @@
     }
   ],
   "latest_run": {
-    "time_tpe": "2026-11-28 10:48:15 (台北時間)",
+    "time_tpe": "2026-11-28 11:03:15 (台北時間)",
     "new_4h_closed": false,
     "new_1d_closed": false,
     "reconciled_closed": 0,
