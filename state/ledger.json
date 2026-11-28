@@ -3,7 +3,7 @@
   "initial_equity_usdt": 5000.0,
   "position_mode_set": true,
   "last_processed_bar": {
-    "4H": 1795824000000,
+    "4H": 1795838400000,
     "1Dutc": 1795737600000
   },
   "subaccounts": {
@@ -1363,6 +1363,10 @@
     {
       "ts": 1795852096722,
       "equity": 63558.0048
+    },
+    {
+      "ts": 1795852997712,
+      "equity": 63552.8558
     }
   ],
   "dry_run_orders": [
@@ -1540,6 +1544,13 @@
       "inst_id": "H-USDT-SWAP",
       "pos_side": "short",
       "reason": "S2 子帳戶持倉數已達上限 10 檔，拒絕進場"
+    },
+    {
+      "ts": 1795852997712,
+      "strategy": "S2",
+      "inst_id": "H-USDT-SWAP",
+      "pos_side": "short",
+      "reason": "S2 子帳戶持倉數已達上限 10 檔，拒絕進場"
     }
   ],
   "cash_flows": [
@@ -1552,10 +1563,10 @@
     }
   ],
   "last_equity_snapshot": {
-    "ts": 1795852096722,
-    "equity": 63558.004805,
+    "ts": 1795852997712,
+    "equity": 63552.855801,
     "realized_pnl": -107.267252,
-    "unrealized_pnl": 4.72906
+    "unrealized_pnl": 5.69989
   },
   "liquidity_failures": {
     "LINK-USDT-SWAP": 0,
