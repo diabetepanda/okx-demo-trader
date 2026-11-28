@@ -2138,5 +2138,15 @@
     "twr_pct": -0.4996,
     "cash_flow": 0.0,
     "cash_flow_time_tpe": ""
+  },
+  {
+    "ts": 1795847598258,
+    "time_tpe": "2026-11-28 14:33",
+    "time_short_tpe": "11/28 14:33",
+    "equity": 63567.9255,
+    "adjusted_equity": 4975.1181,
+    "twr_pct": -0.4976,
+    "cash_flow": 0.0,
+    "cash_flow_time_tpe": ""
   }
 ]
